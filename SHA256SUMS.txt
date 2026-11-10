@@ -1,0 +1,1 @@
+ffe27506acdeaeea31c0196256a98d97ae8a09cf56325fdec1aa2ff45b424c11  TA1FM_nrf52_Tracker_V0_9_2_STABLE.uf2
