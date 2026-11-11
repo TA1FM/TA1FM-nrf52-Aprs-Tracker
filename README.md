@@ -84,7 +84,31 @@ Keep previous working firmware and config backups. / Önceki çalışan firmware
 6. Test GPS fix and APRS beacon reception. / GPS FIX ve APRS alımını test edin.
 
 **Do not erase/format the device for routine firmware updates. / Normal güncellemelerde silici kullanmayın veya cihazı formatlamayın.**
+## 📡 LoRa Module Compatibility / LoRa Modülü Uyumluluğu
 
+TA2DMX MiniMesh Lite NRF kartlarında farklı LoRa modülleri bulunabilmektedir. Lütfen firmware yüklemeden önce kartınızın LoRa çipini kontrol ediniz.
+
+Different LoRa chips may be used in TA2DMX MiniMesh Lite NRF boards. Please verify your LoRa chip before flashing.
+
+| LoRa Chip / Driver | Firmware | Status |
+|---|---|---|
+| **SX1262** | V0.9.5 STABLE | ✅ Tested / Çalışıyor |
+| **SX1268 (Ra-01S)** | [V0.9.7 SX1268 TEST](./TA1FM_nrf52_Tracker_V0_9_7_RA01S_SX1268_TEST.uf2) | ✅ Tested / Çalışıyor |
+| **LLCC68 (Ra-01SC)** | Not available | ❌ SF12/BW125 APRS unsupported |
+
+### ⚠️ LLCC68 Warning / LLCC68 Uyarısı
+
+**Türkçe:** LLCC68 tabanlı LoRa modülleri bu projenin kullandığı **433.775 MHz / SF12 / BW125** LoRa APRS ayarlarını desteklemez. Bu nedenle LLCC68 kartları mevcut APRS firmware sürümleriyle uyumlu değildir.
+
+LLCC68 üzerinde SF9/BW125 modunda yazılımsal gönderme testi başarılı olmuştur ancak başka bir alıcı tarafından RF paketinin alındığı doğrulanmamıştır.
+
+**English:** LLCC68-based LoRa modules do not support the **433.775 MHz / SF12 / BW125** LoRa APRS configuration used by this project. Therefore, LLCC68 boards are not supported by the current APRS firmware builds.
+
+A software-level SF9/BW125 transmission test succeeded on LLCC68, but over-the-air packet reception by another device was not verified.
+
+**Important:** SX1262 and SX1268 require different firmware builds. The Ra-01SC module label alone does not guarantee the actual LoRa chip type.
+
+**73 de TA1FM**
 ## ⚠️ Hardware compatibility / Donanım uyumu
 
 **Hardware-specific firmware: do not install on arbitrary nRF52840 boards.**
