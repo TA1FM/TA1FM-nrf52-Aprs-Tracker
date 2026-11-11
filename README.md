@@ -1,64 +1,106 @@
 # TA1FM nRF52 LoRa APRS Tracker
 
-**Firmware: V0.9.2 STABLE · Hardware: TA2DMX MiniMesh Lite NRF (nRF52840)**
+**Current firmware / Güncel sürüm: V0.9.5 STABLE** · **TA2DMX MiniMesh Lite NRF (nRF52840 / SX1262)** · **433.775 MHz LoRa APRS**
 
-> **Türkçe:** TA1FM-7 için geliştirdiğimiz APRS konum ve meteoroloji (WX) takip yazılımı. Bu sürüm, gerçek cihazda konum TX/RX, WX, GPS, AUTO Beacon, LittleFS kalıcı ayarlar ve USB Web Configurator ile test edilmiştir.
+> **TR:** TA1FM nRF52 Tracker; GPS, LoRa APRS konum/WX gönderimi, hız duyarlı Smart Beacon, ayarlanabilir çıkış gücü ve OLED güç tasarrufu sunar. V0.9.5 saha testinde başarılı olmuştur.
 >
-> **English:** LoRa APRS position and weather tracker firmware for the TA2DMX MiniMesh Lite NRF nRF52840 board. Position TX/RX, weather packets, GPS, AUTO beacons, persistent LittleFS settings and USB web configuration were tested on the project hardware.
+> **EN:** GPS/LoRa APRS position and weather tracker with speed-adaptive Smart Beacon, adjustable TX power and OLED timeout. V0.9.5 has been successfully field-tested by the project owner.
 
-## 🌐 Web Configurator / Web ayar paneli
+## 🌐 Web Configurator / Web Ayar Paneli
 
-**[Open the TA1FM Web Configurator / Web Configurator'ı aç](https://ta1fm.github.io/TA1FM-nrf52-Aprs-Tracker-Configurator/)**
+**[TA1FM Web Configurator — Aç / Open](https://ta1fm.github.io/TA1FM-nrf52-Aprs-Tracker-Configurator/)**
 
-Use **Chrome or Edge on desktop**, connect the board by USB, and choose **Connect**. You can read settings, modify and write them, and save/restore JSON backups. Serial monitor is included. No need to type serial commands for normal configuration.
+**TR:** Masaüstü Chrome veya Edge ile USB üzerinden bağlanarak ayarları okuyabilir, değiştirebilir, kaydedebilir, JSON yedeği alabilir ve seri konsolu görebilirsiniz.
 
-Masaüstü Chrome veya Edge üzerinden USB'ye bağlayın; ayarları okuyun, değiştirin, cihaza yazın ve JSON yedeği alın. Normal kullanımda seri komut girmeniz gerekmez.
+**EN:** Use desktop Chrome or Edge to connect via USB. Read/write settings, make JSON backups and use the serial monitor.
 
-## 📦 Files / Dosyalar
+## 📦 Firmware ve kaynak kod / Firmware and source
 
-| File | Description |
+| Dosya / File | Açıklama / Description |
 | --- | --- |
-| `[TA1FM_nrf52_Tracker_V0_9_4_1_OLED_TX_POWER.uf2)` | Tested UF2 firmware for supported board / Test edilmiş UF2 |
-| `TA1FM_nrf52_Tracker_V0_9_4_1_OLED_TX_POWER.ino` | Arduino source code / Arduino kaynak kodu |
-| `README.md` | Main guide / Ana rehber |
-| `KURULUM_TR.md` | Turkish installation and command reference |
-| `INSTALL_EN.md` | English installation and command reference |
+| [V0.9.5 firmware UF2](./TA1FM_nrf52_Tracker_V0_9_5_SMART_BATT.uf2) | nRF52840 UF2 firmware / Yüklemeye hazır |
+| [V0.9.5 Arduino INO](./TA1FM_nrf52_Tracker_V0_9_5_SMART_BATT.ino) | Complete Arduino source / Tam kaynak kod |
+| [KURULUM_TR.md](./KURULUM_TR.md) | Türkçe kurulum (bazı bölümler önceki sürüme ait olabilir) |
+| [INSTALL_EN.md](./INSTALL_EN.md) | English install guide (some sections may describe older releases) |
+
+Keep previous working firmware and config backups. / Önceki çalışan firmware'i ve ayar yedeğini saklayın.
+
+## 🚗 V0.9.5: Smart Beacon ayarları / Speed-based beaconing
+
+| GPS speed / GPS hızı | Default interval / Varsayılan aralık |
+| --- | --- |
+| 0–7 km/h | 600 s (10 min) |
+| 10 km/h | 90 s |
+| 20 km/h | 45 s |
+| 49 km/h | 30 s |
+| 60 km/h | 20 s |
+| 90 km/h or faster | 15 s |
+
+- **TR:** İki hız noktası arasında süre kademeli hesaplanır. Altı aralık web arayüzünden değiştirilebilir; LittleFS hafızasına kaydedilir.
+- **EN:** Timing is interpolated between breakpoints. All six intervals are editable via Web Configurator and saved to LittleFS.
+- **İlk hareket / First motion:** Smart mode can request a position beacon when movement is confirmed; switchable ON/OFF. Actual sending still needs valid GPS and RF transmission guard.
+- **Viraj / Corner:** Direction changes can trigger additional beacons while moving.
+- **Note:** Beacon scheduling intervals do not guarantee the receiving iGate will hear every transmission.
+
+## 🔋 Pil voltajı / Battery voltage beacon
+
+- Optional battery voltage in the **position packet comment**, e.g. `Batt=3.92V`.
+- Web Configurator: ON/OFF (default ON), saved to LittleFS.
+- Invalid/unavailable voltage measurements are not included.
+- This is packet comment text, **not structured APRS telemetry**; it does not require a separate battery RF transmission.
+
+## 📡 TX POWER / Çıkış gücü
+
+- 1–22 dBm **requested SX1262 power** adjustable via Web Configurator or `TX POWER` OLED menu.
+- LittleFS storage retains the selected value after restart.
+- RF power actually measured at the antenna connector depends on the board RF stage; observe legal and hardware limits.
+
+## 🖥️ OLED Timer / Ekran zamanlayıcı
+
+- Always ON / Always OFF / 15 s / 30 s / 1 min / 2 min / 5 min.
+- Wakes on button press in timed modes; settings persist in LittleFS.
+- OLED timeout does **not** stop GPS, LoRa RX/TX or APRS scheduling.
+- SH1106 and SSD1306 display selection supported.
+- Short OLED firmware version string: **V0.9.5**.
+
+## ✅ Diğer özellikler / Other features
+
+- GPS location, LoRa APRS RF TX/RX and last heard station on OLED.
+- Smart/Fixed position beacon schedules; AUTO Beacon ON/OFF.
+- Optional BME280 temperature, humidity and pressure WX packet support.
+- Separate WX, STATUS and comment timing; moving/parked recognition.
+- Callsign and APRS position symbol configuration.
+- Single-button OLED menu, persistent LittleFS configuration, USB Web Configurator and serial controls.
+
+**Important / Önemli:** Previously saved AUTO OFF remains OFF until changed. Position TX requires a valid callsign and fresh GPS fix; `NOCALL` cannot transmit.
+
+## 🔧 Installation / Kurulum
+
+1. Save a backup of settings and the previous working UF2. / Ayarları ve önceki UF2'yi yedekleyin.
+2. Confirm the board is compatible. / Kart uyumluluğunu doğrulayın.
+3. Double-press RESET to open the UF2 drive. / RESET'e iki kez basarak UF2 sürücüsünü açın.
+4. Copy `TA1FM_nrf52_Tracker_V0_9_5_SMART_BATT.uf2` to the drive. / UF2 dosyasını kopyalayın.
+5. Open the [Web Configurator](https://ta1fm.github.io/TA1FM-nrf52-Aprs-Tracker-Configurator/) and check callsign, beacon intervals, battery option and TX power.
+6. Test GPS fix and APRS beacon reception. / GPS FIX ve APRS alımını test edin.
+
+**Do not erase/format the device for routine firmware updates. / Normal güncellemelerde silici kullanmayın veya cihazı formatlamayın.**
 
 ## ⚠️ Hardware compatibility / Donanım uyumu
 
-**This firmware is hardware-specific. Do not flash it to an arbitrary nRF52840 board.**
+**Hardware-specific firmware: do not install on arbitrary nRF52840 boards.**
 
-- Board: **TA2DMX MiniMesh Lite NRF**, nRF52840, custom TA1FM board variant.
-- UF2 bootloader: nice!nano / nRF52840 (`Board-ID: nRF52840-nicenano`), **SoftDevice S140 6.1.1** on the tested board.
-- LoRa: **SX1262**, 433.775 MHz, SF12, BW125, CR 4/5; TCXO 1.8 V.
-- GPS: **L76K**; environmental sensor: **BME280** (WX when present).
-- OLED: SH1106 / SSD1306 variants supported by the sketch.
-- Sketch is designed for a custom **Adafruit nRF52 core 1.7.0** board definition and uses **RadioLib 7.8.1** and the libraries listed in the source.
+- TA2DMX MiniMesh Lite NRF; custom TA1FM nRF52840 board definition.
+- On the originally tested board: nice!nano / nRF52840 UF2 (`nRF52840-nicenano`), SoftDevice S140 6.1.1.
+- SX1262: 433.775 MHz, SF12, BW125, CR 4/5; TCXO 1.8 V.
+- L76K GPS; optional BME280; SH1106 or SSD1306 OLED.
+- Arduino: custom Adafruit nRF52 core 1.7.0 board definition, RadioLib 7.8.1 and other libraries in source.
 
-**UF2 firmware flashing:** Double-tap RESET to show the UF2 USB drive, then copy the `.uf2` file. Ensure bootloader/SoftDevice compatibility first. **Do not format the device or use an eraser to perform a normal version update.** Keep a backup of your working firmware and configuration.
+## 📜 Legal / Yasal uyarı
 
-**UF2 yükleme:** RESET düğmesine iki kez basarak UF2 USB sürücüsünü açın ve `.uf2` dosyasını kopyalayın. Bootloader ve kart uyumunu önceden kontrol edin. Normal güncellemede silici veya format işlemi yapmayın.
+Use only authorized amateur-radio frequencies, callsigns and power limits for your jurisdiction. Software power setting is not a guarantee of measured RF output.
 
-## ✅ Tested features / Test edilen özellikler
+## 📄 License / Lisans
 
-- GPS location beacons and Smart/Fixed position intervals
-- APRS LoRa RF TX/RX with last-heard station on OLED
-- BME280 weather reports (WX) and separate WX/Status schedules
-- Parked detection and APRS status/comment messages
-- AUTO mode saved to flash; restored after a full power cycle
-- LittleFS safer record replacement for persistent configuration
-- USB serial commands and Web Configurator read/write
+No open-source license has been granted by this repository yet. Publishing the source does not itself grant reuse, modification or redistribution rights; add a `LICENSE` file if you choose to license it.
 
-**Important:** On an existing device, AUTO follows the previously saved state. If AUTO is OFF, enable it in Web Configurator or with `a on`, then verify it survives a power cycle. First valid callsign entry can enable AUTO automatically; `NOCALL` cannot transmit.
-
-**Önemli:** Daha önce kaydedilmiş AUTO=OFF ayarı güncellemeden sonra OFF kalabilir. Web Configurator üzerinden AUTO ON yapın; cihaz kapatılıp açıldığında ayar korunur.
-
-## Legal and RF / Yasal uyarı
-
-Transmit only with the appropriate amateur-radio authorization, callsign, and within permitted frequencies/power limits in your jurisdiction. Verify your local amateur-radio rules before operating. This firmware is provided as a project release, without any guarantee of suitability for other hardware.
-
-## Source license / Kaynak kod lisansı
-
-No open-source license has been selected or granted by this repository package. If you intend to permit public reuse, modification or redistribution, add an appropriate `LICENSE` file after choosing its terms. Publishing source code alone does not automatically grant those rights.
-
-**Project ID:** TA1FM · **Release:** V0.9.2 STABLE
+**Project: TA1FM · Firmware: V0.9.5 STABLE**
