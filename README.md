@@ -18,8 +18,8 @@ Masaüstü Chrome veya Edge üzerinden USB'ye bağlayın; ayarları okuyun, değ
 
 | File | Description |
 | --- | --- |
-| `TA1FM_nrf52_Tracker_V0_9_2_STABLE.uf2` | Tested UF2 firmware for supported board / Test edilmiş UF2 |
-| `TA1FM_nrf52_Tracker_V0_9_2.ino` | Arduino source code / Arduino kaynak kodu |
+| `[TA1FM_nrf52_Tracker_V0_9_4_1_OLED_TX_POWER.uf2)` | Tested UF2 firmware for supported board / Test edilmiş UF2 |
+| `TA1FM_nrf52_Tracker_V0_9_4_1_OLED_TX_POWER.ino` | Arduino source code / Arduino kaynak kodu |
 | `README.md` | Main guide / Ana rehber |
 | `KURULUM_TR.md` | Turkish installation and command reference |
 | `INSTALL_EN.md` | English installation and command reference |
