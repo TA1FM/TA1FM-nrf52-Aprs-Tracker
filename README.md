@@ -1,5 +1,22 @@
 # TA1FM nRF52 LoRa APRS Tracker
 
+## 📸 TA1FM Tracker Fotoğrafları / Photos
+
+### Tamamlanmış Tracker / Finished Tracker
+
+<p align="center">
+  <img src="images/minimesh2.jpg" width="320" alt="TA1FM LoRa APRS Tracker">
+</p>
+
+### Donanım / Hardware
+
+| MicroMesh Lite NRF | Tracker İç Görünümü |
+|:---:|:---:|
+| <img src="images/deeplabstudio_micromesh_kart.jpg" width="340"> | <img src="images/minimesh1.jpg" width="340"> |
+
+---
+
+
 **Current firmware / Güncel sürüm: V0.9.5 STABLE** · **TA2DMX MiniMesh Lite NRF (nRF52840 / SX1262)** · **433.775 MHz LoRa APRS**
 
 > **TR:** TA1FM nRF52 Tracker; GPS, LoRa APRS konum/WX gönderimi, hız duyarlı Smart Beacon, ayarlanabilir çıkış gücü ve OLED güç tasarrufu sunar. V0.9.5 saha testinde başarılı olmuştur.
