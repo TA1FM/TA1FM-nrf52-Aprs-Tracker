@@ -117,7 +117,7 @@ Different LoRa chips may be used in TA2DMX MiniMesh Lite NRF boards. Please veri
 
 | LoRa Chip / Driver | Firmware | Status |
 |---|---|---|
-| **SX1262** | V0.9.5 STABLE | ✅ Tested / Çalışıyor |
+| **SX1262** | [V0.9.6 OLED WEB](./TA1FM_nrf52_Tracker_V0_9_6_OLED_WEB.uf2) | ✅ Tested / LittleFS |
 | **SX1268 (Ra-01S)** | [V0.9.7 SX1268 TEST](./TA1FM_nrf52_Tracker_V0_9_7_RA01S_SX1268_TEST.uf2) | ✅ Tested / Çalışıyor |
 | **LLCC68 (Ra-01SC)** | Not available | ❌ SF12/BW125 APRS unsupported |
 
