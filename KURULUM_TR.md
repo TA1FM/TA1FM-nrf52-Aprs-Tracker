@@ -43,5 +43,13 @@ Arduino IDE, **Adafruit nRF52 core 1.7.0** ve projeye ait **TA1FM MiniMesh Lite 
 ## Kalıcı kayıt hakkında
 V0.9.2, LittleFS'te geçici dosya / doğrulama / değiştirme yaklaşımıyla ayarları kaydeder. AUTO ON, Comment ve Status kayıtları çalışır durumda test edilmiştir. Cihaz kapatılıp açıldığında ayarların geri geldiği doğrulanmıştır. Kayıt hatası görülürse tekrarlı yazma denemesi yapmayın; flash sorunlarını araştırın.
 
+## 🔌 Pin Bağlantıları / Wiring
+
+Kendi nRF52840 + LoRa Tracker cihazınızı yapmak için:
+
+📘 [TA1FM Pin Bağlantı Tablosu](./TA1FM_PIN_BAGLANTILARI_TR.md)
+
+LoRa SX1262/SX1268, OLED, GPS, BME280, buton ve batarya bağlantılarını içerir.
+
 ## Güvenlik
 Kullanıcılar kendi amatör telsiz ruhsatlarını, çağrı işaretlerini, bölgesel frekans/güç kurallarını ve anten güvenliğini gözetmelidir.
