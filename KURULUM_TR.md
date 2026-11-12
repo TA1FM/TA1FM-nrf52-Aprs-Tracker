@@ -47,7 +47,7 @@ V0.9.2, LittleFS'te geçici dosya / doğrulama / değiştirme yaklaşımıyla ay
 
 Kendi nRF52840 + LoRa Tracker cihazınızı yapmak için:
 
-📘 [TA1FM Pin Bağlantı Tablosu](./TA1FM_PIN_BAGLANTILARI_TR.md)
+📘 [TA1FM Pin Bağlantı Tablosu](./PIN_BAGLANTILARI_TR.md)
 
 LoRa SX1262/SX1268, OLED, GPS, BME280, buton ve batarya bağlantılarını içerir.
 
