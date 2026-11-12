@@ -25,7 +25,7 @@
 
 
 
-**Current firmware / Güncel sürüm: V0.9.5 STABLE** · **TA2DMX MiniMesh Lite NRF (nRF52840 / SX1262)** · **433.775 MHz LoRa APRS**
+**Güncel sürümler / Current firmware:** SX1262 V0.9.6 OLED WEB · SX1268 V0.9.14 Direct Flash · 433.775 MHz LoRa APRS
 
 > **TR:** TA1FM nRF52 Tracker; GPS, LoRa APRS konum/WX gönderimi, hız duyarlı Smart Beacon, ayarlanabilir çıkış gücü ve OLED güç tasarrufu sunar. V0.9.5 saha testinde başarılı olmuştur.
 >
@@ -118,7 +118,7 @@ Different LoRa chips may be used in TA2DMX MiniMesh Lite NRF boards. Please veri
 | LoRa Chip / Driver | Firmware | Status |
 |---|---|---|
 | **SX1262** | [V0.9.6 OLED WEB](./TA1FM_nrf52_Tracker_V0_9_6_OLED_WEB.uf2) | ✅ Tested / LittleFS |
-| **SX1268 (Ra-01S)** | [V0.9.7 SX1268 TEST](./TA1FM_nrf52_Tracker_V0_9_7_RA01S_SX1268_TEST.uf2) | ✅ Tested / Çalışıyor |
+| **SX1268 (Ra-01S)** | [V0.9.14 Direct Flash](./TA1FM_nrf52_Tracker_V0_9_14_SX1268_OLED_WEB_DIRECT_FLASH.uf2) | ✅ Tested / Direct Flash |
 | **LLCC68 (Ra-01SC)** | Not available | ❌ SF12/BW125 APRS unsupported |
 
 ### ⚠️ LLCC68 Warning / LLCC68 Uyarısı
