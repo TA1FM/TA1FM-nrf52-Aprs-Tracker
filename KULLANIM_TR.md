@@ -1,20 +1,20 @@
 # TA1FM nRF52 LoRa APRS Tracker — Kullanım Kılavuzu (Türkçe)
 
-**Firmware:** V0.9.5 STABLE  
-**Donanım:** TA2DMX MiniMesh Lite NRF (nRF52840 / SX1262)  
+**Firmware:** V0.9.22 UNIVERSAL BLE  
+**Donanım:** TA2DMX MiniMesh Lite NRF (nRF52840 / SX1262 veya SX1268)  
 **LoRa APRS:** 433.775 MHz · SF12 · BW125 kHz · CR 4/5  
 **Web ayar paneli:** https://ta1fm.github.io/TA1FM-nrf52-Aprs-Tracker-Configurator/
 
-> Bu kılavuz GitHub'daki **V0.9.5 kaynak kodu** esas alınarak güncellenmiştir. V0.9.5'in saha testi proje sahibi tarafından başarılı olarak bildirilmiştir. `TA1FM-7` örnek çağrı işaretidir; kendi yetkili çağrı işaretinizi kullanın. OLED'deki sürüm numarası kısa biçimde **V0.9.5** gösterilir.
+> Bu kılavuz GitHub'daki **V0.9.22 UNIVERSAL BLE kaynak kodu** esas alınarak güncellenmiştir. Yeni sürümün donanım ve BLE özellikleri kaynak koda göre belgelenmiştir. `TA1FM-7` örnek çağrı işaretidir; kendi yetkili çağrı işaretinizi kullanın. OLED'deki sürüm numarası kısa biçimde **V0.9.22** gösterilir.
 
 ## 1. İlk kurulum ve yazılım yükleme
 
 1. Çalışan eski UF2 dosyanızı ve mümkünse mevcut ayarların JSON yedeğini saklayın.
 2. Donanımın **TA2DMX MiniMesh Lite NRF** ve uyumlu nRF52840 UF2 bootloader'ına sahip olduğunu doğrulayın.
-3. Kart üzerindeki **RESET** düğmesine iki kez basın. Bilgisayarda UF2 sürücüsü açılınca `TA1FM_nrf52_Tracker_V0_9_5_SMART_BATT.uf2` dosyasını bu sürücüye kopyalayın.
+3. Kart üzerindeki **RESET** düğmesine iki kez basın. Bilgisayarda UF2 sürücüsü açılınca `TA1FM_nrf52_Tracker_UNIVERSAL_BLE_V0_9_22.uf2` dosyasını bu sürücüye kopyalayın.
 4. Cihaz yeniden başladıktan sonra USB veri kablosunu bağlı tutun; masaüstü **Chrome veya Edge** ile [TA1FM Web Configurator](https://ta1fm.github.io/TA1FM-nrf52-Aprs-Tracker-Configurator/) sayfasını açın.
-5. **USB Bağlan → Cihazdan Oku** adımlarını uygulayın. Çağrı işareti, AUTO, Smart Beacon, TX POWER, pil voltajı, Comment ve Status gibi ayarları kontrol edin.
-6. Değişikliklerden sonra **Cihaza Yaz** deyin; gerçek kayıt mesajını ve **Cihazdan Oku** sonucunu kontrol edin. Gerekirse bir kez enerji kesip yeniden açarak kalıcılığını doğrulayın.
+5. **USB: Cihaza bağlan → Cihazdan oku (p)** veya **BLE: Bluetooth ile bağlan → BLE Ayarları Oku** adımlarını uygulayın. Çağrı işareti, AUTO, Smart Beacon, TX POWER, pil voltajı, Comment ve Status gibi ayarları kontrol edin.
+6. Değişikliklerden sonra **USB: Ayarları cihaza yaz** veya **BLE: Kaydetme AÇIK → BLE Ayarları Kaydet** deyin; gerçek kayıt mesajını ve **Cihazdan Oku** sonucunu kontrol edin. Gerekirse bir kez enerji kesip yeniden açarak kalıcılığını doğrulayın.
 7. Anteni bağlı tutun, cihazı gökyüzünü görebilen bir yere yerleştirin ve `GPS:FIX` görünmesini bekleyin.
 
 **Normal sürüm güncellemesinde Eraser kullanmayın veya kartı formatlamayın.** Geçerli çağrı işareti girilmeden (`NOCALL`) APRS TX engellenir. İlk kez geçerli çağrı işareti kaydedilmesi AUTO'yu açabilir; daha sonra bilinçli seçilmiş AUTO OFF tercihi yeniden başlatmada korunur.
@@ -57,7 +57,7 @@ BAT:3.92V  RX:TA1FM-9
 | `BAT` | Yaklaşık ölçülmüş pil gerilimi (kalibrasyon hassasiyeti sınırlıdır) |
 | `RX` | Son duyulan LoRa APRS istasyonu |
 
-## 4. OLED menüsü — V0.9.5
+## 4. OLED menüsü — V0.9.22
 
 BME280 sensörü algılanırsa **11**, algılanmazsa **10** menü seçeneği vardır. BME280 bulunmuyorsa yalnızca `BME280 WX` maddesi gizlenir.
 
@@ -72,7 +72,7 @@ BME280 sensörü algılanırsa **11**, algılanmazsa **10** menü seçeneği var
 | **`TX POWER`** | LoRa çıkış gücü hedefi, 1–22 dBm | Kısa bas → +1 dBm; uzun bas → kaydet |
 | `GPS INFO` | Uydu, FIX, GPS karakter sayısı | Uzun bas → geri |
 | `LORA INFO` | LoRa/RX, RSSI-SNR ve AUTO durumu | Uzun bas → geri |
-| `DEVICE INFO` | Cihaz bilgileri, **V0.9.5** | Uzun bas → geri |
+| `DEVICE INFO` | Cihaz bilgileri, **V0.9.22** | Uzun bas → geri |
 | `EXIT` | Ana ekrana dön | Uzun bas → çık |
 
 ### 4.1 OLED TIMER — ekranın otomatik kapanması
@@ -87,7 +87,7 @@ BME280 sensörü algılanırsa **11**, algılanmazsa **10** menü seçeneği var
 | `2 MIN` | 2 dakika sonra kapat |
 | `5 MIN` | 5 dakika sonra kapat |
 
-Ana ekrandayken süre dolduğunda yalnızca OLED kapatılır. **GPS, LoRa, APRS, otomatik beacon ve diğer işlemler sürer.** Tuş ekranı yeniden uyandırır. Seçilen değer LittleFS'de kalıcıdır. `ALWAYS OFF` modunda kod, ekranı uyandıktan yaklaşık 15 saniye sonra yeniden kapatır; bu mod cihazı bütünüyle uyutmaz.
+Ana ekrandayken süre dolduğunda yalnızca OLED kapatılır. **GPS, LoRa, APRS, otomatik beacon ve diğer işlemler sürer.** Tuş ekranı yeniden uyandırır. Seçilen değer Direct Flash A/B kaydında kalıcıdır. `ALWAYS OFF` modunda kod, ekranı uyandıktan yaklaşık 15 saniye sonra yeniden kapatır; bu mod cihazı bütünüyle uyutmaz.
 
 ### 4.2 TX POWER — ayarlanabilir çıkış gücü
 
@@ -101,7 +101,7 @@ Ana ekranda uzun bas → menüde `TX POWER` → uzun bas. Kısa basışlar güc�
 | 20 dBm | 100 mW |
 | 22 dBm | 158 mW |
 
-**Dikkat:** Bunlar dBm–mW dönüşümüdür, anten soketinde ölçülmüş güç değildir. Kartın RF katı, besleme koşulları ve yasal güç sınırları ayrıca değerlendirilmelidir. En yüksek ayar için uzun süreli kullanım öncesi kart uygunluğunu doğrulayın. Değer Web Configurator'den veya `power 1..22` komutuyla da değiştirilebilir; seçilen ayar LittleFS'de saklanır.
+**Dikkat:** Bunlar dBm–mW dönüşümüdür, anten soketinde ölçülmüş güç değildir. Kartın RF katı, besleme koşulları ve yasal güç sınırları ayrıca değerlendirilmelidir. En yüksek ayar için uzun süreli kullanım öncesi kart uygunluğunu doğrulayın. Değer Web Configurator'den veya `power 1..22` komutuyla da değiştirilebilir; seçilen ayar Direct Flash A/B kaydında saklanır.
 
 ### 4.3 DISPLAY — OLED tipi ve kurtarma
 
@@ -115,10 +115,10 @@ Ana ekranda uzun bas → menüde `TX POWER` → uzun bas. Kısa basışlar güc�
 ### 4.4 Diğer OLED ayarları
 
 - **AUTO BEACON:** `ON` otomatik TX'i etkinleştirir; `OFF` kapatır. Diğer yayına uygunluk koşulları yine geçerlidir.
-- **POS SYMBOL:** `CAR />`, `WALKER /[`, `HOUSE /-` seçenekleri mevcuttur. Park algılandığında firmware park simgesi kullanabilir.
+- **POS SYMBOL:** OLED menüsünde `CAR />`, `WALKER /[`, `HOUSE /-` seçenekleri vardır; web paneli hareket ve park sembollerini ayrı ayrı kabul eder.
 - **UTC OFFSET:** UTC veya UTC+3 seçimi kaydedilir.
 
-## 5. Smart Beacon — V0.9.5 hız tablosu
+## 5. Smart Beacon — V0.9.22 hız tablosu
 
 **Yeni Smart Beacon, şehir içinde daha sık konum güncellemesi için tasarlanmıştır.** SMART modunda hız noktaları sabittir; karşılık gelen altı beacon süresi Web Configurator'den değiştirilebilir.
 
@@ -135,10 +135,10 @@ Ana ekranda uzun bas → menüde `TX POWER` → uzun bas. Kısa basışlar güc�
 - **İlk hareket beacon'ı (varsayılan AÇIK):** GPS hızı **8 km/sa ve üzerinde art arda 3 örnekle** hareketi doğrularsa ve cihaz daha önce ilk konumunu göndermişse SMART modda yeni konum gönderimini isteyebilir. GPS FIX ve RF bekleme kuralları uygulanır.
 - **Durma/park:** 5 km/sa ve altı durma adayıdır; varsayılan park onay süresi 3 dakikadır. 5–8 km/sa bandında hareket durumuna ilişkin histerezis uygulanır.
 - **Viraj tetiklemesi:** Hareket doğrulandıysa, hız **en az 10 km/sa** ve son gönderilen yönle mevcut yön arasında **en az 35°** fark varsa konum isteği oluşabilir.
-- **RF koruması:** Konum paketlerinde önceki RF yayınına göre en az **10 sn**, WX/Status gibi yardımcı yayınlarda **30 sn** ortak bekleme uygulanır. Dolayısıyla tabloda yazan süreler kesin yayın veya alım garantisi değildir.
+- **RF koruması:** Konum, WX ve Status dahil ardışık LoRa RF yayınları arasında en az **15 sn** beklenir. Dolayısıyla tabloda yazan süreler kesin yayın veya alım garantisi değildir.
 - **FIXED modu:** Hızdan bağımsız 1, 3, 5, 10 veya 15 dakikalık konum periyodu seçilebilir. Bu tablonun değişiklikleri FIXED periyodunu değiştirmez.
 
-**SMART varsayılanlarını değiştirme:** Web panelinde altı süreyi **saniye** olarak girin. Yazılım ilk noktada **15–3600 sn**, diğerlerinde **10–3600 sn** değerlerine izin verir; hız arttıkça süre artmamalıdır. Böylece örneğin `600,90,45,30,20,15` kabul edilir. Başarılı kayıt LittleFS'de saklanır.
+**SMART varsayılanlarını değiştirme:** Web panelinde altı süreyi **saniye** olarak girin. Yazılım ilk noktada **15–3600 sn**, diğerlerinde **10–3600 sn** değerlerine izin verir; hız arttıkça süre artmamalıdır. Böylece örneğin `600,90,45,30,20,15` kabul edilir. Başarılı kayıt Direct Flash A/B kaydında saklanır.
 
 ### Saha testinde konumlar seyrek görünürse
 
@@ -149,7 +149,7 @@ Ana ekranda uzun bas → menüde `TX POWER` → uzun bas. Kısa basışlar güc�
 
 ## 6. APRS konum paketinde pil voltajı
 
-V0.9.5 ile konum beacon'ının **comment metnine pil voltajı isteğe bağlı eklenebilir**. Varsayılan **AÇIK**; Web Configurator'den kapatılabilir.
+V0.9.22 ile konum beacon'ının **comment metnine pil voltajı isteğe bağlı eklenebilir**. Varsayılan **AÇIK**; Web Configurator'den kapatılabilir.
 
 Örnek paket yorum parçası:
 
@@ -168,8 +168,8 @@ TA1FM nrf52 Tracker Batt=3.92V
 - **WX:** BME280 algılanırsa sıcaklık, nem ve basınç APRS hava durumu formatında gönderilebilir; rüzgâr/yağmur sensörü olmayan alanlara ölçülmüş gibi değer uydurulmaz. WX zamanlayıcısı bağımsızdır; varsayılanı 60 dakika olabilir, kayıtlı değer önceliklidir.
 - **Status:** Bağımsız APRS durum paketi; zamanlayıcısı ayrı yönetilir.
 - **Comment:** Bağımsız yayın değildir; belirlenen aralıkta konum beacon'ının sonuna eklenen metindir. **Pil voltajı seçeneği Comment zamanlamasından ayrı çalışır.**
-- **Park hâli:** Konum simgesini etkileyebilir; WX gönderimini tek başına engellemez.
-- Yardımcı TX istekleri, ortak **30 saniyelik** RF bekleme koşulundan etkilenir.
+- **Park hâli:** Bağımsız park sembolüne (varsayılan `\P`) geçer; WX'i tek başına engellemez.
+- Yardımcı TX istekleri ortak **15 saniyelik** RF bekleme koşuluna tabidir.
 
 ## 8. Web Configurator ve kalıcı ayarlar
 
@@ -178,10 +178,38 @@ TA1FM nrf52 Tracker Batt=3.92V
 1. Masaüstü Chrome/Edge'de paneli açın; USB üzerinden cihazın COM portuna bağlanın.
 2. **Cihazdan Oku** ile gerçek ayarları alın. Sadece ekranda bir varsayılanın görünmesi cihaza kayıtlı olduğu anlamına gelmez.
 3. AUTO ve POS modunu, **Smart Beacon sürelerini (6 değer)**, **ilk hareket beacon'ını ON/OFF**, **pil voltajı gönderimini ON/OFF**, **TX POWER (1–22 dBm)**, diğer beacon ve metin ayarlarını düzenleyin.
-4. **Cihaza Yaz** deyin ve seri yanıtında başarılı kayıt sonucunu doğrulayın.
+4. **USB: Ayarları cihaza yaz** veya **BLE: Kaydetme AÇIK → BLE Ayarları Kaydet** deyin ve seri yanıtında başarılı kayıt sonucunu doğrulayın.
 5. Tekrar **Cihazdan Oku** uygulayın. Gerekirse JSON yedek alın ve cihazı yeniden başlatarak değerlerin korunduğunu kontrol edin.
 
-USB Seri Monitör ve Web Configurator **aynı COM portuna aynı anda bağlanamaz**. Portu kullanan diğer programı kapatın. Firmware yeni Smart Beacon ayarlarını `/ta1fm_smart_v095.cfg`, TX gücünü `/ta1fm_tx_power_v094.cfg`, OLED zamanlayıcısını `/ta1fm_oled_sleep.cfg` dosyasında saklar; daha eski OLED/UTC ve çağrı işareti kayıtları ayrı tutulur.
+USB Seri Monitör ve Web Configurator **aynı COM portuna aynı anda bağlanamaz**. Portu kullanan diğer programı kapatın. V0.9.22 ayarları **Direct Flash A/B + CRC32** ile saklar; önceki LittleFS ayar dosyalarını kullanmaz.
+
+### 8.1 BLE bağlantısı ve PIN'siz kaydetme (V0.9.22)
+
+1. Android Chrome'da HTTPS web panelini açın; telefonun Bluetooth'unu etkinleştirin.
+2. **Bluetooth ile bağlan** düğmesine basıp **nRF52_Lora_Tracker** cihazını seçin. Başka uygulama cihazı kullanıyorsa önce bağlantıyı kesin.
+3. **BLE Ayarları Oku** ile gerçek ayarları alın. Canlı durum panelinde çağrı işareti, SX1262/SX1268, GPS FIX, uydular, RF ve batarya bilgilerini görebilirsiniz.
+4. **Kaydetme AÇIK/KAPALI** anahtarını AÇIK yapın. **PIN yoktur.** Bu yalnızca yazma iznidir; erişim güvenliği sağlamaz.
+5. Alanları düzenleyip **BLE Ayarları Kaydet** düğmesine basın. Birden çok değişiklik cihaz RAM'inde hazırlanır ve **tek Direct Flash A/B + CRC32** işlemiyle saklanır.
+6. Kayıt sonrası ve BLE bağlantısı kesildiğinde anahtar kendiliğinden **KAPALI** konumuna döner. Tekrar kayıt için yeniden AÇIK yapın.
+
+**Not:** BLE yazma için Direct Flash durumunun **ACTIVE** olması gerekir. İlk kez kayıt olmayan kartta USB seri konsolunda `flash?` sorgulayın; `flash init` yalnızca kayıtsız cihaz için, ayar yedeği alındıktan sonra ileri seviye USB işlemidir.
+
+### 8.2 Hareket ve park APRS sembollerini ayarlama
+
+- **Hareket sembolü:** Örneğin `/>` (araba), `/[` (yaya), `/-` (ev).
+- **Park sembolü:** Bağımsız sembol; varsayılan `\P`. Park algılama süresi sonunda bu sembol kullanılır.
+- Her alan iki ASCII karakteridir: ilk karakter tablo (`/` veya `\`), ikinci karakter APRS sembolü. Emoji değil, geçerli APRS kodu girin.
+- USB ve BLE panelinde ayrı kutular bulunur. Seri komut örnekleri: `symbol />` ve `parksymbol \P`.
+
+### 8.3 LoRa çip ve OLED sürücüsünü değiştirme
+
+- **SX1262/SX1268:** BLE web panelinden cihazdaki gerçek LoRa çipini seçin; kaydedince **cihazı yeniden başlatın**. Çip değişikliğinden sonra yeniden başlatılana kadar RF devre dışıdır. Yanlış çip seçimi radyo haberleşmesini engeller. USB seri konsolunda `chip sx1262` / `chip sx1268` komutları da vardır.
+- **SH1106/SSD1306 OLED:** BLE'de seçimi kaydedince **20 saniye önizleme olmadan** doğrudan flash'a yazılır ve görüntü yenilenir. Yanlış seçimde ekran kararabilir. USB paneli mevcut önizleme/onay akışını korur.
+- **Fiziksel ekran kurtarma:** Cihazın ilk açılışında menü tuşunu **3 saniye basılı tutarak** alternatif OLED sürücüsünü seçebilirsiniz. Bu, UF2 için çift RESET'ten farklıdır.
+
+### 8.4 İlk gönderim sırası ve 15 saniye LoRa TX koruması
+
+AUTO etkin, çağrı işareti geçerli, GPS FIX taze ve Comment/Status aralıkları açık ise önce **konum + Comment** aynı APRS konum paketinde; sonra **ayrı Status** gönderilir. Comment ayrı RF paketi değildir. Konum, Status ve WX dahil ardışık LoRa yayınları arasında **en az 15 saniye** beklenir. GPS/RF hazır değilse gönderim gecikir; WX ayrıca kendi aralığına tabidir.
 
 ## 9. Seri konsol komutları (ileri seviye)
 
@@ -201,7 +229,11 @@ USB Seri Monitör ve Web Configurator **aynı COM portuna aynı anda bağlanamaz
 | **`power 17`** | TX güç hedefini 17 dBm yap (1–22 aralığı) |
 | **`power?`** | TX güç ayarını oku |
 | `k 1`, `k 3`, `k 5` | Park onayı için dakika |
-| `s car`, `s walker`, `s house` | APRS simgesini seç |
+| `s car`, `s walker`, `s house` | Üç hazır hareket sembolü |
+| `symbol />` | Hareket sembolünü iki karakterli APRS kodu olarak kaydet |
+| `parksymbol \\P` | Park sembolünü iki karakterli APRS kodu olarak kaydet |
+| `chip sx1262` / `chip sx1268` | LoRa çipi değiştir; yeniden başlatma gerekir |
+| `flash?` | Direct Flash durumunu oku; `flash init` yalnızca geçerli kayıt yoksa USB ileri seviye işlem |
 | `x off`, `x 15`, `x 30`, `x 60` | WX aralığı |
 | `z off`, `z 15`, `z 30`, `z 60` | Status aralığı |
 | `j off`, `j 15`, `j 30`, `j 60` | Comment ekleme aralığı |
@@ -219,26 +251,26 @@ USB Seri Monitör ve Web Configurator **aynı COM portuna aynı anda bağlanamaz
 | Konum haritada seyrek | AUTO=ON, POS=SMART, `smart?`, GPS hız/fix; iGate kapsaması |
 | İlk hareket beacon'ı yok | `motion on`, hareketin 8 km/sa üzerinde doğrulanması, ilk konum TX, GPS ve RF bekleme |
 | Beacon'da pil yok | `batt on`, güncel pil ölçümü, APRS konum paketi alımı |
-| TX POWER görünmüyor | Cihazdaki sürümün gerçekten **V0.9.5** olduğuna bakın; BME280 varsa 11, yoksa 10 madde |
+| TX POWER görünmüyor | Cihazdaki sürümün gerçekten **V0.9.22** olduğuna bakın; BME280 varsa 11, yoksa 10 madde |
 | TX gücü değişmiyor | `power?` ve konsol hata mesajlarını kontrol edin; cihaz/radyo hazır mı? |
 | Ekran kendi kendine kapanıyor | `OLED TIMER` süresini kontrol edin; tuşla uyandırın |
 | Ekran tamamen görünmüyor | SH1106/SSD1306 seçimi; 3 saniyelik menü tuşu OLED kurtarma işlemi |
 | BME280 WX menüsü görünmüyor | Sensör algılanmamış olabilir; I2C bağlantısı/adresleri |
-| Ayarlar saklanmıyor | Seri portta `saved` / `SAVE FAILED`, LittleFS durumunu ve yeniden okuma sonucunu inceleyin |
+| Ayarlar saklanmıyor | Seri portta `flash?`, `SAVED` / `SAVE FAILED` durumunu ve yeniden okuma sonucunu inceleyin |
 | Web paneli porta bağlanamıyor | Veri USB kablosu, Chrome/Edge, COM portunu kullanan başka uygulama |
 | Konum gönderimi yok | Çağrı işareti `NOCALL` mı? GPS FIX güncel mi, LoRa hazır mı, AUTO durumu ne? |
 
 ## 11. Donanım uyumu ve güvenlik
 
-Bu firmware **her nRF52840 kartına uygun değildir**. Proje donanımı TA2DMX MiniMesh Lite NRF, SX1262, L76K GPS ve SH1106/SSD1306 OLED seçenekleri için hazırlanmıştır. Projede kullanılan kart varyantı ve bootloader/SoftDevice eşleşmesini kontrol edin. Radyo frekansı ve çıkış gücünü bulunduğunuz bölgenin amatör telsiz mevzuatına ve cihazın güvenli RF sınırlarına uygun seçin.
+Bu firmware **her nRF52840 kartına uygun değildir**. Proje donanımı TA2DMX MiniMesh Lite NRF, SX1262/SX1268, L76K GPS ve SH1106/SSD1306 OLED seçenekleri için hazırlanmıştır. Projede kullanılan kart varyantı ve bootloader/SoftDevice eşleşmesini kontrol edin. Radyo frekansı ve çıkış gücünü bulunduğunuz bölgenin amatör telsiz mevzuatına ve cihazın güvenli RF sınırlarına uygun seçin.
 
 ## 12. Faydalı bağlantılar
 
 - [TA1FM nrf52 Tracker GitHub — kaynak kodu ve UF2](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker)
-- [V0.9.5 kaynak kodu](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker/blob/main/TA1FM_nrf52_Tracker_V0_9_5_SMART_BATT.ino)
-- [V0.9.5 UF2 firmware](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker/blob/main/TA1FM_nrf52_Tracker_V0_9_5_SMART_BATT.uf2)
+- [V0.9.22 UNIVERSAL BLE kaynak kodu](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker/blob/main/TA1FM_nrf52_Tracker_UNIVERSAL_BLE_V0_9_22.ino)
+- [V0.9.22 UF2 firmware](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker/blob/main/TA1FM_nrf52_Tracker_UNIVERSAL_BLE_V0_9_22.uf2)
 - [TA1FM Web Configurator](https://ta1fm.github.io/TA1FM-nrf52-Aprs-Tracker-Configurator/)
 
 ---
 
-**TA1FM nrf52 Tracker · V0.9.5 STABLE — 73 de TA1FM!**
+**TA1FM nrf52 Tracker · V0.9.22 UNIVERSAL BLE — 73 de TA1FM!**
