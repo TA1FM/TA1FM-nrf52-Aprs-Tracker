@@ -1,5 +1,9 @@
 # TA1FM nRF52 APRS Tracker — Kurulum (V0.9.22)
 
+**V0.9.24 STABLE GÜNCELLEME:** Bu belgedeki adımlar V0.9.22 içindir. V0.9.24'te **DIGIPEATER (DIGI)** modu eklendi. Güncel [V0.9.24 STABLE UF2](./TA1FM_nrf52_Tracker_UNIVERSAL_BLE_V0_9_24_STABLE.uf2), [USB/BLE ayar paneli](https://ta1fm.github.io/TA1FM-nrf52-Aprs-Tracker-Configurator/beta_v0_9_23.html) ve [DIGIPEATER kurulum/ayar kılavuzu](./DIGIPEATER_V0_9_24_TR.md) bağlantılarını kullanın.
+
+---
+
 **Sürüm:** TA1FM nrf52 Tracker **V0.9.22 UNIVERSAL BLE**  
 **Hedef kart:** TA2DMX MiniMesh Lite NRF / nRF52840, desteklenen LoRa çipi **SX1262 veya SX1268**  
 **LoRa APRS:** 433.775 MHz · SF12 · BW125 · CR 4/5
