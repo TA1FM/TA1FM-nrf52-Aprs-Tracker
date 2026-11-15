@@ -29,7 +29,6 @@
 4. İlk açılışta `V0.9.24` başlığını, doğru **SX1262 veya SX1268** seçimini ve `[RF TEST 2] ... OCP ... readback=140.0 mA rc=0` çıktısını kontrol et. RF güç artışını mevcut güvenli 50 ohm ölçüm düzeninde teyit et; PA giriş sınırlarını aşma.
 5. **TA1FM-9 araç TRACKER testi:** `p` → `mode=TRACKER`, GPS FIX ve AUTO SMART ayarlarını kontrol et. TX/RX ve GPS FIX değişimlerini kaydet. Telefon USB-OTG kayıt uygulamasının ekran kapalıyken log almaya devam ettiğini önceden dene.
 6. **TA1FM-6 ayrı DIGI testi:** `mode?` ile `[DIGI] Eligible`, `TX`, `TX_ERR`, `DUP`, `QUEUE_FULL`, `EXPIRED`, `RX_RECOVER`, `RX_RECOVER_ERR` sayaçlarını izle. Aynı APRS bilgi içeriğini 30 saniye içinde tekrarlayan paketler mükerrer kabul edilmeli. 30 saniye dolduktan sonra gelen uygun paket yeniden işlenebilir; RF TX 10 saniyelik korumaya tabidir.
-7. aprs.fi sonuçlarını yalnızca harita noktasıyla değil, `Raw packets` ve mümkünse alıcı iGate RF loglarıyla karşılaştır.
 
 **Test durumu (15 Kasım 2026):** Kaynak üzerinde statik kontroller yapıldı. Kullanıcının yaklaşık 30 dakikalık / 10 km araç testine ait seri logunda **TA1FM-6, SX1268, TRACKER, AUTO ON / SMART, 22 dBm** görülüyor; GPS FIX mevcut, LoRa TX başarıları ve TA1HF-10 üzerinden geri duyulan tekrarlar kayıtlı.
 **Bu test SX1268 TRACKER modunu doğrular; SX1262 ve sabit DIGI çalışma modu ayrıca sınanmalıdır.
