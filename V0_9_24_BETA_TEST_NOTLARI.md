@@ -31,6 +31,7 @@
 6. **TA1FM-6 ayrı DIGI testi:** `mode?` ile `[DIGI] Eligible`, `TX`, `TX_ERR`, `DUP`, `QUEUE_FULL`, `EXPIRED`, `RX_RECOVER`, `RX_RECOVER_ERR` sayaçlarını izle. Aynı APRS bilgi içeriğini 30 saniye içinde tekrarlayan paketler mükerrer kabul edilmeli. 30 saniye dolduktan sonra gelen uygun paket yeniden işlenebilir; RF TX 10 saniyelik korumaya tabidir.
 7. aprs.fi sonuçlarını yalnızca harita noktasıyla değil, `Raw packets` ve mümkünse alıcı iGate RF loglarıyla karşılaştır.
 
-**Test durumu (15 Kasım 2026):** Kaynak üzerinde statik kontroller yapıldı. Kullanıcının yaklaşık 30 dakikalık / 10 km araç testine ait seri logunda **TA1FM-6, SX1268, TRACKER, AUTO ON / SMART, 22 dBm** görülüyor; GPS FIX mevcut, LoRa TX başarıları ve TA1HF-10 üzerinden geri duyulan tekrarlar kayıtlı. Kullanıcı USB bağlantısını arada kesip iki logu birleştirdiği için kayıtlarda boşluklar var. **Bu test SX1268 TRACKER modunu doğrular; SX1262 ve sabit DIGI çalışma modu ayrıca sınanmalıdır.** Bu çalışma ortamında ayrıca Arduino derlemesi yapılmadı.
+**Test durumu (15 Kasım 2026):** Kaynak üzerinde statik kontroller yapıldı. Kullanıcının yaklaşık 30 dakikalık / 10 km araç testine ait seri logunda **TA1FM-6, SX1268, TRACKER, AUTO ON / SMART, 22 dBm** görülüyor; GPS FIX mevcut, LoRa TX başarıları ve TA1HF-10 üzerinden geri duyulan tekrarlar kayıtlı.
+**Bu test SX1268 TRACKER modunu doğrular; SX1262 ve sabit DIGI çalışma modu ayrıca sınanmalıdır.
 
 73 de TA1FM
