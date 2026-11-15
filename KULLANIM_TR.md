@@ -1,3 +1,7 @@
+**GÜNCEL SÜRÜM UYARISI — V0.9.24 STABLE:** Yeni sürüme **LoRa APRS DIGIPEATER (DIGI)** özelliği eklendi. TRACKER/DIGI mod seçimi, WIDE paket tekrarı, sabit beacon ve DIGI ayarları için **[DIGIPEATER V0.9.24 rehberini](./DIGIPEATER_V0_9_24_TR.md)** ve [güncel USB/BLE panelini](https://ta1fm.github.io/TA1FM-nrf52-Aprs-Tracker-Configurator/beta_v0_9_23.html) kullanın. **Aşağıdaki ayrıntılı menü ve kurulum talimatları V0.9.22 sürümüne aittir**; v0.9.24 için [güncel UF2](./TA1FM_nrf52_Tracker_UNIVERSAL_BLE_V0_9_24_STABLE.uf2) mevcuttur.
+
+---
+
 # TA1FM nRF52 LoRa APRS Tracker — Kullanım Kılavuzu (Türkçe)
 
 **Firmware:** V0.9.22 UNIVERSAL BLE  
