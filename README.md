@@ -2,7 +2,7 @@
 
 **Current firmware / Güncel sürüm: V0.9.22 UNIVERSAL BLE** · **LoRa APRS: 433.775 MHz (SF12 / BW125 / CR 4/5)**
 
-**🧪 V0.9.23 BETA (test sürümü):** [Kaynak kod](TA1FM_nrf52_Tracker_UNIVERSAL_BLE_V0_9_23_BETA.ino) · [Donanım testi ve eksikler](V0_9_23_BETA_TEST_NOTLARI.md) · [BETA USB/BLE paneli](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker-Configurator/blob/main/beta_v0_9_23.html). **Kararlı sürüm hâlâ V0.9.22'dir; BETA henüz Release değildir.**
+**🧪 V0.9.24 BETA (SX1268 TRACKER saha testli):** [Kaynak kod](TA1FM_nrf52_Tracker_UNIVERSAL_BLE_V0_9_24_BETA.ino) · [Değişiklikler ve saha testi](V0_9_24_BETA_TEST_NOTLARI.md) · [Uyumlu BETA USB/BLE paneli (v0.9.23)](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker-Configurator/blob/main/beta_v0_9_23.html). **V0.9.23 BETA TX/OCP sorunu nedeniyle kaldırıldı; kararlı V0.9.22 korundu. V0.9.24 henüz Release değildir.**
 
 GPS/LoRa APRS tracker for **TA2DMX MiniMesh Lite NRF (nRF52840)** with SX1262 or SX1268, optional BME280, SH1106/SSD1306 OLED, USB and Bluetooth BLE configuration.
 
