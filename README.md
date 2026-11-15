@@ -1,12 +1,29 @@
-# TA1FM nRF52 LoRa APRS Tracker
+# TA1FM nRF52 LoRa APRS Tracker + Digipeater
 
-**Current firmware / Güncel kararlı sürüm: V0.9.24 STABLE UNIVERSAL BLE** · **LoRa APRS: 433.775 MHz (SF12 / BW125 / CR 4/5)**
+**Current firmware / Güncel kararlı sürüm: V0.9.24 STABLE — TRACKER + DIGIPEATER** · **LoRa APRS: 433.775 MHz (SF12 / BW125 / CR 4/5)**
 
-**✅ V0.9.24 STABLE (SX1268 TRACKER saha testli):** [UF2 indir](TA1FM_nrf52_Tracker_UNIVERSAL_BLE_V0_9_24_STABLE.uf2) · [Kaynak kod](TA1FM_nrf52_Tracker_UNIVERSAL_BLE_V0_9_24_STABLE.ino) · [Sürüm ve saha testi notları](V0_9_24_STABLE_NOTLARI.md) · [Uyumlu USB/BLE Web Ayar Paneli](https://ta1fm.github.io/TA1FM-nrf52-Aprs-Tracker-Configurator/beta_v0_9_23.html). **Aynı test edilmiş V0.9.24 BETA derlemesi değiştirilmeden STABLE olarak işaretlenmiştir; V0.9.22 arşivde tutulur.**
+**✅ V0.9.24 STABLE — TRACKER + DIGIPEATER (SX1268 TRACKER saha testli):** [UF2 indir](TA1FM_nrf52_Tracker_UNIVERSAL_BLE_V0_9_24_STABLE.uf2) · [Kaynak kod](TA1FM_nrf52_Tracker_UNIVERSAL_BLE_V0_9_24_STABLE.ino) · [Sürüm ve saha testi notları](V0_9_24_STABLE_NOTLARI.md) · [Uyumlu USB/BLE Web Ayar Paneli](https://ta1fm.github.io/TA1FM-nrf52-Aprs-Tracker-Configurator/beta_v0_9_23.html). **Aynı test edilmiş V0.9.24 BETA derlemesi değiştirilmeden STABLE olarak işaretlenmiştir; V0.9.22 arşivde tutulur.**
 
-GPS/LoRa APRS tracker for **TA2DMX MiniMesh Lite NRF (nRF52840)** with SX1262 or SX1268, optional BME280, SH1106/SSD1306 OLED, USB and Bluetooth BLE configuration.
+**NEW IN V0.9.24: Selectable LoRa APRS DIGIPEATER mode.** A single **TA2DMX MiniMesh Lite NRF (nRF52840)** supports GPS TRACKER or fixed-station DIGI operation, SX1262/SX1268 radio selection, SH1106/SSD1306 OLED, optional BME280, and USB/Bluetooth BLE configuration.
 
-**TR:** Güncel V0.9.24 ile tek firmware üzerinden **SX1262 / SX1268 çip seçimi**, USB + BLE ayar yönetimi, ayrı **hareket/park harita sembolleri**, OLED sürücü kaydı, Smart Beacon ve **Direct Flash A/B + CRC32** ayar saklama desteği bulunur. Önceki V0.9.x dosyaları tarihsel sürümler olarak korunur.
+**TR:** **V0.9.24 ile DIGIPEATER (DIGI) özelliği eklendi!** Tek cihazda **TRACKER / sabit DIGI modu seçimi**, WIDE1-1 / WIDE2-1 / WIDE2-2 paket tekrarlama, sabit konum beacon'ı, 30 sn mükerrer filtre ve 4 paketlik kuyruk vardır. Ayrıca **SX1262 / SX1268**, SMART Beaconing, USB + BLE ayar paneli, OLED seçimi ve **Direct Flash A/B + CRC32** korunur. Modlar aynı anda değil, seçilerek çalışır.
+
+## 📡 Yeni özellik: LoRa APRS DIGIPEATER (DIGI) — V0.9.24
+
+**Bu yazılım artık hem APRS Tracker hem de sabit Digipeater olarak kullanılabilir!** Uygun APRS paketlerini 433.775 MHz'de RF üzerinden tekrarlar; internet bağlantısı veya APRS-IS iGate özelliği gerektirmez.
+
+| Çalışma modu | Görev |
+|---|---|
+| **TRACKER** | GPS + SMART/FIXED Beaconing ile hareketli APRS konum yayını |
+| **DIGIPEATER / DIGI** | Sabit istasyon olarak uygun WIDE paketlerini RF'de tekrarlar ve kayıtlı koordinatlarından kendi beacon'ını gönderir |
+
+**DIGI özellikleri:** Seçilebilir **WIDE1-1** veya **WIDE1-1 / WIDE2-1 / WIDE2-2** desteği · **30 saniyelik mükerrer paket filtresi** · **4 paketlik kuyruk** · **10 saniye RF TX koruması** · **10 / 15 / 30 / 60 dk sabit beacon aralığı** · başarılı/hatalı TX sayaçları · RX toparlanma kontrolü.
+
+**DIGI kurulumu:** [V0.9.24 USB + BLE Web Ayar Paneli](https://ta1fm.github.io/TA1FM-nrf52-Aprs-Tracker-Configurator/beta_v0_9_23.html) üzerinden **DIGI** modunu seçin, istasyon çağrı işaretini ve sabit koordinatları girin. USB komutlarıyla `digi lat`, `digi lon`, `digi path 1|2`, `digi beacon 10|15|30|60`, `mode digi` de kullanılabilir.
+
+**[DIGIPEATER kullanım ve ayar rehberi (Türkçe)](./DIGIPEATER_V0_9_24_TR.md)** · **[v0.9.24 STABLE GitHub Release](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker/releases/tag/v0.9.24)**
+
+> **Test notu:** SX1268 ile TRACKER modu saha testinden geçmiştir. Yeni DIGI filtresi/toparlanması ve SX1262 performansı ayrıca saha testine ihtiyaç duyar. Bu cihaz internete APRS-IS paketi aktaran bir iGate değildir; RF Digipeater'dır.
 
 ## 📸 TA1FM Tracker Fotoğrafları / Photos
 
@@ -60,15 +77,18 @@ Eski V0.9.22 paneli: [Genel panel](https://ta1fm.github.io/TA1FM-nrf52-Aprs-Trac
 | **English installation** | [INSTALL_EN.md](./INSTALL_EN.md) |
 | **Pin connections / Bağlantı tablosu** | [PIN_BAGLANTILARI_TR.md](./PIN_BAGLANTILARI_TR.md) |
 | **Version changes / Sürüm notları** | [V0_9_24_STABLE_NOTLARI.md](./V0_9_24_STABLE_NOTLARI.md) |
+| **DIGIPEATER ayar / kullanım rehberi** | [DIGIPEATER_V0_9_24_TR.md](./DIGIPEATER_V0_9_24_TR.md) |
+| **GitHub Release v0.9.24** | [Release / Assets](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker/releases/tag/v0.9.24) |
 
 **Bu STABLE dosyaları, test edilmiş BETA kaynak ve UF2 ile byte-for-byte aynıdır; yeniden derlenmemiştir. Bu nedenle bazı açılış/debug metinleri BETA veya V23 şeklinde kalabilir.**
 
-**Not:** V0.9.22 eski kararlı sürüm olarak korunmaktadır: [UF2](./TA1FM_nrf52_Tracker_UNIVERSAL_BLE_V0_9_22.uf2) · [INO](./TA1FM_nrf52_Tracker_UNIVERSAL_BLE_V0_9_22.ino). GitHub Release/tag v0.9.24 henüz oluşturulmadı.
+**Not:** V0.9.22 eski kararlı sürüm olarak korunmaktadır: [UF2](./TA1FM_nrf52_Tracker_UNIVERSAL_BLE_V0_9_22.uf2) · [INO](./TA1FM_nrf52_Tracker_UNIVERSAL_BLE_V0_9_22.ino). [v0.9.24 STABLE Release yayımlandı](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker/releases/tag/v0.9.24).
 
 **Keep a backup of your known-good UF2 and current settings before changing firmware or LoRa chip. / Çalışan UF2 ve ayar yedeğini saklayın.**
 
 ## ✨ V0.9.24 features / Özellikler
 
+- **New DIGIPEATER / DIGI mode:** selectable from USB/BLE panel or USB serial commands; repeats WIDE1-1 and optionally WIDE2-1/WIDE2-2 packets, 30-second duplicate suppression, four-packet queue, fixed own-position beacon every 10/15/30/60 minutes. TRACKER and DIGI are separate modes.
 - **Universal SX1262 / SX1268 selection:** choose the actual installed LoRa chip via BLE web panel. **Reboot required** to activate a changed chip; RF stays disabled until restart when the chip setting changes. Incorrect chip selection can stop RF operation.
 - **BLE device name:** `nRF52_Lora_Tracker`; Nordic UART Service (NUS), live GPS/satellite/radio/battery readout, settings read/write, no PIN.
 - **APRS symbols / Harita sembolleri:** separately enter **moving** (e.g. `/>`) and **parked** (e.g. `\P`) symbol codes. The first character is the APRS table (`/` or `\`), the second is the symbol; choose valid APRS symbols.
@@ -131,5 +151,5 @@ Use only authorized amateur-radio frequencies, callsigns and power limits for yo
 
 No open-source license has been granted by this repository yet. Publishing the source does not itself grant reuse, modification or redistribution rights; add a `LICENSE` file if you choose to license it.
 
-**Project: TA1FM · Firmware: V0.9.24 STABLE UNIVERSAL BLE**
+**Project: TA1FM · Firmware: V0.9.24 STABLE · TRACKER + DIGIPEATER · UNIVERSAL BLE**
 
