@@ -17,7 +17,7 @@
 3. **DIGI RX toparlanması:** DIGI modunda RX başlatma başarısız olursa ana döngüyü bloke etmeden yaklaşık 3 saniyede bir `startReceive()` denenir. Başarılı/hatalı toparlanmalar sayılır. BLE üzerinden LoRa çipi değiştiğinde zorunlu yeniden başlatma emniyeti korunur; otomatik toparlanma RF'yi izinsiz etkinleştirmez.
 4. **BME280 seri mesajları:** Sensör bulunamıyorsa uyarı ilk yoklukta bir kez yazılır, tekrar tekrar yazılmaz. Sonradan bulunması veya okuma hatası gibi durum değişikliklerinde mesajlar korunur.
 5. **GPS/pil seri mesajları:** Periyodik durum satırı **15 yerine 60 saniyede bir**. GPS FIX kazanımı/kaybı değişiklik olduğunda ayrıca yazılır. GPS okuma ve otomatik beacon zamanlamaları değişmedi.
-6. **Gereksiz iGate notu:** `[TX] RadioLib TX OK; confirm reception on TA1FM-10 iGate` metni `[TX] RadioLib TX OK` oldu. WX'deki benzer doğrulama tavsiyesi de kısaltıldı.
+6. **Gereksiz iGate notu:** `[TX] RadioLib TX OK; confirm reception on iGate` metni `[TX] RadioLib TX OK` oldu. WX'deki benzer doğrulama tavsiyesi de kısaltıldı.
 
 **Değiştirilmeyenler:** 10 saniyelik RF koruması, 4 paketlik DIGI kuyruğu, 433.775 MHz / SF12 / BW125 / CR4/5, WIDE yönlendirme, güç ve anten anahtarlama kodu. Yeni CAD algoritması eklenmedi.
 
