@@ -78,6 +78,7 @@ Eski V0.9.22 paneli: [Genel panel](https://ta1fm.github.io/TA1FM-nrf52-Aprs-Trac
 | **Pin connections / Bağlantı tablosu** | [PIN_BAGLANTILARI_TR.md](./PIN_BAGLANTILARI_TR.md) |
 | **Version changes / Sürüm notları** | [V0_9_24_STABLE_NOTLARI.md](./V0_9_24_STABLE_NOTLARI.md) |
 | **DIGIPEATER ayar / kullanım rehberi** | [DIGIPEATER_V0_9_24_TR.md](./DIGIPEATER_V0_9_24_TR.md) |
+| **USB seri konsol komutları (V0.9.24 TR)** | [SERI_KONSOL_KOMUT_REHBERI_V0_9_24_TR.md](./SERI_KONSOL_KOMUT_REHBERI_V0_9_24_TR.md) |
 | **GitHub Release v0.9.24** | [Release / Assets](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker/releases/tag/v0.9.24) |
 
 **Bu STABLE dosyaları, test edilmiş BETA kaynak ve UF2 ile byte-for-byte aynıdır; yeniden derlenmemiştir. Bu nedenle bazı açılış/debug metinleri BETA veya V23 şeklinde kalabilir.**
