@@ -2,7 +2,7 @@
 
 **Current firmware / Güncel kararlı sürüm: V0.9.24 STABLE UNIVERSAL BLE** · **LoRa APRS: 433.775 MHz (SF12 / BW125 / CR 4/5)**
 
-**✅ V0.9.24 STABLE (SX1268 TRACKER saha testli):** [UF2 indir](TA1FM_nrf52_Tracker_UNIVERSAL_BLE_V0_9_24_STABLE.uf2) · [Kaynak kod](TA1FM_nrf52_Tracker_UNIVERSAL_BLE_V0_9_24_STABLE.ino) · [Sürüm ve saha testi notları](V0_9_24_STABLE_NOTLARI.md) · [Uyumlu USB/BLE paneli (v0.9.23 protokolü)](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker-Configurator/blob/main/beta_v0_9_23.html). **Aynı test edilmiş V0.9.24 BETA derlemesi değiştirilmeden STABLE olarak işaretlenmiştir; V0.9.22 arşivde tutulur.**
+**✅ V0.9.24 STABLE (SX1268 TRACKER saha testli):** [UF2 indir](TA1FM_nrf52_Tracker_UNIVERSAL_BLE_V0_9_24_STABLE.uf2) · [Kaynak kod](TA1FM_nrf52_Tracker_UNIVERSAL_BLE_V0_9_24_STABLE.ino) · [Sürüm ve saha testi notları](V0_9_24_STABLE_NOTLARI.md) · [Uyumlu USB/BLE Web Ayar Paneli](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker-Configurator/beta_v0_9_23.html). **Aynı test edilmiş V0.9.24 BETA derlemesi değiştirilmeden STABLE olarak işaretlenmiştir; V0.9.22 arşivde tutulur.**
 
 GPS/LoRa APRS tracker for **TA2DMX MiniMesh Lite NRF (nRF52840)** with SX1262 or SX1268, optional BME280, SH1106/SSD1306 OLED, USB and Bluetooth BLE configuration.
 
