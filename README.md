@@ -1,12 +1,12 @@
 # TA1FM nRF52 LoRa APRS Tracker
 
-**Current firmware / Güncel sürüm: V0.9.22 UNIVERSAL BLE** · **LoRa APRS: 433.775 MHz (SF12 / BW125 / CR 4/5)**
+**Current firmware / Güncel kararlı sürüm: V0.9.24 STABLE UNIVERSAL BLE** · **LoRa APRS: 433.775 MHz (SF12 / BW125 / CR 4/5)**
 
-**🧪 V0.9.24 BETA (SX1268 TRACKER saha testli):** [UF2 indir](TA1FM_nrf52_Tracker_UNIVERSAL_BLE_V0_9_24_BETA.uf2) · [Kaynak kod](TA1FM_nrf52_Tracker_UNIVERSAL_BLE_V0_9_24_BETA.ino) · [Değişiklikler ve saha testi](V0_9_24_BETA_TEST_NOTLARI.md) · [Uyumlu BETA USB/BLE paneli (v0.9.23)](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker-Configurator/blob/main/beta_v0_9_23.html). **V0.9.23 BETA TX/OCP sorunu nedeniyle kaldırıldı; kararlı V0.9.22 korundu. V0.9.24 henüz Release değildir.**
+**✅ V0.9.24 STABLE (SX1268 TRACKER saha testli):** [UF2 indir](TA1FM_nrf52_Tracker_UNIVERSAL_BLE_V0_9_24_STABLE.uf2) · [Kaynak kod](TA1FM_nrf52_Tracker_UNIVERSAL_BLE_V0_9_24_STABLE.ino) · [Sürüm ve saha testi notları](V0_9_24_STABLE_NOTLARI.md) · [Uyumlu USB/BLE paneli (v0.9.23 protokolü)](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker-Configurator/blob/main/beta_v0_9_23.html). **Aynı test edilmiş V0.9.24 BETA derlemesi değiştirilmeden STABLE olarak işaretlenmiştir; V0.9.22 arşivde tutulur.**
 
 GPS/LoRa APRS tracker for **TA2DMX MiniMesh Lite NRF (nRF52840)** with SX1262 or SX1268, optional BME280, SH1106/SSD1306 OLED, USB and Bluetooth BLE configuration.
 
-**TR:** V0.9.22 ile tek firmware üzerinden **SX1262 / SX1268 çip seçimi**, USB + BLE ayar yönetimi, ayrı **hareket/park harita sembolleri**, OLED sürücü kaydı, Smart Beacon ve **Direct Flash A/B + CRC32** ayar saklama desteği bulunur. Önceki V0.9.x dosyaları tarihsel sürümler olarak korunur.
+**TR:** Güncel V0.9.24 ile tek firmware üzerinden **SX1262 / SX1268 çip seçimi**, USB + BLE ayar yönetimi, ayrı **hareket/park harita sembolleri**, OLED sürücü kaydı, Smart Beacon ve **Direct Flash A/B + CRC32** ayar saklama desteği bulunur. Önceki V0.9.x dosyaları tarihsel sürümler olarak korunur.
 
 ## 📸 TA1FM Tracker Fotoğrafları / Photos
 
@@ -36,7 +36,9 @@ GPS/LoRa APRS tracker for **TA2DMX MiniMesh Lite NRF (nRF52840)** with SX1262 or
 
 ## 🌐 Web Configurator / Ayar paneli
 
-**[TA1FM USB + BLE Web Configurator — Open / Aç](https://ta1fm.github.io/TA1FM-nrf52-Aprs-Tracker-Configurator/)**
+**[V0.9.24 uyumlu USB + BLE Web Configurator — Open / Aç](https://ta1fm.github.io/TA1FM-nrf52-Aprs-Tracker-Configurator/beta_v0_9_23.html)**
+
+Eski V0.9.22 paneli: [Genel panel](https://ta1fm.github.io/TA1FM-nrf52-Aprs-Tracker-Configurator/)**
 
 | Connection / Bağlantı | How to use / Kullanım |
 |---|---|
@@ -44,33 +46,38 @@ GPS/LoRa APRS tracker for **TA2DMX MiniMesh Lite NRF (nRF52840)** with SX1262 or
 | **BLE** | Android Chrome over **HTTPS**, Bluetooth enabled; connect to **nRF52_Lora_Tracker**, tap **BLE Ayarları Oku**, enable **Kaydetme AÇIK**, then **BLE Ayarları Kaydet**. |
 | **Backup / Yedek** | Export/import settings as **JSON**. Import fills the form; it does **not** write to the device until you explicitly save. |
 
-**BLE save switch:** No PIN in V0.9.22. The switch only gates writes; it **is not a security/authentication feature**. It automatically returns to OFF after a successful save or BLE disconnect. Configuration is staged in RAM and committed in **one Direct Flash A/B transaction**. Flash initialization is intentionally USB-only.
+**BLE save switch:** No PIN in V0.9.24. The switch only gates writes; it **is not a security/authentication feature**. It automatically returns to OFF after a successful save or BLE disconnect. Configuration is staged in RAM and committed in **one Direct Flash A/B transaction**. Flash initialization is intentionally USB-only.
 
-## 📦 V0.9.22 firmware / İndir
+## 📦 V0.9.24 STABLE firmware / İndir
 
 | Artifact / Dosya | Link |
 |---|---|
-| **nRF52840 UF2 — flash-ready firmware** | [TA1FM_nrf52_Tracker_UNIVERSAL_BLE_V0_9_22.uf2](./TA1FM_nrf52_Tracker_UNIVERSAL_BLE_V0_9_22.uf2) |
-| **Complete Arduino source** | [TA1FM_nrf52_Tracker_UNIVERSAL_BLE_V0_9_22.ino](./TA1FM_nrf52_Tracker_UNIVERSAL_BLE_V0_9_22.ino) |
+| **nRF52840 UF2 — flash-ready firmware** | [TA1FM_nrf52_Tracker_UNIVERSAL_BLE_V0_9_24_STABLE.uf2](./TA1FM_nrf52_Tracker_UNIVERSAL_BLE_V0_9_24_STABLE.uf2) |
+| **Complete Arduino source** | [TA1FM_nrf52_Tracker_UNIVERSAL_BLE_V0_9_24_STABLE.ino](./TA1FM_nrf52_Tracker_UNIVERSAL_BLE_V0_9_24_STABLE.ino) |
 | **Türkçe kullanım kılavuzu** | [KULLANIM_TR.md](./KULLANIM_TR.md) |
 | **Türkçe kurulum** | [KURULUM_TR.md](./KURULUM_TR.md) |
 | **English user guide** | [USER_GUIDE_EN.md](./USER_GUIDE_EN.md) |
 | **English installation** | [INSTALL_EN.md](./INSTALL_EN.md) |
 | **Pin connections / Bağlantı tablosu** | [PIN_BAGLANTILARI_TR.md](./PIN_BAGLANTILARI_TR.md) |
-| **Version changes / Sürüm notları** | [CHANGELOG_V0_9_22.md](./CHANGELOG_V0_9_22.md) |
+| **Version changes / Sürüm notları** | [V0_9_24_STABLE_NOTLARI.md](./V0_9_24_STABLE_NOTLARI.md) |
+
+**Bu STABLE dosyaları, test edilmiş BETA kaynak ve UF2 ile byte-for-byte aynıdır; yeniden derlenmemiştir. Bu nedenle bazı açılış/debug metinleri BETA veya V23 şeklinde kalabilir.**
+
+**Not:** V0.9.22 eski kararlı sürüm olarak korunmaktadır: [UF2](./TA1FM_nrf52_Tracker_UNIVERSAL_BLE_V0_9_22.uf2) · [INO](./TA1FM_nrf52_Tracker_UNIVERSAL_BLE_V0_9_22.ino). GitHub Release/tag v0.9.24 henüz oluşturulmadı.
 
 **Keep a backup of your known-good UF2 and current settings before changing firmware or LoRa chip. / Çalışan UF2 ve ayar yedeğini saklayın.**
 
-## ✨ V0.9.22 features / Özellikler
+## ✨ V0.9.24 features / Özellikler
 
 - **Universal SX1262 / SX1268 selection:** choose the actual installed LoRa chip via BLE web panel. **Reboot required** to activate a changed chip; RF stays disabled until restart when the chip setting changes. Incorrect chip selection can stop RF operation.
 - **BLE device name:** `nRF52_Lora_Tracker`; Nordic UART Service (NUS), live GPS/satellite/radio/battery readout, settings read/write, no PIN.
 - **APRS symbols / Harita sembolleri:** separately enter **moving** (e.g. `/>`) and **parked** (e.g. `\P`) symbol codes. The first character is the APRS table (`/` or `\`), the second is the symbol; choose valid APRS symbols.
 - **OLED:** SH1106/SSD1306 and sleep settings. **BLE** changes the driver immediately after confirmed flash save, without a preview countdown. **USB** keeps preview/confirm. If display remains blank, the **3-second button hold at power-on** remains available for recovery.
 - **Position beacons:** SMART or FIXED, parked recognition, first-motion trigger, configurable intervals.
-- **Startup APRS:** when AUTO/Status/Comment are enabled and a valid GPS fix is available, first position packet includes Comment; separate Status follows subject to **15-second common LoRa TX guard**. Comment is **not a separate RF packet**.
+- **Startup APRS:** when AUTO/Status/Comment are enabled and a valid GPS fix is available, first position packet includes Comment; separate Status follows subject to **10-second common LoRa TX guard**. Comment is **not a separate RF packet**.
 - **WX:** independent BME280-based APRS weather transmission (optional sensor); position beacon may append battery voltage as comment text.
 - **Persistence:** verified **Direct Flash A/B + CRC32** records, not LittleFS; BLE saves changed settings in one transaction. **APRS messaging is not implemented.**
+- **V0.9.24 improvements:** SX1262/SX1268 140 mA RF OCP support; 30-second DIGI duplicate filter (previously 120 seconds), DIGI RX recovery and more accurate TX logging, reduced repetitive GPS/BME serial messages.
 
 ### Smart Beacon default intervals
 
@@ -83,14 +90,14 @@ GPS/LoRa APRS tracker for **TA2DMX MiniMesh Lite NRF (nRF52840)** with SX1262 or
 | 60 km/h | 20 s |
 | 90+ km/h | 15 s |
 
-Time is interpolated between the speed breakpoints; all six values are configurable. **Every LoRa RF transmission is subject to a minimum 15-second guard**, not a promise of airtime or reception.
+Time is interpolated between the speed breakpoints; all six values are configurable. **Every LoRa RF transmission is subject to a minimum 10-second guard**, not a promise of airtime or reception.
 
 ## 🔧 Installation / Kurulum
 
 1. Verify the **MiniMesh Lite NRF** hardware, UF2 bootloader, and whether the radio chip is **SX1262 or SX1268**.
 2. Back up your current configuration and known-working UF2.
-3. **Double-tap RESET** to mount the UF2 drive, then copy [V0.9.22 UF2](./TA1FM_nrf52_Tracker_UNIVERSAL_BLE_V0_9_22.uf2).
-4. Open the [web configurator](https://ta1fm.github.io/TA1FM-nrf52-Aprs-Tracker-Configurator/) and read the actual settings before writing. For BLE, enable the **Kaydetme** switch.
+3. **Double-tap RESET** to mount the UF2 drive, then copy [V0.9.24 STABLE UF2](./TA1FM_nrf52_Tracker_UNIVERSAL_BLE_V0_9_24_STABLE.uf2).
+4. Open the [V0.9.24-compatible web configurator](https://ta1fm.github.io/TA1FM-nrf52-Aprs-Tracker-Configurator/beta_v0_9_23.html) and read the actual settings before writing. For BLE, enable the **Kaydetme** switch.
 5. Check **Direct Flash ACTIVE**, callsign, chip selection, OLED type, symbols, AUTO and GPS FIX. If the chip is changed, restart the device.
 6. Attach an antenna before RF TX; verify reception with an APRS iGate.
 
@@ -98,13 +105,13 @@ Time is interpolated between the speed breakpoints; all six values are configura
 
 ## 📡 Module compatibility / Modül uyumu
 
-| Radio chip | V0.9.22 support |
+| Radio chip | V0.9.24 support |
 |---|---|
 | **SX1262** | Select SX1262 in firmware settings; match the actual installed module and RF circuit |
 | **SX1268 (Ra-01S)** | Select SX1268; old V0.9.14 Direct Flash records default to SX1268 if no explicit chip ID was saved |
 | **LLCC68 (Ra-01SC)** | Not supported for this project's **433.775 MHz / SF12 / BW125** LoRa APRS configuration |
 
-For historical firmware: [SX1262 V0.9.6](./TA1FM_nrf52_Tracker_V0_9_6_OLED_WEB.uf2) · [SX1268 V0.9.14](./TA1FM_nrf52_Tracker_V0_9_14_SX1268_OLED_WEB_DIRECT_FLASH.uf2). Earlier releases required separate builds; **V0.9.22 is universal within the listed supported hardware configuration**.
+For historical firmware: [SX1262 V0.9.6](./TA1FM_nrf52_Tracker_V0_9_6_OLED_WEB.uf2) · [SX1268 V0.9.14](./TA1FM_nrf52_Tracker_V0_9_14_SX1268_OLED_WEB_DIRECT_FLASH.uf2). Earlier releases required separate builds; **V0.9.24 is universal within the listed supported hardware configuration (SX1268 TRACKER field tested; SX1262 and updated DIGI mode require separate verification)**.
 
 ## ⚠️ Hardware compatibility / Donanım uyumu
 
@@ -124,5 +131,5 @@ Use only authorized amateur-radio frequencies, callsigns and power limits for yo
 
 No open-source license has been granted by this repository yet. Publishing the source does not itself grant reuse, modification or redistribution rights; add a `LICENSE` file if you choose to license it.
 
-**Project: TA1FM · Firmware: V0.9.22 UNIVERSAL BLE**
+**Project: TA1FM · Firmware: V0.9.24 STABLE UNIVERSAL BLE**
 
