@@ -1,6 +1,15 @@
-# TA1FM nrf52 Tracker — V0.9.24 STABLE
+# TA1FM nrf52 Tracker + Digipeater — V0.9.24 STABLE
 
 **Tam kaynak dosyası:** `TA1FM_nrf52_Tracker_UNIVERSAL_BLE_V0_9_24_STABLE.ino`
+
+**V0.9.24 ile eklenen büyük özellik: LoRa APRS DIGIPEATER (DIGI) modu.** Tek firmware'de hareketli TRACKER veya sabit DIGI modu seçilir; iki mod aynı anda çalışmaz. DIGI, RF üzerinden uygun APRS paketlerini tekrarlar; internet iGate değildir.
+
+- **WIDE yol desteği:** WIDE1-1; seçilebilir DIGI PATH 2 ile WIDE2-1 ve WIDE2-2. Tekrarlanan paket yolu çağrı işaretiyle işaretlenir.
+- **Sabit DIGI beacon:** Kaydedilen konumdan 10 / 15 / 30 / 60 dakika aralıkla konum yayını.
+- **Kanal yönetimi:** 30 saniye mükerrer paket filtresi, 4 paketlik kuyruk, 10 saniye TX koruması, başarı/hata sayaçları ve kontrollü RX toparlanması. CAD eklenmedi.
+- **Yönetim:** V0.9.24 uyumlu USB/BLE Web Ayar Panelinden veya USB seri komutlarından TRACKER ↔ DIGI geçişi.
+
+**[DIGIPEATER kullanım kılavuzu ve komutlar](./DIGIPEATER_V0_9_24_TR.md)** · **[GitHub Release v0.9.24](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker/releases/tag/v0.9.24)**
 
 ## Temel sürüm ve korunan özellikler
 
@@ -9,9 +18,9 @@
 - Flash kayıt şeması **2** olarak kaldı; kayıt yapısı ve CRC algoritması değiştirilmedi. Mevcut ayarların otomatik silinmesi veya `flash init` uygulanması yoktur.
 - Mevcut V0.9.23 BLE/USB web paneliyle uyumluluk için **`CFG|BEGIN|V0.9.23` ve `[V23] mode=...` protokol işaretleri KASTEN korunmuştur.** Gerçek sürüm açılış mesajında ve OLED'de V0.9.24 olarak gösterilir.
 - V0.9.22 kararlı sürümü korunmuştur. GitHub'daki TX/OCP eksiği bulunan V0.9.23 BETA kaynağı V0.9.24 ile değiştirilerek ana daldan kaldırılmıştır.
-- **STABLE kararı (15 Kasım 2026):** Kullanıcının saha testindeki BETA `.ino` ve `.uf2` içeriği değiştirilmeksizin STABLE adıyla yayımlanmıştır. Her iki dosyanın Git blob SHA'sı BETA ile aynıdır; yeniden derleme yoktur. Bu nedenle kodda BETA başlığı veya V23 protokol token'ları kalabilir. GitHub Release/tag ayrıca yayımlanmadı.
+- **STABLE kararı (15 Kasım 2026):** Kullanıcının saha testindeki BETA `.ino` ve `.uf2` içeriği değiştirilmeksizin STABLE adıyla yayımlanmıştır. Her iki dosyanın Git blob SHA'sı BETA ile aynıdır; yeniden derleme yoktur. Bu nedenle kodda BETA başlığı veya V23 protokol token'ları kalabilir. GitHub Release v0.9.24 yayımlandı.
 
-## V0.9.24 BETA değişiklikleri
+## V0.9.24 STABLE yenilikleri ve düzeltmeleri
 
 1. **DIGI mükerrer filtresi:** Aynı kaynak çağrı işareti + APRS bilgi içeriği için süre **120 saniyeden 30 saniyeye** indirildi. Farklı içerik ayrı paket olarak kabul edilir. Kuyruktaki aynı paket ikinci kez eklenmez.
 2. **DIGI RX/TX:** `[DIGI TX OK]` mesajı artık yalnızca `radio->transmit()` başarılı döndükten sonra yazılır. `[DIGI TX ERROR]` ve kuyruk zaman aşımı sayacı eklendi. Bu kayıt başka bir iGate'in paketi aldığını *garanti etmez*.
@@ -32,7 +41,7 @@
 6. **TA1FM-6 ayrı DIGI testi:** `mode?` ile `[DIGI] Eligible`, `TX`, `TX_ERR`, `DUP`, `QUEUE_FULL`, `EXPIRED`, `RX_RECOVER`, `RX_RECOVER_ERR` sayaçlarını izle. Aynı APRS bilgi içeriğini 30 saniye içinde tekrarlayan paketler mükerrer kabul edilmeli. 30 saniye dolduktan sonra gelen uygun paket yeniden işlenebilir; RF TX 10 saniyelik korumaya tabidir.
 
 **STABLE kapsamı / test durumu (15 Kasım 2026):** Kaynak üzerinde statik kontroller yapıldı. Kullanıcının yaklaşık 30 dakikalık / 10 km araç testine ait seri logunda **TA1FM-6, SX1268, TRACKER, AUTO ON / SMART, 22 dBm** görülüyor; GPS FIX mevcut, LoRa TX başarıları ve TA1HF-10 üzerinden geri duyulan tekrarlar kayıtlı.
-**Bu test SX1268 TRACKER modunu doğrular; SX1262 ve sabit DIGI çalışma modu ayrıca sınanmalıdır.
+**Bu test SX1268 TRACKER modunu doğrular; SX1262 ve sabit DIGI çalışma modu ayrıca sınanmalıdır.**
 
 **Doğrulama sınırı:** SX1268 TRACKER saha testli. SX1262 için bu derlemenin RF saha testi ve güncel DIGI mükerrer filtre / toparlanma işlevlerinin uzun süreli saha testi henüz ayrıca doğrulanmadı.
 
