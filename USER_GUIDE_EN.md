@@ -1,3 +1,7 @@
+**LATEST V0.9.24 STABLE:** New selectable **LoRa APRS DIGIPEATER (DIGI)** mode is available alongside GPS TRACKER mode, with WIDE packet repeating and fixed-position beaconing. See the [v0.9.24 Digipeater guide (Turkish)](./DIGIPEATER_V0_9_24_TR.md) and [compatible USB/BLE configurator](https://ta1fm.github.io/TA1FM-nrf52-Aprs-Tracker-Configurator/beta_v0_9_23.html). **The detailed guide below documents v0.9.22**; get the [latest v0.9.24 STABLE UF2](./TA1FM_nrf52_Tracker_UNIVERSAL_BLE_V0_9_24_STABLE.uf2).
+
+---
+
 # TA1FM nRF52 LoRa APRS Tracker — User Guide (English)
 
 **Firmware:** V0.9.22 UNIVERSAL BLE · **Hardware:** TA2DMX MiniMesh Lite NRF (nRF52840 / SX1262 or SX1268)  
