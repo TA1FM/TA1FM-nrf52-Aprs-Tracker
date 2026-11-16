@@ -2,15 +2,7 @@
 
 Bu sayfa, **TA2DMX MiniMesh Lite NRF** için kullanılan firmware pinlerini ve **nRF52840 Pro Micro ile kendin yap (DIY)** görselini bir arada sunar. Pro Micro'nun kart revizyonu, silkscreen pinleri, RF/TCXO donanımı ve Arduino kart varyantı **kurulumdan önce ayrıca doğrulanmalıdır**. Pro Micro'nun aynı işlemciyi taşıması, hazır MiniMesh UF2'nin her karta doğrudan uygun olduğu anlamına gelmez.
 
-## 🖼️ nRF52840 Pro Micro — görsel bağlantı şeması
-
-![TA1FM nRF52 Tracker Pro Micro — DIY bağlantı görseli](images/TA1FM%20nRF52%20Tracker%20Ba%C4%9Flant%C4%B1%20%C5%9Eemas%C4%B1.png)
-
-> ⚠️ **Şema düzeltme / güvenlik notu:** Yüklenen görselde **OLED ve BME280 I²C SCL = P1.06 olarak çizilmiş; bu V0.9.24 kaynak kodundaki `Wire.begin()` kart varyantıyla uyuşmuyor. Doğru SCL pini `P0.11`, SDA pini `P1.04`.** Görseldeki bazı kırmızı/renkli çizgiler fiziksel pinlere tam karşılık gelmeyebilir. **İlk kablolamayı bu görselin oklarına bakarak yapmayın; aşağıdaki yazılı pin tablosunu esas alın.** Özellikle **P0.17 = RF anahtarı kontrolü (RXEN)**, besleme için kullanılamaz; çevre birimi beslemesi uygun **3,3 V regüle VCC** ve GND'den alınır.
-
-**Bu görsel kablolama öncesi düzeltilmesi gereken bir tanıtım taslağıdır.** Yazılı tablolar V0.9.24 firmware pin atamalarını esas alır. Herhangi bir TX testinden önce anten, RF anahtarı, TCXO ve 3,3 V besleme devresi ayrıca kontrol edilmelidir.
-
-Bu belge, **TA2DMX MiniMesh Lite NRF / nRF52840** için hazırlanmış TA1FM Tracker yazılımlarının **kullanılan Arduino kart tanımı** ile pin eşlemesini anlatır. **V0.9.24 STABLE UNIVERSAL BLE**, aynı donanım pin eşlemesinde SX1262/SX1268 seçimini yazılım üzerinden yapabilir; seçimden sonra cihaz yeniden başlatılmalıdır. Ayrı bir nRF52840 modülüyle kendi devresini kuracak kişiler, nRF52840 üzerindeki **P0.xx/P1.xx** pin adlarını esas almalıdır. Parantez içindeki Arduino numaraları farklı kart çekirdeklerinde değişebilir.
+> ⚠️ **DIY görsel şema geçici olarak yayından kaldırıldı:** Önceki görselde yanlış bağlantı çizgileri ve hatalı I²C SCL etiketi vardı. Yeni doğrulanmış şema tamamlanana kadar **aşağıdaki yazılı pin tablolarını** referans alın. Pro Micro revizyonu ve LoRa modülünün RF anahtar/TCXO bağlantıları ayrıca kontrol edilmelidir.
 
 ## 1. LoRa modülü: SX1262 veya SX1268 (SPI)
 
