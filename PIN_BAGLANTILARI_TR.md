@@ -12,6 +12,32 @@ Aşağıdaki görsel, ilk hazırlanan şemanın **kullanıcı tarafından düzel
 
 > **Kablolama öncesi:** Bu görsel, fiziksel kart üzerinde bağımsız olarak test edilmiş bir PCB bağlantı şeması değildir. V0.9.24 firmware'in pin tablosunu esas alın; özellikle OLED/BME280 I²C hatlarını **SDA=P1.04, SCL=P0.11** olarak karşılaştırın. RF anahtarı/TCXO ve güç devresi kullanılan LoRa modülüne göre doğrulanmalıdır.
 
+## fakeTec V4 PCB uyumluluğu ve DIY kurulum
+
+**Sonuç: GPIO/pin haritası düzeyinde örtüşme var.** [fakeTec PCB açık kaynak donanım projesi](https://github.com/gargomoma/fakeTec_pcb) içindeki [fakeTec V4 tasarımı (Issue #16)](https://github.com/gargomoma/fakeTec_pcb/issues/16), nRF52840 **Pro Micro / nice!nano tarzı** işlemci kartı ve LoRa modülü için kullanılan pin düzenini gösterir. V0.9.24 STABLE firmware'inin pinleri bu düzenle karşılaştırılmıştır. Böylece **fakeTec V4, TA1FM için uygun olabilecek DIY PCB adaylarından biri** olarak değerlendirilebilir.
+
+| İşlev | TA1FM V0.9.24 nRF52840 GPIO'ları | fakeTec V4 karşılaştırması |
+|---|---|---|
+| LoRa SPI | SCK **P1.11**, MOSI **P1.15**, MISO **P0.02**, CS **P1.13** | Eşleşiyor |
+| LoRa kontrol | DIO1 **P0.10**, BUSY **P0.29**, RESET **P0.09** | Eşleşiyor |
+| RF anahtarı | RXEN **P0.17** | GPIO eşleşiyor; fiziksel RF yolu/modül kontrol edilmeli |
+| OLED / BME280 I²C | SDA **P1.04**, SCL **P0.11** | Eşleşiyor |
+| GPS UART | MCU RX **P0.22** (GPS TX), MCU TX **P0.20** (GPS RX) | Eşleşiyor |
+| GPS açma | GPS_EN **P0.24** (firmware HIGH) | V4'te GPIO 24 ile sürülen MOSFET var; bağlantı/topoloji doğrulanmalı |
+| Kullanıcı butonu | **P1.00** (Arduino 32) | Eşleşiyor |
+| Batarya ADC | **P0.31** (Arduino 31) | ADC pini aynı; **ölçüm katsayısı ayrıca ayarlanabilir** |
+
+### fakeTec V4 hazırlık kontrol listesi
+
+1. **PCB revizyonu:** `fakeTec V4` ile daha eski/yeni V3, V5 vb. sürümleri karıştırmayın. [Asıl V4 issue'sunu](https://github.com/gargomoma/fakeTec_pcb/issues/16) ve [resmî Gerber arşivini](https://github.com/gargomoma/fakeTec_pcb/tree/main/gerbers) karşılaştırın. **[V4 Gerber ZIP](https://github.com/gargomoma/fakeTec_pcb/blob/main/gerbers/lupusworax_fakeTec_pcb_v4_GERBER.zip)** depoda ayrıca bulunur; üretim öncesinde son düzeltmeleri kontrol edin.
+2. **Radyo modülü ve RF:** Kullanılan modülün gerçekten **SX1262 veya SX1268** olduğunu doğrulayın. TCXO'lu ve kristalli (XTAL) modüller aynı elektriksel ihtiyaçlara sahip değildir. fakeTec README'si **TCXO / XTAL için ayrı kart varyantlarından** söz eder. TA1FM yazılımında **DIO2 RF switch** ve **P0.17 RXEN kontrolü** vardır; modülün RF switch/anten devresine karşılık geldiğini ayrıca ölçün.
+3. **GPS güç kontrolü:** V4 issue'su **GPIO 24, 6 ve 8'i** harici cihazlar için MOSFET kontrol hatları olarak açıklar. TA1FM `GPS_PWR_PIN=P0.24` çıkışını **HIGH** yapar. V4'te MOSFET'in **eksi hattı anahtarladığı** belirtiliyor; GPS bağlantısını ve enable davranışını fiziksel devreye göre doğrulayın. `P0.24` doğrudan GPS beslemesi değildir.
+4. **Batarya ölçümü:** fakeTec'te **R1/R2 gerilim bölücü** bulunur. V0.9.24 firmware'inde **`P0.31` analog okuması `1.73` çarpanıyla** voltaja dönüştürülür (MiniMesh'te test edilen yaklaşık kalibrasyon). fakeTec'in direnç oranına göre ölçüm **yanlış görünebilir**; multimetreyle karşılaştırın, gerekirse firmware kalibrasyonunu ayarlayın. Pilin pozitif/negatif uçlarını ADC'ye doğrudan bağlamayın.
+5. **Besleme ve bootloader:** Pro Micro üzerindeki **B+/B− batarya**, **VCC 3,3 V**, **RAW**, **GND** uçlarını gerçek kart şemasına göre bağlayın. USB UF2 sürücüsünden **Board-ID / SoftDevice** uyumluluğunu kontrol edin; gerekmedikçe bootloader'a dokunmayın. [TA1FM Bootloader arşivi](./BOOTLOADER/README_TR.md) yalnızca uygun kartlarda güncelleme/kurtarma referansıdır.
+6. **İlk test:** Önce USB/OLED/I²C/GPS ve batarya voltajını; sonra uygun LoRa anteni bağlıyken RX/TX fonksiyonunu sınayın. **V0.9.24 STABLE UF2'nin fakeTec V4 PCB üzerinde fiziksel çalışması henüz doğrulanmış değildir.**
+
+**Kaynaklar ve atıf:** [gargomoma/fakeTec_pcb](https://github.com/gargomoma/fakeTec_pcb) · [lupusworax'ın fakeTec V4 tasarımı ve açıklamaları](https://github.com/gargomoma/fakeTec_pcb/issues/16) · [V4 Gerber arşivi](https://github.com/gargomoma/fakeTec_pcb/blob/main/gerbers/lupusworax_fakeTec_pcb_v4_GERBER.zip). Issue'da PCB çizimine **Severin**'in de katkısı belirtilir. TA1FM bu üçüncü taraf PCB tasarımının sahibi değildir; donanımı çoğaltmadan önce orijinal depodaki koşulları ve üretim dosyalarının güncelliğini kontrol edin.
+
 ## 1. LoRa modülü: SX1262 veya SX1268 (SPI)
 
 | LoRa modülü pini | nRF52840 pini | Arduino pin no. |
