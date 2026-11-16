@@ -12,6 +12,8 @@ Aşağıdaki görsel, ilk hazırlanan şemanın **kullanıcı tarafından düzel
 
 > **Kablolama öncesi:** Bu görsel, fiziksel kart üzerinde bağımsız olarak test edilmiş bir PCB bağlantı şeması değildir. V0.9.24 firmware'in pin tablosunu esas alın; özellikle OLED/BME280 I²C hatlarını **SDA=P1.04, SCL=P0.11** olarak karşılaştırın. RF anahtarı/TCXO ve güç devresi kullanılan LoRa modülüne göre doğrulanmalıdır.
 
+<a id="faketec-v4-pcb-uyumlulugu-ve-diy-kurulum"></a>
+
 ## fakeTec V4 PCB uyumluluğu ve DIY kurulum
 
 **Sonuç: GPIO/pin haritası düzeyinde örtüşme var.** [fakeTec PCB açık kaynak donanım projesi](https://github.com/gargomoma/fakeTec_pcb) içindeki [fakeTec V4 tasarımı (Issue #16)](https://github.com/gargomoma/fakeTec_pcb/issues/16), nRF52840 **Pro Micro / nice!nano tarzı** işlemci kartı ve LoRa modülü için kullanılan pin düzenini gösterir. V0.9.24 STABLE firmware'inin pinleri bu düzenle karşılaştırılmıştır. Böylece **fakeTec V4, TA1FM için uygun olabilecek DIY PCB adaylarından biri** olarak değerlendirilebilir.
