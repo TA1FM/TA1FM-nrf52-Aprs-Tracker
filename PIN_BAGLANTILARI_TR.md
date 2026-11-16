@@ -2,7 +2,15 @@
 
 Bu sayfa, **TA2DMX MiniMesh Lite NRF** için kullanılan firmware pinlerini ve **nRF52840 Pro Micro ile kendin yap (DIY)** görselini bir arada sunar. Pro Micro'nun kart revizyonu, silkscreen pinleri, RF/TCXO donanımı ve Arduino kart varyantı **kurulumdan önce ayrıca doğrulanmalıdır**. Pro Micro'nun aynı işlemciyi taşıması, hazır MiniMesh UF2'nin her karta doğrudan uygun olduğu anlamına gelmez.
 
-> ⚠️ **DIY görsel şema geçici olarak yayından kaldırıldı:** Önceki görselde yanlış bağlantı çizgileri ve hatalı I²C SCL etiketi vardı. Yeni doğrulanmış şema tamamlanana kadar **aşağıdaki yazılı pin tablolarını** referans alın. Pro Micro revizyonu ve LoRa modülünün RF anahtar/TCXO bağlantıları ayrıca kontrol edilmelidir.
+## 🖼️ nRF52840 Pro Micro — Bağlantı Şeması
+
+Aşağıdaki görsel, ilk hazırlanan şemanın **kullanıcı tarafından düzeltilip yeniden yüklenmiş** hâlidir.
+
+[![TA1FM nRF52 Tracker Pro Micro bağlantı şeması](images/TA1FM%20nRF52%20Tracker%20Ba%C4%9Flant%C4%B1%20%C5%9Eemas%C4%B1.png)](images/TA1FM%20nRF52%20Tracker%20Ba%C4%9Flant%C4%B1%20%C5%9Eemas%C4%B1.png)
+
+[**Görseli tam boy aç**](images/TA1FM%20nRF52%20Tracker%20Ba%C4%9Flant%C4%B1%20%C5%9Eemas%C4%B1.png)
+
+> **Kablolama öncesi:** Bu görsel, fiziksel kart üzerinde bağımsız olarak test edilmiş bir PCB bağlantı şeması değildir. V0.9.24 firmware'in pin tablosunu esas alın; özellikle OLED/BME280 I²C hatlarını **SDA=P1.04, SCL=P0.11** olarak karşılaştırın. RF anahtarı/TCXO ve güç devresi kullanılan LoRa modülüne göre doğrulanmalıdır.
 
 ## 1. LoRa modülü: SX1262 veya SX1268 (SPI)
 
