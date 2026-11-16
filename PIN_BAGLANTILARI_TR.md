@@ -1,6 +1,16 @@
-# TA1FM nrf52 Tracker — Pin Bağlantıları (SX1262 / SX1268)
+# TA1FM nrf52 Tracker + Digipeater — Pin Bağlantıları (V0.9.24 STABLE)
 
-Bu belge, **TA2DMX MiniMesh Lite NRF / nRF52840** için hazırlanmış TA1FM Tracker yazılımlarının **kullanılan Arduino kart tanımı** ile pin eşlemesini anlatır. **V0.9.22 UNIVERSAL BLE**, aynı donanım pin eşlemesinde SX1262/SX1268 seçimini yazılım üzerinden yapabilir; seçimden sonra cihaz yeniden başlatılmalıdır. Ayrı bir nRF52840 modülüyle kendi devresini kuracak kişiler, nRF52840 üzerindeki **P0.xx/P1.xx** pin adlarını esas almalıdır. Parantez içindeki Arduino numaraları farklı kart çekirdeklerinde değişebilir.
+Bu sayfa, **TA2DMX MiniMesh Lite NRF** için kullanılan firmware pinlerini ve **nRF52840 Pro Micro ile kendin yap (DIY)** görselini bir arada sunar. Pro Micro'nun kart revizyonu, silkscreen pinleri, RF/TCXO donanımı ve Arduino kart varyantı **kurulumdan önce ayrıca doğrulanmalıdır**. Pro Micro'nun aynı işlemciyi taşıması, hazır MiniMesh UF2'nin her karta doğrudan uygun olduğu anlamına gelmez.
+
+## 🖼️ nRF52840 Pro Micro — görsel bağlantı şeması
+
+![TA1FM nRF52 Tracker Pro Micro — DIY bağlantı görseli](images/TA1FM%20nRF52%20Tracker%20Ba%C4%9Flant%C4%B1%20%C5%9Eemas%C4%B1.png)
+
+> ⚠️ **Şema düzeltme / güvenlik notu:** Yüklenen görselde **OLED ve BME280 I²C SCL = P1.06 olarak çizilmiş; bu V0.9.24 kaynak kodundaki `Wire.begin()` kart varyantıyla uyuşmuyor. Doğru SCL pini `P0.11`, SDA pini `P1.04`.** Görseldeki bazı kırmızı/renkli çizgiler fiziksel pinlere tam karşılık gelmeyebilir. **İlk kablolamayı bu görselin oklarına bakarak yapmayın; aşağıdaki yazılı pin tablosunu esas alın.** Özellikle **P0.17 = RF anahtarı kontrolü (RXEN)**, besleme için kullanılamaz; çevre birimi beslemesi uygun **3,3 V regüle VCC** ve GND'den alınır.
+
+**Bu görsel kablolama öncesi düzeltilmesi gereken bir tanıtım taslağıdır.** Yazılı tablolar V0.9.24 firmware pin atamalarını esas alır. Herhangi bir TX testinden önce anten, RF anahtarı, TCXO ve 3,3 V besleme devresi ayrıca kontrol edilmelidir.
+
+Bu belge, **TA2DMX MiniMesh Lite NRF / nRF52840** için hazırlanmış TA1FM Tracker yazılımlarının **kullanılan Arduino kart tanımı** ile pin eşlemesini anlatır. **V0.9.24 STABLE UNIVERSAL BLE**, aynı donanım pin eşlemesinde SX1262/SX1268 seçimini yazılım üzerinden yapabilir; seçimden sonra cihaz yeniden başlatılmalıdır. Ayrı bir nRF52840 modülüyle kendi devresini kuracak kişiler, nRF52840 üzerindeki **P0.xx/P1.xx** pin adlarını esas almalıdır. Parantez içindeki Arduino numaraları farklı kart çekirdeklerinde değişebilir.
 
 ## 1. LoRa modülü: SX1262 veya SX1268 (SPI)
 
@@ -17,7 +27,7 @@ Bu belge, **TA2DMX MiniMesh Lite NRF / nRF52840** için hazırlanmış TA1FM Tra
 | GND | GND | — |
 | VCC | Uygun regüle 3,3 V | — |
 
-**Önemli:** `RXEN` nRF52840 kartındaki RF anahtarına bağlı olabilir; çıplak SX1262/SX1268 modülünde bu adla bir pin bulunmayabilir. RF anahtarı, TCXO gereksinimi ve anten devresi modüle göre ayrıca doğrulanmalıdır. **Güncel V0.9.22:** SX1262/SX1268 aynı Universal firmware içinde seçilebilir. Önceki V0.9.6 ve V0.9.14 paketleri tarihsel ayrı sürümlerdir. Yanlış çip seçimi RF'yi devre dışı bırakabilir; çip değişimi sonrası yeniden başlatın.
+**Önemli:** `RXEN` nRF52840 kartındaki RF anahtarına bağlı olabilir; çıplak SX1262/SX1268 modülünde bu adla bir pin bulunmayabilir. RF anahtarı, TCXO gereksinimi ve anten devresi modüle göre ayrıca doğrulanmalıdır. **Güncel V0.9.24:** SX1262/SX1268 aynı Universal firmware içinde seçilebilir. Önceki V0.9.6 ve V0.9.14 paketleri tarihsel ayrı sürümlerdir. Yanlış çip seçimi RF'yi devre dışı bırakabilir; çip değişimi sonrası yeniden başlatın.
 
 ## 2. OLED ekran: SH1106 / SSD1306 (I²C)
 
@@ -74,15 +84,15 @@ Bu belge, **TA2DMX MiniMesh Lite NRF / nRF52840** için hazırlanmış TA1FM Tra
 
 1. nRF52840 GPIO pinleri 3,3 V mantık düzeyindedir; 5 V sinyal uygulamayın.
 2. LoRa modülüne anten bağlamadan RF yayın testi yapmayın.
-3. **V0.9.22 Universal firmware** SX1262 ve SX1268 seçimini destekler; LLCC68 bu projenin 433.775 MHz / SF12 / BW125 APRS moduyla uyumlu değildir.
+3. **V0.9.24 STABLE Universal firmware** SX1262 ve SX1268 seçimini destekler; LLCC68 bu projenin 433.775 MHz / SF12 / BW125 APRS moduyla uyumlu değildir.
 4. Tablo, çalışan MiniMesh yazılımının pin eşlemesidir; sıfırdan kart yaparken **güç devresi, batarya şarj devresi, RF anahtarı, anten, TCXO ve bootloader/board variant** ayrıca tasarlanmalı ve doğrulanmalıdır.
 5. İlk testte radyo TX'ten önce I²C cihazlarını, GPS UART'ını ve güç hatlarını ayrı ayrı doğrulayın.
 
 ## Kaynak
 
 - [TA1FM Tracker GitHub](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker)
-- [V0.9.22 Universal BLE kaynak kodu](./TA1FM_nrf52_Tracker_UNIVERSAL_BLE_V0_9_22.ino)
-- [V0.9.22 UF2 firmware](./TA1FM_nrf52_Tracker_UNIVERSAL_BLE_V0_9_22.uf2)
+- [V0.9.24 STABLE Universal BLE kaynak kodu](./TA1FM_nrf52_Tracker_UNIVERSAL_BLE_V0_9_24_STABLE.ino)
+- [V0.9.24 STABLE UF2 firmware](./TA1FM_nrf52_Tracker_UNIVERSAL_BLE_V0_9_24_STABLE.uf2)
 - [Türkçe kullanım kılavuzu](./KULLANIM_TR.md)
 - [Meshtastic nrf52_promicro_diy_tcxo kart tanımı](https://github.com/meshtastic/firmware/blob/develop/variants/nrf52840/diy/nrf52_promicro_diy_tcxo/variant.h)
 
