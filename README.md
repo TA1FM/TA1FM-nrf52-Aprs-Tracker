@@ -63,6 +63,18 @@ Kendi TA1FM nRF52 Tracker + Digipeater devresini kurmak isteyenler için **nRF52
 
 > **Montaj notu:** Görsel DIY bağlantı rehberidir; Pro Micro kart revizyonunu, LoRa modülünün RF anahtarı/TCXO ve güç bağlantılarını ayrıca doğrulayın. Firmware ile eşleşen güncel pin tablosu [pin rehberinde](./PIN_BAGLANTILARI_TR.md) yer alır.
 
+### 🔩 fakeTec PCB V4 — TA1FM DIY donanım eşleşmesi
+
+**[fakeTec PCB](https://github.com/gargomoma/fakeTec_pcb)** topluluğunun **[V4 (Issue #16)](https://github.com/gargomoma/fakeTec_pcb/issues/16)** tasarımındaki **nRF52840 Pro Micro GPIO pin eşlemesi**, TA1FM **V0.9.24 STABLE** kaynak kodunun kullandığı LoRa, GPS, OLED/I²C, buton ve batarya ADC pinleriyle **örtüşüyor**. Bu nedenle fakeTec V4, kendi TA1FM Tracker/Digipeater cihazını yapmak isteyenler için **aday PCB**'dir.
+
+- **[Orijinal fakeTec projesi](https://github.com/gargomoma/fakeTec_pcb)** · **[V4 tasarım / montaj açıklaması](https://github.com/gargomoma/fakeTec_pcb/issues/16)** · **[Gerber arşivi](https://github.com/gargomoma/fakeTec_pcb/tree/main/gerbers)** · **[V4 Gerber ZIP](https://github.com/gargomoma/fakeTec_pcb/blob/main/gerbers/lupusworax_fakeTec_pcb_v4_GERBER.zip)**
+- **Kontrol edilen eşleşmeler:** LoRa SPI `P1.11/P1.15/P0.02`, CS `P1.13`, DIO1 `P0.10`, BUSY `P0.29`, RESET `P0.09`, RXEN `P0.17`; OLED/BME280 SDA `P1.04`, SCL `P0.11`; GPS UART `P0.20/P0.22`, GPS_EN `P0.24`; buton `P1.00`, batarya ADC `P0.31`.
+- **[fakeTec V4 için ayrıntılı uyumluluk notları ve kontrol listesi](./PIN_BAGLANTILARI_TR.md#faketec-v4-pcb-uyumlulugu-ve-diy-kurulum)**
+
+> **Doğrulama sınırı:** Eşleşme **firmware GPIO haritası ve fakeTec dokümanları** üzerindendir; **TA1FM V0.9.24'ün fakeTec V4 üzerinde çalıştığı henüz fiziksel olarak test edilmedi**. Kart revizyonu, LoRa çipi/TCXO/RF anahtarı, bootloader/SoftDevice, GPS güç kontrolü ve **batarya bölücü kalibrasyonu** kontrol edilmeden doğrudan uyum/UF2 garantisi verilmez. Gerber'leri üretime göndermeden önce ilgili V4 issue'sundaki son revizyonu okuyun.
+
+**Tasarım atfı:** [gargomoma/fakeTec_pcb](https://github.com/gargomoma/fakeTec_pcb) · fakeTec V4 katkısı: **lupusworax** (issue içinde **Severin**'in PCB çizimine katkısı da belirtilmiştir). **TA1FM projesi fakeTec PCB tasarımının sahibi değildir.**
+
 ## 🌐 Web Configurator / Ayar paneli
 
 **[V0.9.24 uyumlu USB + BLE Web Configurator — Open / Aç](https://ta1fm.github.io/TA1FM-nrf52-Aprs-Tracker-Configurator/beta_v0_9_23.html)**
