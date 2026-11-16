@@ -170,6 +170,12 @@ Ayrıntılı donanım tablosu: **[PIN_BAGLANTILARI_TR.md](./PIN_BAGLANTILARI_TR.
 
 **Dikkat:** Bunlar mevcut **kart varyantına özgü** bağlantılardır; başka nRF52840 tanımında Arduino numaraları değişebilir. 3,3 V GPIO sınırlarını ve batarya ADC ölçeklemesini doğrulayın. Antensiz TX yapmayın.
 
+### DIY PCB seçeneği: fakeTec V4
+
+[**fakeTec V4 PCB tasarımı**](https://github.com/gargomoma/fakeTec_pcb/issues/16), TA1FM V0.9.24'ün **GPIO haritası** ile (LoRa SPI/kontrol, OLED/BME280 I²C, GPS UART/EN, buton ve batarya ADC) eşleşir. Hazır bir **nRF52840 Pro Micro DIY PCB adayıdır**, ancak **V0.9.24 UF2'nin bu kartta çalıştığı fiziksel olarak henüz test edilmedi**. Kullanılacak LoRa modülünün SX1262/SX1268 çipi, TCXO/RF anahtarı, GPS için GPIO 24 MOSFET yapısı, 3,3 V besleme, bootloader/SoftDevice ve batarya R1/R2 bölücüsü ayrıca doğrulanmalıdır.
+
+**Kaynak ve dosyalar:** [Orijinal fakeTec deposu](https://github.com/gargomoma/fakeTec_pcb) · [fakeTec V4 Issue #16](https://github.com/gargomoma/fakeTec_pcb/issues/16) · [V4 Gerber ZIP](https://github.com/gargomoma/fakeTec_pcb/blob/main/gerbers/lupusworax_fakeTec_pcb_v4_GERBER.zip) · [TA1FM pin eşleştirme ve güvenli montaj kontrol listesi](./PIN_BAGLANTILARI_TR.md#faketec-v4-pcb-uyumlulugu-ve-diy-kurulum).
+
 ## 10. Kurulum sonrası son kontrol
 
 1. **Firmware:** OLED'de V0.9.24, USB'de sürüm satırı (bazı metinlerde BETA kalabilir).
