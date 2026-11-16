@@ -51,18 +51,6 @@
 
 
 
-## 🛠️ nRF52840 Pro Micro — DIY bağlantı görseli
-
-Kendi devresini kurmak isteyenler için **nRF52840 Pro Micro + SX1262/SX1268 + GPS + OLED + isteğe bağlı BME280** bağlantılarını gösteren görsel taslak:
-
-<p align="center">
-  <a href="images/TA1FM%20nRF52%20Tracker%20Ba%C4%9Flant%C4%B1%20%C5%9Eemas%C4%B1.png"><img src="images/TA1FM%20nRF52%20Tracker%20Ba%C4%9Flant%C4%B1%20%C5%9Eemas%C4%B1.png" width="540" alt="TA1FM nRF52 Tracker Pro Micro bağlantı şeması — önizleme"></a>
-</p>
-
-> ⚠️ **Kablolama uyarısı (V0.9.24):** Bu görsel henüz son elektriksel bağlantı şeması olarak doğrulanmamıştır. **OLED/BME280 SCL görselde P1.06 yazıyor; mevcut V0.9.24 firmware kart tanımında doğru hat P0.11'dir.** Bazı renkli oklar temsilidir; güç bağlantısını çizimdeki oklarla tahmin etmeyin. Lehimleme için [doğrulanmış pin tablosunu ve düzeltme notlarını](./PIN_BAGLANTILARI_TR.md) esas alın. **P0.17, VCC değil; RF anahtarı kontrol pinidir.**
-
-**[📌 Tam boy görsel ve güncel pin bağlantı tablosu → PIN_BAGLANTILARI_TR.md](./PIN_BAGLANTILARI_TR.md)**
-
 ## 🌐 Web Configurator / Ayar paneli
 
 **[V0.9.24 uyumlu USB + BLE Web Configurator — Open / Aç](https://ta1fm.github.io/TA1FM-nrf52-Aprs-Tracker-Configurator/beta_v0_9_23.html)**
