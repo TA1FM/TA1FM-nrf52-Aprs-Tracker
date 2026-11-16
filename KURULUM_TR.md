@@ -16,7 +16,7 @@ Bu belge, eski sürüm kılavuzlarının üstüne eklenmiş notlar yerine, **V0.
 |---|---|
 | Kart | TA2DMX MiniMesh Lite NRF / projeye uygun nRF52840 kart varyantı |
 | LoRa | Fiziksel modüle göre **SX1262 veya SX1268** (LLCC68 bu proje ayarları için desteklenmez) |
-| GPS | L76K / uygun NMEA GPS, firmware'de `Serial1` 9600 baud |
+| GPS | ATMG336H VEYA NEO6MV2  gibi / uygun GPS modülü, firmware'de `Serial1` 9600 baud |
 | OLED | 128×64 **SH1106 veya SSD1306**, I²C `0x3C` |
 | BME280 | İsteğe bağlı WX sensörü; I²C `0x76` veya `0x77` |
 | USB/bootloader | Kartla eşleşen nRF52840 **UF2 bootloader** ve doğru pin tanımı |
