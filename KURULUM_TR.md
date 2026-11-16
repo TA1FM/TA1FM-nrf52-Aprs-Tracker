@@ -20,7 +20,7 @@ Bu belge, eski sürüm kılavuzlarının üstüne eklenmiş notlar yerine, **V0.
 | OLED | 128×64 **SH1106 veya SSD1306**, I²C `0x3C` |
 | BME280 | İsteğe bağlı WX sensörü; I²C `0x76` veya `0x77` |
 | USB/bootloader | Kartla eşleşen nRF52840 **UF2 bootloader** ve doğru pin tanımı |
-| RF | 433.775 MHz anten |
+| RF | 433.775 MHz e uygun UHF anten |
 
 **Her nRF52840 kartına bu UF2'yi yüklemeyin.** Bootloader, SoftDevice, SPI, RF anahtarı, TCXO, GPS, tuş ve OLED pinlerinin bu MiniMesh projesiyle uyumlu olması gerekir. TX öncesinde anten bağlayın.
 
