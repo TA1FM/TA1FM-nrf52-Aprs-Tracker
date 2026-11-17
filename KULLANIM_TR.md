@@ -1,3 +1,5 @@
+> **✅ GÜNCEL SÜRÜM: v1.0.0 STABLE (17.11.2026)** — [Release ve UF2/INO dosyaları](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker/releases/tag/v1.0.0) · [Güncel USB + BLE kontrol paneli](https://ta1fm.github.io/TA1FM-nrf52-Aprs-Tracker-Configurator/). **Bu belgenin aşağıdaki ayrıntılı talimatları eski v0.9.24 sürümünü temel alır ve arşiv amaçlı korunur.** v1.0.0 ayrıca USB/BLE APRS mesajlaşmasını destekler; eski sürüm bağlantılarını güncel indirme olarak kullanmayın.
+
 # TA1FM nrf52 Tracker + Digipeater — Kullanım Kılavuzu (Türkçe)
 
 **Güncel sürüm:** V0.9.24 STABLE · **Hedef:** TA2DMX MiniMesh Lite NRF / nRF52840 · **LoRa APRS:** 433.775 MHz, SF12, BW125 kHz, CR 4/5
