@@ -1,12 +1,41 @@
 # TA1FM nRF52 LoRa APRS Tracker + Digipeater
 
-**Current firmware / Güncel kararlı sürüm: V0.9.24 STABLE — TRACKER + DIGIPEATER** · **LoRa APRS: 433.775 MHz (SF12 / BW125 / CR 4/5)**
+## ✅ Güncel kararlı sürüm / Latest stable: v1.0.0
 
-**✅ V0.9.24 STABLE — TRACKER + DIGIPEATER (SX1268 TRACKER saha testli):** [UF2 indir](TA1FM_nrf52_Tracker_UNIVERSAL_BLE_V0_9_24_STABLE.uf2) · [Kaynak kod](TA1FM_nrf52_Tracker_UNIVERSAL_BLE_V0_9_24_STABLE.ino) · [Sürüm ve saha testi notları](V0_9_24_STABLE_NOTLARI.md) · [Uyumlu USB/BLE Web Ayar Paneli](https://ta1fm.github.io/TA1FM-nrf52-Aprs-Tracker-Configurator/beta_v0_9_23.html). **Aynı test edilmiş V0.9.24 BETA derlemesi değiştirilmeden STABLE olarak işaretlenmiştir; V0.9.22 arşivde tutulur.**
+**17 Kasım 2026** · **nRF52840 MiniMesh Lite NRF** · **LoRa APRS 433.775 MHz (SF12 / BW125 / CR 4/5)**
 
-**NEW IN V0.9.24: Selectable LoRa APRS DIGIPEATER mode.** A single **TA2DMX MiniMesh Lite NRF (nRF52840)** supports GPS TRACKER or fixed-station DIGI operation, SX1262/SX1268 radio selection, SH1106/SSD1306 OLED, optional BME280, and USB/Bluetooth BLE configuration.
+**[🚀 v1.0.0 STABLE — GitHub Release](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker/releases/tag/v1.0.0)** · [UF2 firmware indir](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker/releases/download/v1.0.0/TA1FM_nrf52_Tracker_v1.0.0_STABLE.uf2) · [Arduino .ino kaynak kodunu indir](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker/releases/download/v1.0.0/TA1FM_nrf52_Tracker_v1.0.0_STABLE.ino)
 
-**TR:** **V0.9.24 ile DIGIPEATER (DIGI) özelliği eklendi!** Tek cihazda **TRACKER / sabit DIGI modu seçimi**, WIDE1-1 / WIDE2-1 / WIDE2-2 paket tekrarlama, sabit konum beacon'ı, 30 sn mükerrer filtre ve 4 paketlik kuyruk vardır. Ayrıca **SX1262 / SX1268**, SMART Beaconing, USB + BLE ayar paneli, OLED seçimi ve **Direct Flash A/B + CRC32** korunur. Modlar aynı anda değil, seçilerek çalışır.
+**[🌐 TA1FM Tracker Control Panel — USB + BLE](https://ta1fm.github.io/TA1FM-nrf52-Aprs-Tracker-Configurator/)** · [Panel kaynak dosyası](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker-Configurator/blob/main/TA1FM_Tracker_Control_Panel.html)
+
+Bu sürüm, **V0.9.26 BETA-7** temel alınarak yayımlandı. İki ayrı nRF52840 MiniMesh cihazında yapılan kullanıcı testlerinde başarılı sonuç alındı. Yüklenebilir .uf2 ve .ino dosyaları Release sayfasının **Assets** bölümündedir; önceki kararlı sürümler ve BETA kaynakları korunmuştur.
+
+### Başlıca özellikler / Key features
+
+- **TRACKER:** GPS konum yayını, SMART/FIXED beaconing, park modu ve APRS sembolleri.
+- **DIGIPEATER:** Seçilebilir DIGI modu ve WIDE yol paket tekrarı.
+- **APRS mesajlaşma:** LoRa üzerinden gönderim/alım, gelen kutusu, ACK takibi ve **1/2/3 toplam RF denemesi** seçimi. ACK, alıcı kişinin mesajı okuduğu anlamına gelmez.
+- **USB + BLE kontrol:** Sekmeli panelde Mesajlar, Canlı, Ayarlar ve Kayıtlar; bağlantı seçimi ve cihaz durumunu izleme.
+- **Donanım:** SX1262/SX1268 seçimi, SH1106/SSD1306 OLED, isteğe bağlı BME280, pil ve RF bilgileri.
+- **Ayarlar:** Direct Flash A/B + CRC32 kalıcı ayar kaydı. **Gelen APRS mesajları RAM'de tutulur; cihaz kapatılınca silinir.**
+
+### Kurulum / Quick start
+
+1. Mevcut ayarlarınızı ve çalışan firmware yedeğinizi saklayın.
+2. Kartınızın nRF52840 MiniMesh Lite NRF ve RF donanımının uygun olduğundan emin olun. RF gönderimi için anten bağlayın.
+3. [v1.0.0 UF2 dosyasını](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker/releases/download/v1.0.0/TA1FM_nrf52_Tracker_v1.0.0_STABLE.uf2) Release bölümünden indirip **kartınızın desteklediği UF2 yükleme yöntemiyle** kurun.
+4. [Güncel USB/BLE panelini](https://ta1fm.github.io/TA1FM-nrf52-Aprs-Tracker-Configurator/) açın. Önce cihazdan ayarları okuyun; ardından çağrı işareti, LoRa çipi, GPS, OLED ve mesaj ayarlarını kontrol edin.
+5. USB bağlantısı sırasında aynı COM portunu kullanan seri monitörü kapatın. BLE için uyumlu tarayıcı ve HTTPS kullanın.
+
+**Sürüm geçmişi:** [v0.9.24 STABLE](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker/releases/tag/v0.9.24) · [v0.9.22](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker/releases/tag/v0.9.22) · [BETA-7 kaynak arşivi](./BETA/TA1FM_nrf52_Tracker_UNIVERSAL_BLE_V0_9_26_BETA7_USB_BLE_TABS/)
+
+> **Geliştirme planı:** İsteğe bağlı aktif buzzer ile APRS mesaj uyarısı sonraki sürümler için düşünülmektedir; **v1.0.0'da bulunmaz**.
+
+---
+
+## 📚 Önceki sürüm teknik notları — v0.9.24 arşivi
+
+Aşağıdaki teknik bölümler **v0.9.24 dönemine ait** tarihsel dokümantasyondur. Burada görülen eski sürüm numaraları, indirme bağlantıları, panel adresleri ve “mesajlaşma yok” ifadeleri **v1.0.0 için geçerli değildir**. Güncel indirme ve kullanım bağlantıları yukarıdadır.
 
 ## 📡 Yeni özellik: LoRa APRS DIGIPEATER (DIGI) — V0.9.24
 
