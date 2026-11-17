@@ -46,7 +46,7 @@ Gönderici `TA1FM-9`, hedef `TA1FM-8` ise:
 TA1FM-9>APZTFM,WIDE1-1::TA1FM-8  :SELAM KANKA
 ```
 
-Buradaki çift `::`, ilk `:` header sonu, ikinci `:` APRS message veri türüdür. `TA1FM-8` sekiz karakter olduğu için alıcı alanı toplam 9 karakter olacak şekilde boşlukla tamamlanır (tek boşluk).
+Buradaki çift `::`, ilk `:` header sonu, ikinci `:` APRS message veri türüdür. `TA1FM-8` yedi karakter olduğu için 9 karakterlik alıcı alanı iki boşlukla tamamlanır.
 
 **Sınırlar:** Mesaj ID/ACK ve retry (BETA-5), BLE mesaj yazma (sonraki adım), tek tuş hazır mesaj TX (sonraki adım) bu sürümde YOK. `msg send` komutundan sonra TX, mevcut RF korumasına bağlı olarak 10 saniyeye kadar ertelenebilir; RF hazır olmazsa 30 saniyede zaman aşımına uğrar.
 
