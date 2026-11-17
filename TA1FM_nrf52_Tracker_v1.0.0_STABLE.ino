@@ -1,45 +1,5 @@
 /*
   TA1FM nrf52 Tracker - UNIVERSAL BLE V1.0.0 STABLE (BLE APRS MSG)
-  Temel: V0.9.14 SX1268; Direct Flash A/B ve CRC32 sistemi korunur.
-  TEST: SX1262 / SX1268 secimi; mevcut GPS/OLED/APRS islevleri korunur.
-  BLE: 18 bayt NUS, ayar okuma, sifresiz kaydetme anahtari, tek Direct Flash commit.
-  APRS RX+OLED+USB/BLE MSG TX+RF ACK+3 DENEME (MESAJ PANELI B6).
-  V0.9.14: Web uzerinden OLED SH1106/SSD1306 onizleme, onaylama,
-  iptal, uyandirma ve ekran suresi ayarlari (Direct Flash kaydi).
-  20 saniyelik onizlemede onay verilmezse onceki surucuye doner.
-  APRS TX/RX, GPS, Smart Beacon ve A/B flash kayit sistemi korunur.
-  ONEMLI: Sadece Direct Flash kullanilir; eski dosya sistemi acilmaz.
-  MiniMesh Lite NRF (TA2DMX), nRF52840
-
-  V0.6 bazinda: GPS, pil, BME280, menu, OLED kurtarma, LoRa RX.
-  YENI: MANUEL KONUM ve WX APRS TX, GPS FIX ve kayitli CALLSIGN zorunlu.
-  YENI: USB seri komutuyla cagrı isareti / SSID kaydi.
-  Gecersiz veya ayarlanmamis cagrida TX KAPALI.
-
-  GEREKLI KUTUPHANELER:
-  Adafruit TinyUSB (Adafruit nRF52 core), Adafruit GFX,
-  Adafruit SH110X, Adafruit SSD1306,
-  TinyGPSPlus (Mikal Hart), Adafruit BME280 Library,
-  Adafruit Unified Sensor (BME280 bagimliligi), RadioLib 7.8.1.
-
-  Kart: TA1FM MiniMesh Lite NRF (TA2DMX), SoftDevice S140 6.1.1.
-  Mevcut calisan V0.4 dosyalarini yedekleyin.
-
-  V0.9: Position SMART/FIXED, independent WX and STATUS timers,
-  COMMENT interval, serial text editing, OLED last APRS heard station.
-  AUTO TX enabled on first valid callsign, manual a off is persistent
-  state is respected. Initial position on GPS fix; WX independent of park.
-  Park sembolu korunur; WX bagimsizdir. LoRa RF TX korumasi 10 saniye.
-  Callsign, OLED, smart ve RF ayarlari Direct Flash A/B kaydinda korunur.
-  Tum ayarlar Direct Flash A/B tek kaydinda saklanir.
-  RF TEST 2: SX1262 + SX1268 OCP yuksek guc icin 140 mA; diger ozellikler aynen korunur.
-  AYRI TEST SURUMU: PA GIRISINE BAGLAMADAN ONCE 50 OHM YUKTE KONTROL EDIN.
-  V0.9.24 BETA: DIGI tekrar filtresi 30 sn, USB seri cikti duzeni,
-  DIGI TX dogrulama/sayaclari, DIGI RX kontrollu toparlanma.
-  RF TEST 2 OCP 140 mA (SX1262/SX1268), Direct Flash A/B schema 2,
-  BLE UART V0.9.23 ayar protokolu ve web panel uyumlulugu korunur.
-  Derleme ve donanim testleri kullanici tarafinda dogrulanmalidir.
-
 */
 
 #include <Adafruit_TinyUSB.h>
