@@ -1,4 +1,4 @@
-> **✅ GÜNCEL SÜRÜM: v1.0.0 STABLE (17.11.2026)** — [Release ve UF2/INO dosyaları](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker/releases/tag/v1.0.0) · [Güncel USB + BLE kontrol paneli](https://ta1fm.github.io/TA1FM-nrf52-Aprs-Tracker-Configurator/). **Bu belgenin aşağıdaki ayrıntılı talimatları eski v0.9.24 sürümünü temel alır ve arşiv amaçlı korunur.** v1.0.0 ayrıca USB/BLE APRS mesajlaşmasını destekler; eski sürüm bağlantılarını güncel indirme olarak kullanmayın.
+> **✅ GÜNCEL SÜRÜM: v1.0.0 STABLE (17.11.2026)** — [Release ve UF2/INO dosyaları](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker/releases/tag/v1.0.0) · [Güncel USB + BLE kontrol paneli](https://ta1fm.github.io/TA1FM-nrf52-Aprs-Tracker-Configurator/). **Yeni APRS mesajlaşma bölümü v1.0.0 içindir; geri kalan ayrıntılı talimatlar eski v0.9.24 sürümünü temel alır ve arşiv amaçlı korunur.** v1.0.0 ayrıca USB/BLE APRS mesajlaşmasını destekler; eski sürüm bağlantılarını güncel indirme olarak kullanmayın.
 
 # TA1FM nrf52 Tracker + Digipeater — Kullanım Kılavuzu (Türkçe)
 
@@ -7,6 +7,71 @@
 Bu kılavuz doğrudan **V0.9.24 STABLE** kaynak kodu ve bu sürümle uyumlu USB/BLE ayar paneli temel alınarak **baştan yazılmıştır**. Önceki sürümün talimatlarını art arda ekleyen bir değişiklik listesi değildir. **TRACKER ve DIGIPEATER** kullanımı tek belgede açıklanır.
 
 **Hızlı bağlantılar:** [Hazır STABLE UF2](./TA1FM_nrf52_Tracker_UNIVERSAL_BLE_V0_9_24_STABLE.uf2) · [Arduino kaynak kodu](./TA1FM_nrf52_Tracker_UNIVERSAL_BLE_V0_9_24_STABLE.ino) · [Güncel Web Ayar Paneli](https://ta1fm.github.io/TA1FM-nrf52-Aprs-Tracker-Configurator/beta_v0_9_23.html) · [Adım adım kurulum](./KURULUM_TR.md) · [Tüm USB konsol komutları](./SERI_KONSOL_KOMUT_REHBERI_V0_9_24_TR.md)
+
+## v1.0.0 STABLE — APRS mesajlaşma (USB / Bluetooth BLE)
+
+**v1.0.0 STABLE** ile cihazlar arasında **433.775 MHz LoRa APRS üzerinden metin mesajı gönderme ve alma** desteği bulunur. Mesaj yönetimi, bilgisayarda USB veya uygun tarayıcıda Bluetooth BLE kullanılarak [TA1FM Tracker Control Panel](https://ta1fm.github.io/TA1FM-nrf52-Aprs-Tracker-Configurator/) üzerinden yapılır. Bu bölüm **v1.0.0'a aittir**; aşağıdaki eski v0.9.24 bölümleri tarihsel kullanım bilgisidir.
+
+### 1) Web panelinden mesaj gönderme
+
+1. Tracker'ı açın; geçerli çağrı işaretini, LoRa bağlantısını ve anteni kontrol edin. Karşı istasyonda da uyumlu LoRa APRS ayarları bulunmalıdır.
+2. [Ana kontrol panelini](https://ta1fm.github.io/TA1FM-nrf52-Aprs-Tracker-Configurator/) açın. USB kullanacaksanız veri kablosunu takın ve Arduino Seri Monitör'ü kapatın. BLE kullanacaksanız Bluetooth'u açın, HTTPS ve BLE destekleyen tarayıcı kullanın.
+3. Panelin üstünden **USB** veya **Bluetooth BLE** bağlantısı kurun; ardından **Mesajlar** sekmesini açın.
+4. Mesajın hangi cihazdan çıkacağını belirleyen **USB/BLE bağlantısını** seçin. Özellikle iki farklı cihaz bağlıysa doğru kaynak cihazı kontrol edin.
+5. **Alıcı çağrı işaretini** (SSID dahil, ör. `TA1FM-7`) ve mesaj metnini girin. **1, 2 veya 3 toplam RF gönderim denemesi** seçin ve mesajı gönderin.
+6. Gönderim/ACK durumunu panelden izleyin. Karşı cihazda gelen mesaj, **Mesajlar / Gelen Kutusu** bölümünde görüntülenir.
+
+**RF denemesi ve ACK:** Varsayılan **1 deneme**, tek bir RF mesaj gönderimidir; ACK beklenmesi kendi başına tekrar yayın anlamına gelmez. Eşleşen ACK gelmezse **2 veya 3 deneme** seçildiğinde en fazla seçilen toplam sayıda RF yayını yapılabilir. ACK alınırsa tekrar denemeleri durur. Tek gönderimde de yaklaşık **60 saniyelik ACK beklemesi** sonunda `ACK_TIMEOUT` görülebilir. **ACK, cihazın protokol onayıdır; mesajın bir insan tarafından okunduğu anlamına gelmez.**
+
+### 2) Gelen kutusu ve mesaj durumu
+
+- Alınan mesajlar panelden **USB veya BLE** yoluyla görüntülenebilir; OLED üzerindeki mesaj menüsü de kullanılabilir.
+- Gelen kutusu kapasitesi **son 10 mesajdır**. Canlı `MEM` göstergesi boş RAM miktarını değil, mesaj kutusunun **0–10 arasındaki doluluk bilgisini** gösterir.
+- **Mesaj geçmişi RAM'de tutulur:** Cihaz kapatılıp açıldığında gelen kutusu silinir. Flash belleğe kalıcı mesaj kaydı bu sürümde yoktur.
+- Cihazın `QUEUED`, `OUT`, `INBOX`, `CANCELLED` ve ACK/timeout durumları gönderim sürecini anlamaya yardımcı olur.
+- APRS.fi üzerinden bazı trafik kayıtları görülebilir; ancak **yalnızca RF üzerinden alınan bütün mesajların internete ulaşacağı garanti değildir**. Bu tracker bir APRS-IS iGate değildir.
+
+### 3) USB seri monitörden mesajlaşma (115200 baud)
+
+Arduino IDE Seri Monitör'de **115200 baud** ve satır sonu **Newline** kullanın. Panel USB portunu kullanıyorsa Seri Monitör'ü kapatın.
+
+```text
+msg hello
+msg live
+msg inbox
+msg status
+msg send TA1FM-7 SELAM KANKA
+msg send2 TA1FM-7 SELAM KANKA
+msg send3 TA1FM-7 SELAM KANKA
+msg cancel
+```
+
+| Komut | Açıklama |
+|---|---|
+| `msg hello` | Mesajlaşma protokolü/bağlantı bilgisini sorgular |
+| `msg live` | Canlı GPS, RF, TX ve mesaj kutusu bilgilerini ister |
+| `msg inbox` | Gelen kutusunu görüntüler |
+| `msg status` | Mesaj gönderim durumunu sorgular |
+| `msg send ÇAĞRI METİN` | **1** toplam RF gönderim denemesi |
+| `msg send2 ÇAĞRI METİN` | **2** toplam RF gönderim denemesi |
+| `msg send3 ÇAĞRI METİN` | **3** toplam RF gönderim denemesi |
+| `msg cancel` | Bekleyen mesaj gönderimini iptal etmeyi ister |
+
+Örnekteki `TA1FM-7` yalnızca **temsili alıcı çağrı işaretidir**; gerçek alıcının çağrı işaretini kullanın. Gönderim ve ACK işlemleri LoRa bağlantısına ve ortak RF TX koruma zamanlamasına tabidir.
+
+### 4) Sık karşılaşılan durumlar
+
+| Belirti | Kontrol |
+|---|---|
+| Mesaj gönderilemiyor | Cihaz çağrı işareti, LoRa çip seçimi, anten, RF durumu ve seçilen USB/BLE bağlantısını kontrol edin |
+| `ACK_TIMEOUT` | Karşı cihazın duyup duymadığını ve ACK'nin RF üzerinden geri gelip gelmediğini kontrol edin; metnin okunmadığını tek başına göstermez |
+| Gelen mesajlar yeniden açılışta yok | **Normaldir**; son 10 mesaj RAM'dedir, kalıcı olarak saklanmaz |
+| BLE panelinde mesaj sekmesi çalışmıyor | Doğru cihazı, BLE bağlantısını ve **v1.0.0 / BETA-7 mesaj protokolü uyumluluğunu** kontrol edin |
+| Panelde `B7` görülüyor | `MSG|HELLO|B7` ve `LIVE|B7` mesajlaşma protokol tanımlarıdır; **firmware sürümünün BETA olduğu anlamına gelmez** |
+
+**Not:** Hazır mesaj şablonları ve bir iGate'in APRS-IS üzerinden LoRa'ya otomatik yanıt aktarımı bu sürümün özellikleri değildir.
+
+---
 
 ## 1. Cihazın iki çalışma modu
 
