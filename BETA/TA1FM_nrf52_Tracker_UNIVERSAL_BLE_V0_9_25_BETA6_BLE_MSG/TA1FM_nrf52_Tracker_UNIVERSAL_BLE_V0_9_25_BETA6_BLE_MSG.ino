@@ -2902,9 +2902,7 @@ static int8_t bleCfgReadIndex = -1;
 static int8_t bleMsgReadIndex = -1;
 static uint8_t bleMsgReadCount = 0;
 static Ta1fmMessage bleMsgReadSnapshot[TA1FM_MSG_CAPACITY] = {};
-static uint32_t bleMsgTxArmUntil = 0;
 static uint32_t bleMsgLastStatusAt = 0;
-static const uint32_t BLE_MSG_ARM_MS = 15000UL;
 static DirectRecord bleDraft = {};
 static bool bleDraftValid = false;
 static uint32_t bleDraftSeq = 0;
@@ -2944,10 +2942,10 @@ void bleReply(const char* msg) {
 // MSG|HELLO|B6      / MSG|OUT|STATE|TO|ID|TRY|MAX|RADIOCODE
 // MSG|INBOX|BEGIN|COUNT ... MSG|IN|N|FROM|ID|TEXT ... MSG|INBOX|END
 // MSG|NEW|COUNT|UNREAD (optional push); MSG|QUEUED|TO|ID
-// Commands: msg hello/status/inbox, msg arm, msg send CALL TEXT,
-//           msg cancel / msg disarm.
-// RF transmit must be explicitly armed (RAM-only, 15 sec, one send).
-// NOTE: BLE NUS is unpaired. This mitigates accidental UI TX, not attackers.
+// Commands: msg hello/status/inbox, msg send CALL TEXT, msg cancel.
+// No extra device TX permission/ARM, just send by BLE panel.
+// BLE NUS is unpaired; anybody who connects locally could trigger RF TX.
+// Existing shared 10s RF TX guard and ACK retry limits stay active.
 // ---------------------------------------------------------------------------
 void bleMessageStatus(){
   if(!Bluefruit.connected())return;
@@ -3011,22 +3009,7 @@ bool bleMessageCommand(const char* cmd){
     bleMessageStartInbox();
     return true;
   }
-  if(!strcmp(cmd,"msg arm")){
-    if(!callsignValid || stationMode!=0 || !loraReady){
-      bleReply("MSG|ERR|TRACKER_OR_RADIO_NOT_READY");
-      return true;
-    }
-    bleMsgTxArmUntil=millis()+BLE_MSG_ARM_MS;
-    bleReply("MSG|ARMED|15");
-    return true;
-  }
-  if(!strcmp(cmd,"msg disarm")){
-    bleMsgTxArmUntil=0;
-    bleReply("MSG|DISARMED");
-    return true;
-  }
   if(!strcmp(cmd,"msg cancel")){
-    bleMsgTxArmUntil=0;
     const bool active=ta1fmMsgTxState==TA1FM_TX_QUEUED ||
                       ta1fmMsgTxState==TA1FM_TX_WAIT_ACK;
     if(active)ta1fmMessageTxUsb("msg cancel");
@@ -3035,10 +3018,7 @@ bool bleMessageCommand(const char* cmd){
     return true;
   }
   if(!strncmp(cmd,"msg send ",9)){
-    const uint32_t now=millis();
-    const bool armed=bleMsgTxArmUntil && (int32_t)(bleMsgTxArmUntil-now)>0;
-    bleMsgTxArmUntil=0; // single-use token even if validation fails.
-    if(!armed){bleReply("MSG|ERR|TX_NOT_ARMED");return true;}
+    // Direct BLE send: only the normal RF queue/ACK rules apply.
     if(ta1fmMsgTxBuild(cmd+9,true)){
       char reply[70]={};
       snprintf(reply,sizeof(reply),"MSG|QUEUED|%s|%s",ta1fmMsgTxTo,ta1fmMsgTxId);
@@ -3427,7 +3407,6 @@ void blePoll() {
   const bool connected=Bluefruit.connected();
   if (connected!=bleWasConnected) {
     bleWasConnected=connected;
-    bleMsgTxArmUntil=0; // do not retain transient TX permission across BLE sessions
     bleMsgReadIndex=-1;
     bleMsgLastStatusAt=0;
     bleTxLen=bleTxOffset=0;bleCommandLen=0;
