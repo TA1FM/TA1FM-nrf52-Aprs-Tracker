@@ -1350,6 +1350,7 @@ bool ta1fmMessageTxUsb(const char* cmd){
       ta1fmMsgTxLen=0;
       Serial.println("[APRS MSG TX] Pending message cancelled; no further RF attempts");
     } else Serial.println("[APRS MSG TX] NOTHING PENDING TO CANCEL");
+    Serial.println("MSG|CANCELLED");ta1fmUsbMsgStatus();
     return true;
   }
   if(!strncmp(cmd,"msg preview ",12)){
@@ -2987,13 +2988,13 @@ void bleReply(const char* msg) {
 
 // ---------------------------------------------------------------------------
 // V0.9.26 BETA-7: separate BLE messaging protocol over the SAME Nordic UART.
-// MSG|HELLO|B6      / MSG|OUT|STATE|TO|ID|TRY|MAX|RADIOCODE
+// MSG|HELLO|B7      / MSG|OUT|STATE|TO|ID|TRY|MAX|RADIOCODE
 // MSG|INBOX|BEGIN|COUNT ... MSG|IN|N|FROM|ID|TEXT ... MSG|INBOX|END
 // MSG|NEW|COUNT|UNREAD (optional push); MSG|QUEUED|TO|ID
 // Commands: msg hello/status/inbox, msg send CALL TEXT, msg cancel.
 // No extra device TX permission/ARM, just send by BLE panel.
 // BLE NUS is unpaired; anybody who connects locally could trigger RF TX.
-// Existing shared 10s RF TX guard and ACK retry limits stay active.
+// Shared 10s RF TX guard; 1 send default, optional 2/3 attempts per message.
 // ---------------------------------------------------------------------------
 void bleMessageStatus(){
   if(!Bluefruit.connected())return;
@@ -3068,11 +3069,12 @@ bool bleMessageCommand(const char* cmd){
   if(!strcmp(cmd,"msg live")){
     char line[155]={};ta1fmBuildLiveLine(line,sizeof(line));bleReply(line);return true;
   }
-  const uint8_t tries=!strncmp(cmd,"msg send3 ",10)?3U:(!strncmp(cmd,"msg send2 ",10)?2U:1U);
-  const bool send3=tries==3,send2=tries==2;
-  const char* sendText=send3||send2?cmd+10:cmd+9;
+  const bool send3=!strncmp(cmd,"msg send3 ",10);
+  const bool send2=!strncmp(cmd,"msg send2 ",10);
   if(send3||send2||!strncmp(cmd,"msg send ",9)){
     // Direct send; optional 1/2/3 total RF attempts, no extra permission.
+    const uint8_t tries=send3?3U:(send2?2U:1U);
+    const char* sendText=send3||send2?cmd+10:cmd+9;
     if(ta1fmMsgTxBuild(sendText,true,tries)){
       char reply[70]={};
       snprintf(reply,sizeof(reply),"MSG|QUEUED|%s|%s",ta1fmMsgTxTo,ta1fmMsgTxId);
