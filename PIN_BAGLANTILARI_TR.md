@@ -1,3 +1,5 @@
+> **✅ GÜNCEL SÜRÜM: v1.0.0 STABLE (17.11.2026)** — [Release ve UF2/INO dosyaları](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker/releases/tag/v1.0.0) · [Güncel USB + BLE kontrol paneli](https://ta1fm.github.io/TA1FM-nrf52-Aprs-Tracker-Configurator/). **Bu belgenin aşağıdaki ayrıntılı talimatları eski v0.9.24 sürümünü temel alır ve arşiv amaçlı korunur.** v1.0.0 ayrıca USB/BLE APRS mesajlaşmasını destekler; eski sürüm bağlantılarını güncel indirme olarak kullanmayın.
+
 # TA1FM nrf52 Tracker + Digipeater — Pin Bağlantıları (V0.9.24 STABLE)
 
 Bu sayfa, **TA2DMX MiniMesh Lite NRF** için kullanılan firmware pinlerini ve **nRF52840 Pro Micro ile kendin yap (DIY)** görselini bir arada sunar. Pro Micro'nun kart revizyonu, silkscreen pinleri, RF/TCXO donanımı ve Arduino kart varyantı **kurulumdan önce ayrıca doğrulanmalıdır**. Pro Micro'nun aynı işlemciyi taşıması, hazır MiniMesh UF2'nin her karta doğrudan uygun olduğu anlamına gelmez.
