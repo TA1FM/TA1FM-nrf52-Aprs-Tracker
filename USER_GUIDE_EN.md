@@ -1,3 +1,5 @@
+> **✅ LATEST RELEASE: v1.0.0 STABLE (2026-11-17)** — [Release / UF2 / INO downloads](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker/releases/tag/v1.0.0) · [Current USB + BLE control panel](https://ta1fm.github.io/TA1FM-nrf52-Aprs-Tracker-Configurator/). **Detailed steps below were written for an earlier firmware (v0.9.22/v0.9.24) and are retained as historical reference.** v1.0.0 also adds USB/BLE APRS messaging. Use the current release links above for downloads.
+
 **LATEST V0.9.24 STABLE:** New selectable **LoRa APRS DIGIPEATER (DIGI)** mode is available alongside GPS TRACKER mode, with WIDE packet repeating and fixed-position beaconing. See the [v0.9.24 Digipeater guide (Turkish)](./DIGIPEATER_V0_9_24_TR.md) and [compatible USB/BLE configurator](https://ta1fm.github.io/TA1FM-nrf52-Aprs-Tracker-Configurator/beta_v0_9_23.html). **The detailed guide below documents v0.9.22**; get the [latest v0.9.24 STABLE UF2](./TA1FM_nrf52_Tracker_UNIVERSAL_BLE_V0_9_24_STABLE.uf2).
 
 ---
