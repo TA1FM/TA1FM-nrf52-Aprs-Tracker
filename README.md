@@ -4,9 +4,9 @@
 
 **17 Kasım 2026** · **nRF52840 MiniMesh Lite NRF** · **LoRa APRS 433.775 MHz (SF12 / BW125 / CR 4/5)**
 
-**[🚀 v1.0.0 STABLE — GitHub Release](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker/releases/tag/v1.0.0)** · [UF2 firmware indir](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker/releases/download/v1.0.0/TA1FM_nrf52_Tracker_v1.0.0_STABLE.uf2) · [Arduino .ino kaynak kodunu indir](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker/releases/download/v1.0.0/TA1FM_nrf52_Tracker_v1.0.0_STABLE.ino)
+**[🚀 v1.0.0 STABLE — GitHub Release](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker/releases/tag/v1.0.0)** · [UF2 firmware indir](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker/releases/download/v1.0.0/TA1FM_nrf52_Tracker_v1.0.0_STABLE.uf2) · 
 
-**[🌐 TA1FM Tracker Control Panel — USB + BLE](https://ta1fm.github.io/TA1FM-nrf52-Aprs-Tracker-Configurator/)** · [Panel kaynak dosyası](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker-Configurator/blob/main/TA1FM_Tracker_Control_Panel.html)
+**[🌐 TA1FM Tracker Control Panel — USB + BLE](https://ta1fm.github.io/TA1FM-nrf52-Aprs-Tracker-Configurator/)** · 
 
 Bu sürüm, **V0.9.26 BETA-7** temel alınarak yayımlandı. İki ayrı nRF52840 MiniMesh cihazında yapılan kullanıcı testlerinde başarılı sonuç alındı. Yüklenebilir .uf2 ve .ino dosyaları Release sayfasının **Assets** bölümündedir; önceki kararlı sürümler ve BETA kaynakları korunmuştur.
 
