@@ -2,6 +2,13 @@
   TA1FM nrf52 Tracker - UNIVERSAL BLE V1.1.0 BETA (BLE DFU)
 */
 
+// Central firmware identity. Change these two lines for future versions.
+#define FW_VERSION "1.1.0"
+#define FW_CHANNEL "BETA"
+#define FW_NAME "TA1FM nrf52 Tracker"
+#define FW_VERSION_FULL "V" FW_VERSION " " FW_CHANNEL
+#define FW_VERSION_BLE "V" FW_VERSION "_" FW_CHANNEL
+
 #include <Adafruit_TinyUSB.h>
 #include <bluefruit.h>
 // Adafruit nRF52 core: enter bootloader BLE OTA mode (GPREGRET 0xA8).
@@ -1470,7 +1477,7 @@ bool ta1fmMessageUsb(const char* cmd){
   if(!strcmp(cmd,"msg live")){ta1fmUsbLive();return true;}
   if(ta1fmMessageTxUsb(cmd))return true;
   if(!strcmp(cmd,"msg?") || !strcmp(cmd,"testmsg")){
-    Serial.println("[APRS MSG V1.0.0] ACK/RETRY OPTIONAL, USB + BLE");
+    Serial.print("[APRS MSG "); Serial.print(FW_VERSION_FULL); Serial.println("] ACK/RETRY OPTIONAL, USB + BLE");
     Serial.println("[CMDS] testmsg CALL TEXT | msg list | msg clear | msg?");
     Serial.println("[CMDS] msg send CALL TEXT (1x) | msg send2 CALL TEXT | msg send3 CALL TEXT | msg status | msg inbox | msg cancel");
     Serial.print("[MSG] received=");Serial.print(ta1fmMsgRxCount);
@@ -1581,8 +1588,21 @@ bool makePositionPayload(char *out, size_t capacity) {
     snprintf(batt,sizeof(batt),"%sBatt=%.2fV",commentAndBattery[0]?" ":"",batteryV);
     strncat(commentAndBattery,batt,sizeof(commentAndBattery)-strlen(commentAndBattery)-1);
   }
-  const int n = snprintf(out, capacity, "%s>APZTFM,WIDE1-1:!%s%c%s%c%s",
-                         stationCall, latText, table, lonText, symbol, commentAndBattery);
+  // APRS uncompressed position extension: ccc/sss (true course in degrees, speed in knots).
+  // No invented heading: omit unless both GPS course/speed are fresh and valid.
+  char courseSpeed[9]={};
+  if (!fixedDigi && !parkedConfirmed && gps.course.isValid() && gps.speed.isValid() &&
+      gps.course.age()<5000UL && gps.speed.age()<5000UL) {
+    const double course=gps.course.deg(), speedKnots=gps.speed.knots();
+    if (isfinite(course) && course>=0.0 && course<=360.0 &&
+        isfinite(speedKnots) && speedKnots>=0.0 && speedKnots<1000.0) {
+      const unsigned c=(unsigned)lround(course)==360U ? 0U : (unsigned)lround(course);
+      const unsigned knots=(unsigned)lround(speedKnots);
+      snprintf(courseSpeed,sizeof(courseSpeed),"%03u/%03u",c,knots);
+    }
+  }
+  const int n = snprintf(out, capacity, "%s>APZTFM,WIDE1-1:!%s%c%s%c%s%s",
+                         stationCall, latText, table, lonText, symbol, courseSpeed, commentAndBattery);
   return n > 0 && (size_t)n < capacity;
 }
 // APRS complete weather report. BME280 has no wind/rain sensors:
@@ -1690,7 +1710,10 @@ bool manualAprsTx() {
   if (txLastCode == RADIOLIB_ERR_NONE) {
     ++txSuccesses;
     lastPositionTxAt = now;
-    if (commentIntervalMin && strstr(packet, commentText)) lastCommentTxAt = now;
+    if (commentIntervalMin && commentText[0] && strstr(packet, commentText)) {
+      lastCommentTxAt = now;
+      Serial.println("[COMMENT] included in successful position TX");
+    }
     if (!firstPositionDone && statusIntervalMin) { startupStatusPending = true; statusDueAt = now; }
     firstPositionDone = true;
     lastPosWasParked = parkedConfirmed;
@@ -1802,10 +1825,9 @@ void pollAutoBeacon() {
           (uint32_t)(now-lastPositionTxAt)>=dueMs) positionDueAt=now;
     }
   }
-  // Queued independently. Position gets priority at initial FIX, parking/moving
-  // transitions and when its track is already over 60s old. Between routine
-  // position updates, a pending WX/Status packet gets a fair turn, avoiding
-  // permanent starvation if rapid Smart Beaconing continues.
+  // Priority: APRS ACK/message are handled by loop before this function.
+  // Here: first fix / parking transition / stale track; due Status; due WX;
+  // then routine position. Retain one shared 10-second RF TX guard.
   const bool posWaiting = positionDueAt && fix;
   const bool posCritical = posWaiting &&
       (!firstPositionDone || parkedConfirmed!=lastPosWasParked ||
@@ -1822,7 +1844,7 @@ void pollAutoBeacon() {
 
   if (posCritical && posAllowed) {
     lastPositionAttemptAt=now;
-    Serial.println("[AUTO] POSITION due (priority)");
+    Serial.println("[AUTO][DUE][POSITION] critical transition/first/stale");
     if (manualAprsTx()) positionDueAt=0;
     return;
   }
@@ -1834,23 +1856,23 @@ void pollAutoBeacon() {
     if (manualStatusTx()) { startupStatusPending=false; statusDueAt=now+(uint32_t)statusIntervalMin*60000UL; }
     return;
   }
-  if (auxiliaryAllowed && wxWaiting &&
-      (!lastWxAttemptAt || (uint32_t)(now-lastWxAttemptAt)>=AUX_TX_GAP_MS)) {
-    lastWxAttemptAt=now;
-    Serial.println("[AUTO] WX due (independent)");
-    if (manualWxTx()) { lastAutoWxAt=now; wxDueAt=now+(uint32_t)wxIntervalMin*60000UL; }
-    return;
-  }
   if (!startupStatusPending && firstPositionDone && auxiliaryAllowed && statusWaiting &&
       (!lastStatusAttemptAt || (uint32_t)(now-lastStatusAttemptAt)>=AUX_TX_GAP_MS)) {
     lastStatusAttemptAt=now;
-    Serial.println("[AUTO] STATUS due (independent)");
+    Serial.println("[AUTO][DUE][STATUS] priority before WX/routine POS");
     if (manualStatusTx()) statusDueAt=now+(uint32_t)statusIntervalMin*60000UL;
+    return;
+  }
+  if (auxiliaryAllowed && wxWaiting &&
+      (!lastWxAttemptAt || (uint32_t)(now-lastWxAttemptAt)>=AUX_TX_GAP_MS)) {
+    lastWxAttemptAt=now;
+    Serial.println("[AUTO][DUE][WX] after STATUS");
+    if (manualWxTx()) { lastAutoWxAt=now; wxDueAt=now+(uint32_t)wxIntervalMin*60000UL; }
     return;
   }
   if (posWaiting && posAllowed) {
     lastPositionAttemptAt=now;
-    Serial.println("[AUTO] POSITION due");
+    Serial.println("[AUTO][DUE][POSITION] routine");
     if (manualAprsTx()) positionDueAt=0;
   }
 }
@@ -1865,6 +1887,7 @@ void oledUsbSetSleep(uint8_t mode);
 void oledUsbWake();
 
 void handleUsbCommand(const char *line) {
+  if (!strcmp(line, "version?")) { Serial.print("VERSION|"); Serial.print(FW_VERSION); Serial.print("|"); Serial.println(FW_CHANNEL); return; }
   if (!strcmp(line, "dfu")) {
     Serial.println("[DFU] USB command: entering AdaDFU now. Keep power on.");
     Serial.flush();
@@ -2468,7 +2491,7 @@ void showIntro() {
   gfx->setTextSize(1);
   gfx->setCursor(24, 29); gfx->print("LoRa Tracker");
   gfx->setCursor(19, 43); gfx->print("nRF52840 APRS");
-  gfx->setCursor(48, 55); gfx->print("V1.0.0");
+  gfx->setCursor(48, 55); gfx->print("V" FW_VERSION);
   oledFlush();
 }
 
@@ -2490,7 +2513,7 @@ void drawOled() {
     // 7 karakter * 6 px = 42 px; 84 + 42 = 126 <= 128.
     // 91 px'de son karakter otomatik alt satira tasiyordu.
     gfx->setCursor(84, 0);
-    gfx->print("V1.0.0");
+    gfx->print("V" FW_VERSION);
   }
   gfx->drawLine(0, 10, 127, 10, SSD1306_WHITE);
 
@@ -2631,7 +2654,7 @@ void drawOled() {
     gfx->setCursor(0, 15); gfx->print("DEVICE INFO");
     gfx->setCursor(0, 27); gfx->print("TA1FM nrf52");
     gfx->setCursor(0, 38); gfx->print("LoRa APRS Tracker");
-    gfx->setCursor(0, 49); gfx->print("FW: V1.0.0");
+    gfx->setCursor(0, 49); gfx->print("FW: V" FW_VERSION);
     gfx->setCursor(0, 57); gfx->print("HOLD: BACK");
   } else if (page == PAGE_AUTO) {
     gfx->setCursor(0, 15); gfx->print("AUTO BEACON");
@@ -3393,7 +3416,8 @@ void bleProcessCommand() {
   // No PIN: explicit enable switch required for flash writes.
   Serial.print("[BLE RX] ");Serial.println(bleCommand);
   if (!strcmp(bleCommand,"info")||!strcmp(bleCommand,"p"))bleSendStatus();
-  else if (!strcmp(bleCommand,"ping"))bleReply("PONG|TA1FM|V1.1.0_BETA");
+  else if (!strcmp(bleCommand,"ping"))bleReply("PONG|TA1FM|" FW_VERSION_BLE);
+  else if (!strcmp(bleCommand,"version?")) bleReply("VERSION|" FW_VERSION "|" FW_CHANNEL);
   else if (!strcmp(bleCommand,"dfu arm")) {
     if (!bleWriteUnlocked()) bleReply("DFU|ERR|ENABLE_SAVE_FIRST");
     else if (bleDfuRebootAt) bleReply("DFU|ERR|ALREADY_PENDING");
@@ -3518,7 +3542,7 @@ void blePoll() {
 void setup() {
   Serial.begin(115200);
   delay(700);
-  Serial.println("\nTA1FM nrf52 Tracker UNIVERSAL BLE V1.1.0 BETA BLE DFU");
+  Serial.print("\n");Serial.print(FW_NAME);Serial.print(" ");Serial.print(FW_VERSION_FULL);Serial.println(" BLE DFU");
   Serial.println("AUTO: first saved callsign enables TX; a off preserves user choice.");
 
   pinMode(BTN_PIN, INPUT_PULLUP);
@@ -3574,7 +3598,7 @@ void setup() {
   bleStart();
   oledLastWakeAt = millis();
   drawOled();
-  Serial.println("USB: UNIVERSAL V1.1.0 BETA | dfu | chip? | oled? | oled sh1106|ssd1306 | oled confirm|cancel|wake | sleep 0..6 | flash? | p");
+  Serial.print("USB: UNIVERSAL ");Serial.print(FW_VERSION_FULL);Serial.println(" | dfu | chip? | oled? | oled sh1106|ssd1306 | oled confirm|cancel|wake | sleep 0..6 | flash? | p");
 }
 
 void loop() {
