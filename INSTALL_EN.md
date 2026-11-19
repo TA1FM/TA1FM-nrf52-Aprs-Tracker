@@ -1,79 +1,65 @@
-> **✅ LATEST RELEASE: v1.0.0 STABLE (2026-11-17)** — [Release / UF2 / INO downloads](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker/releases/tag/v1.0.0) · [Current USB + BLE control panel](https://ta1fm.github.io/TA1FM-nrf52-Aprs-Tracker-Configurator/). **Detailed steps below were written for an earlier firmware (v0.9.22/v0.9.24) and are retained as historical reference.** v1.0.0 also adds USB/BLE APRS messaging. Use the current release links above for downloads.
+# TA1FM nrf52 Tracker — Installation (V1.1.0 STABLE)
 
-# TA1FM nRF52 LoRa APRS Tracker — Installation (V0.9.22)
+**Latest:** [V1.1.0 STABLE Release](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker/releases/tag/v1.1.0) · [Control Panel](https://ta1fm.github.io/TA1FM-nrf52-Aprs-Tracker-Configurator/TA1FM_Tracker_Control_Panel_V1_1_0_STABLE.html) · [User Guide](./USER_GUIDE_EN.md) · [Serial Commands](./SERIAL_CONSOLE_COMMAND_GUIDE_EN.md)
 
-**V0.9.24 STABLE UPDATE:** Firmware now includes a selectable **LoRa APRS DIGIPEATER (DIGI)** mode with WIDE packet repeating and fixed beaconing. This installation guide otherwise documents V0.9.22. For the latest version, use [v0.9.24 STABLE UF2](./TA1FM_nrf52_Tracker_UNIVERSAL_BLE_V0_9_24_STABLE.uf2), the [compatible USB/BLE configurator](https://ta1fm.github.io/TA1FM-nrf52-Aprs-Tracker-Configurator/beta_v0_9_23.html), and the [Digipeater setup guide (Turkish)](./DIGIPEATER_V0_9_24_TR.md).
+## 1. Hardware and safety
 
----
+Compatible **nRF52840 MiniMesh Lite NRF**, SX1262 or SX1268 radio, GPS, 433.775 MHz antenna; SH1106/SSD1306 OLED and optional BME280. LoRa: **433.775 MHz, SF12, BW125, CR4/5**.
 
-**Current firmware:** V0.9.22 UNIVERSAL BLE  
-**Target:** TA2DMX MiniMesh Lite NRF (nRF52840) with **SX1262 or SX1268** LoRa radio  
-**APRS LoRa:** 433.775 MHz, SF12, BW125, CR 4/5
+This is **board-specific firmware**, not a universal nRF52840 image. Check GPIO pins, RF switch, TCXO, SoftDevice and bootloader compatibility. Always attach an antenna before transmitting. Back up working firmware and saved configuration JSON.
 
-> Hardware-specific firmware: this is **not** a general-purpose nRF52840 UF2. Verify your board variant, pin mapping, nice!nano-compatible UF2 bootloader and S140 6.1.1 configuration. Always keep a known-good firmware/config backup.
+## 2. USB UF2 installation / recovery
 
-## 1. Flash the prebuilt UF2
+1. Download the **V1.1.0 `.uf2`** from [Release Assets](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker/releases/tag/v1.1.0).
+2. Connect a USB data cable, then double-tap RESET on a compatible UF2 bootloader board.
+3. Copy the UF2 file onto the mounted UF2 drive; the board reboots.
+4. Verify OLED `V1.1.0` and USB serial `V1.1.0 STABLE` at 115200 baud.
+5. Check callsign, SX1262/SX1268 selection, GPS FIX, LoRa RX and saved settings.
 
-1. Back up your working firmware and settings (JSON export if available).
-2. Download [V0.9.22 UF2](./TA1FM_nrf52_Tracker_UNIVERSAL_BLE_V0_9_22.uf2). [Arduino source](./TA1FM_nrf52_Tracker_UNIVERSAL_BLE_V0_9_22.ino) is included in this repository.
-3. **Double-tap RESET** to mount the UF2 USB drive.
-4. Copy `TA1FM_nrf52_Tracker_UNIVERSAL_BLE_V0_9_22.uf2` to that drive. The board will reboot.
-5. Read the device settings using the [USB + BLE Web Configurator](https://ta1fm.github.io/TA1FM-nrf52-Aprs-Tracker-Configurator/).
-6. Verify callsign, **Direct Flash ACTIVE**, radio chip, OLED, AUTO beacon, GPS FIX and RF status. Reboot after changing the radio chip.
+Do **not** copy the DFU ZIP to the UF2 drive. Do not erase flash or run `flash init` as part of normal updates.
 
-**Do not run flash erasers or format storage for a routine update.** V0.9.22 uses validated **Direct Flash A/B + CRC32** records; it does not initialize LittleFS. Existing older SX1268 Direct Flash records can be read, with SX1268 used by default for records without an explicit chip field.
+## 3. USB web configuration
 
-## 2. USB settings
+Open the [V1.1.0 Control Panel](https://ta1fm.github.io/TA1FM-nrf52-Aprs-Tracker-Configurator/TA1FM_Tracker_Control_Panel_V1_1_0_STABLE.html) in desktop Chrome/Edge. Close other programs that own the serial COM port. Connect via USB, **read settings first**, edit and save, then read back for verification. Save a JSON configuration backup. If changing the radio chip, restart the board for the new selection to take effect.
 
-1. Open the web configurator in **desktop Chrome/Edge** and attach a USB data cable.
-2. Select **Connect to device → Read from device (p)**.
-3. Edit your settings and click **Write to device**; verify the commit and read again.
-4. Disconnect other programs using the same serial/COM port. USB OLED driver changes retain the existing preview/confirm process.
+## 4. Android Bluetooth BLE configuration
 
-## 3. Bluetooth BLE settings
+Use HTTPS and a Web Bluetooth-capable browser such as Android Chrome. Connect to **`nRF52_Lora_Tracker`**, read settings, enable the **Save** switch, apply changes, then read back. The save switch helps avoid accidental writes but **is not strong authentication**.
 
-1. On Android Chrome open the configurator using **HTTPS**, with Bluetooth enabled.
-2. Use **Connect via Bluetooth**, choosing **nRF52_Lora_Tracker**.
-3. Select **Read BLE settings** before editing.
-4. Turn the **Save enabled** switch ON; **there is no PIN** in V0.9.22.
-5. Select **Save BLE settings** to stage changes in RAM and persist them in **one Direct Flash A/B transaction**.
-6. The switch automatically returns OFF after a successful save or a Bluetooth disconnect.
+## 5. Wireless firmware update — Android Nordic DFU
 
-This switch limits accidental writes; it is **not strong authentication or encryption**. BLE writes require **Direct Flash ACTIVE**. Flash initialization is intentionally **USB-only**.
+**Tested bootloader:** **nice!nano UF2 0.10.0 / S140 6.1.1**. Required Android application: **Nordic Semiconductor nRF Device Firmware Update**.
 
-## 4. New settings and important behavior
+1. Download the **V1.1.0 `.zip`** DFU firmware package from [Release Assets](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker/releases/tag/v1.1.0).
+2. Connect to the normal Tracker from the [web panel](https://ta1fm.github.io/TA1FM-nrf52-Aprs-Tracker-Configurator/TA1FM_Tracker_Control_Panel_V1_1_0_STABLE.html) over Bluetooth.
+3. Enable Save; choose **Enter BLE DFU Mode** and confirm the two-step action.
+4. The device disconnects and advertises as **`AdaDFU`**.
+5. Open the Nordic DFU app, select the **ZIP** package and **AdaDFU** device.
+6. Set **PRN = 4** and **Request High MTU = OFF**.
+7. Start transfer. Maintain stable power, do not reset, and verify the normal Tracker restarts after success.
 
-- **Radio chip:** Choose the actual SX1262 or SX1268 fitted to the board. Changing it disables RF until **restart**; choosing the wrong chip can prevent radio operation.
-- **OLED:** Choose SH1106 or SSD1306. BLE saves the new driver **immediately without a 20-second preview**. An incorrect selection may blank the display; restore with USB/BLE or **hold the user/menu button for the first 3 seconds during boot**. Do not confuse the menu button with double RESET for UF2.
-- **APRS symbols:** Two independently configurable two-character codes, e.g. **moving `/>`**, **parked `\P`**. The first character is the APRS symbol table (`/` or `\`); the second is the APRS symbol.
-- **Startup TX:** With AUTO enabled, valid callsign, fresh GPS fix, and Comment/Status intervals enabled, send **position + Comment in one packet**, then a separate **Status** subject to the **15-second common LoRa transmit guard**. Comment is not a standalone RF frame.
-- **Smart Beacon:** Six configurable speed-dependent intervals; parked detection and optional battery voltage in position comment.
-- **WX:** Optional BME280 sensor required; weather beacons are separately scheduled.
-- **Messaging:** APRS messaging is **not implemented** in V0.9.22.
+Alternative: send `dfu` from the USB serial console (115200 baud / Newline) to enter AdaDFU.
 
-## 5. Direct Flash A/B and USB serial
+**Important:** This is **Legacy single-bank BLE DFU**. An interrupted upload may erase the application and require USB UF2 recovery. A prior working transfer took about 2.5 minutes; actual time varies. The web panel **enters DFU mode only**, it does not upload the firmware ZIP directly.
 
-At **115200 baud**, run `p` or `flash?` to inspect the configuration. On a device with **no valid A/B record**, advanced users may initialize settings via USB `flash init` **after backing up**; do not issue this during routine updates or when existing Direct Flash is already ACTIVE.
+## 6. First configuration and verification
 
-| Command | Function |
+- **TRACKER:** Set a valid licensed callsign, confirm GPS FIX/LoRa RX, SMART or FIXED beacon and APRS symbols. Fresh GPS course/speed may appear as `ccc/sss` in APRS position packets.
+- **DIGIPEATER:** Before `mode digi`, set callsign and fixed latitude/longitude. Choose `digi path 1|2` and beacon interval.
+- **APRS messages:** USB/BLE panel supports send, receive, inbox, ACK and 1/2/3 total RF TX attempts. An ACK is a device-level acknowledgment, not proof of human reading.
+- **Storage:** Direct Flash A/B + CRC32 settings persist; the last 10 received APRS messages remain in RAM only, and are lost on restart.
+- **Scheduling:** Status is a separate RF packet; Comment is embedded in selected position packets. The shared 10-second RF guard remains active.
+
+## 7. Troubleshooting
+
+| Symptom | Check |
 |---|---|
-| `p` / `flash?` | Status / Direct Flash record status |
-| `chip sx1262` / `chip sx1268` | Select radio chip (reboot required) |
-| `symbol />` / `parksymbol \P` | Two-character moving / parked APRS symbols |
-| `a on` / `a off` | Automatic beacons |
-| `f smart` / `f fixed` | Position mode |
-| `smart 600,90,45,30,20,15` | Six Smart Beacon intervals (seconds) |
-| `power 10` | Target TX power in dBm (1–22; not guaranteed RF output) |
-| `t` / `w` / `v` | Manual position / weather / status requests |
+| No GPS FIX | Antenna, outdoor sky view, supply, GPS UART |
+| LoRa RX error | Correct SX1262/SX1268 setting, RF hardware, restart |
+| USB panel fails | Close Serial Monitor / other COM-port users |
+| No BLE device | Bluetooth enabled, HTTPS, browser permissions |
+| No AdaDFU | Compatible UF2 bootloader; test USB `dfu` |
+| DFU interrupted | PRN=4, High MTU OFF; USB UF2 recovery might be required |
+| Blank OLED | Correct SH1106/SSD1306 driver and recovery steps |
 
-## 6. Build from Arduino source
-
-Arduino IDE with **Adafruit nRF52 core 1.7.0** and the project-specific **TA1FM MiniMesh Lite NRF** board variant. Libraries: **RadioLib 7.8.1**, Adafruit TinyUSB (core), Adafruit GFX, Adafruit SH110X, Adafruit SSD1306, TinyGPSPlus, Adafruit BME280, Adafruit Unified Sensor, and core InternalFileSystem/flash_nrf5x support (the filesystem itself is not started). A mismatched board variant or RF switch mapping can prevent normal operation.
-
-For more commands and troubleshooting see [English User Guide](./USER_GUIDE_EN.md); for hardware wiring see [Pin Connections (Turkish)](./PIN_BAGLANTILARI_TR.md).
-
-## 7. RF safety
-
-Use only lawful amateur-radio frequencies, callsigns and power for your jurisdiction. Never transmit without an antenna. Confirm your RF amplifier and radio module limits before raising TX power.
-
-**73 de TA1FM**
+Previous V0.9.x documents are historical archives, **not current V1.1.0 installation instructions**.
