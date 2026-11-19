@@ -1,204 +1,90 @@
-> **✅ LATEST RELEASE: v1.0.0 STABLE (2026-11-17)** — [Release / UF2 / INO downloads](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker/releases/tag/v1.0.0) · [Current USB + BLE control panel](https://ta1fm.github.io/TA1FM-nrf52-Aprs-Tracker-Configurator/). **Detailed steps below were written for an earlier firmware (v0.9.22/v0.9.24) and are retained as historical reference.** v1.0.0 also adds USB/BLE APRS messaging. Use the current release links above for downloads.
+# TA1FM nrf52 Tracker + Digipeater — User Guide (V1.1.0 STABLE)
 
-**LATEST V0.9.24 STABLE:** New selectable **LoRa APRS DIGIPEATER (DIGI)** mode is available alongside GPS TRACKER mode, with WIDE packet repeating and fixed-position beaconing. See the [v0.9.24 Digipeater guide (Turkish)](./DIGIPEATER_V0_9_24_TR.md) and [compatible USB/BLE configurator](https://ta1fm.github.io/TA1FM-nrf52-Aprs-Tracker-Configurator/beta_v0_9_23.html). **The detailed guide below documents v0.9.22**; get the [latest v0.9.24 STABLE UF2](./TA1FM_nrf52_Tracker_UNIVERSAL_BLE_V0_9_24_STABLE.uf2).
+**[Firmware Release](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker/releases/tag/v1.1.0)** · **[V1.1.0 Web Control Panel](https://ta1fm.github.io/TA1FM-nrf52-Aprs-Tracker-Configurator/TA1FM_Tracker_Control_Panel_V1_1_0_STABLE.html)** · [Installation](./INSTALL_EN.md) · [Serial Commands](./SERIAL_CONSOLE_COMMAND_GUIDE_EN.md)
 
----
+## 1. Operating modes
 
-# TA1FM nRF52 LoRa APRS Tracker — User Guide (English)
+| Mode | Function |
+|---|---|
+| **TRACKER** | GPS position, SMART/FIXED beaconing, moving/parked APRS symbols and position Comment |
+| **DIGIPEATER** | Fixed coordinates, WIDE packet repeating, scheduled RF beacon |
 
-**Firmware:** V0.9.22 UNIVERSAL BLE · **Hardware:** TA2DMX MiniMesh Lite NRF (nRF52840 / SX1262 or SX1268)  
-**Frequency:** 433.775 MHz · **Web configurator:** https://ta1fm.github.io/TA1FM-nrf52-Aprs-Tracker-Configurator/
+LoRa APRS: **433.775 MHz, SF12, BW125, CR4/5**. Supports SX1262/SX1268 radios, SH1106/SSD1306 OLED and optional BME280 weather sensor.
 
-> This guide covers the **V0.9.22 UNIVERSAL BLE source and current USB/BLE web panel**. Older firmware versions can have different menus/storage. `TA1FM-7` is an example callsign; configure your own valid amateur radio callsign.
+## 2. Getting started
 
-## 1. Getting started
+1. Connect a suitable RF antenna; configure your authorized callsign/SSID.
+2. Open the [web panel](https://ta1fm.github.io/TA1FM-nrf52-Aprs-Tracker-Configurator/TA1FM_Tracker_Control_Panel_V1_1_0_STABLE.html) using desktop Chrome/Edge for USB or an HTTPS Web Bluetooth-capable browser (e.g. Android Chrome) for BLE.
+3. **Read settings before making changes**, enable saving when required, then write and read back. Back up the JSON configuration.
+4. Check GPS FIX, LoRa RX, battery voltage, chip selection and TX counters.
+5. Incoming APRS message history lives in RAM and is lost after power cycling.
 
-1. Install the V0.9.22 firmware using the board's compatible UF2 bootloader. An eraser is **not needed** for routine updates.
-2. Connect the board by USB and open the [TA1FM Web Configurator](https://ta1fm.github.io/TA1FM-nrf52-Aprs-Tracker-Configurator/) in **Chrome or Edge**.
-3. Select **USB Connect** and the correct serial/COM port; use **Read from Device** to retrieve current settings.
-4. Configure callsign, AUTO Beacon, symbol, transmit intervals, Comment, and Status. Use **Write to Device** to apply changes.
-5. Read the settings again to verify them. You can also create a **JSON backup**.
-6. With an antenna attached, take the tracker outdoors or to a clear-sky location and wait for `GPS:FIX`.
+## 3. Tracker: position, speed, Comment, Status, weather
 
-**Important:** When the callsign is `NOCALL`, APRS transmission is blocked. Saving the first valid callsign turns AUTO on. A later explicit AUTO OFF choice is remembered after power cycling; re-enable it in the configurator if required.
+- **SMART Beacon** dynamically uses GPS speed and turn events; **FIXED** uses a selected position interval.
+- Configure independent moving and parked APRS symbols (e.g. `/>` and `\\P`).
+- When GPS course and speed are fresh and valid, position frames include the APRS `ccc/sss` extension (degrees / knots). No fabricated data is sent.
+- **Comment** is inserted into eligible position frames according to its interval; it is not a separate RF packet.
+- **Status** is transmitted in a separate APRS `>` frame and prioritized ahead of routine WX and position transmissions.
+- **Weather (WX)** needs valid optional BME280 measurements; missing sensors are not substituted with invented data.
+- The **shared 10-second radio TX guard** remains active. A local `RadioLib TX OK` does not prove another station received the packet.
 
-## 2. Single-button operation
+## 4. APRS messaging
 
-| Action | Main screen | Menu | Setting / info screen |
-|---|---|---|---|
-| **Short press** | Request a manual position APRS beacon | Next menu item | Change/select next value; no action on read-only info pages |
-| **Long press** (about **1.2 sec**) | Open main menu | Open selected item | Save/confirm, or return from read-only pages |
+Use the **Messages** tab in the web panel; select the appropriate USB/BLE device, enter the destination callsign (SSID included), message text and **1, 2 or 3 total RF attempts**. Follow QUEUED/ACK/ACK_TIMEOUT states. The last **10 incoming messages** are held in volatile RAM and can be viewed using the web panel or OLED.
 
-**Example:** Hold for 1.2 seconds on the main screen → `SET` menu → tap until `DISPLAY` is selected → hold to enter.
+**ACK** confirms a device-level protocol receipt, not that a human read the text. Visibility on aprs.fi depends on a reachable iGate.
 
-- The menu returns to the main screen after **30 seconds** without user activity, except for the separate OLED preview countdown.
-- A short tap on the main screen requests manual position TX, but actual transmission still requires a valid callsign, GPS position, and ready radio.
-- The menu button is **not** the RESET button used to enter the UF2 bootloader.
+## 5. Digipeater
 
-## 3. OLED main screen
+Before selecting `mode digi`, configure callsign and both `digi lat` and `digi lon`. Set `digi path 1|2` and `digi beacon 10|15|30|60`. Verify RF operation. DIGI mode is **not** an APRS-IS iGate.
 
-Example display (values are illustrative):
+## 6. USB, BLE and OLED
+
+- USB serial: **115200 baud**. Do not use the serial monitor simultaneously with the USB web panel on the same COM port.
+- BLE device name: **`nRF52_Lora_Tracker`**. Saving settings without a PIN is **not strong authentication**.
+- OLED driver: SH1106 or SSD1306. USB supports `oled sh1106` / `oled ssd1306` preview followed by `oled confirm`. Recover from wrong display type as documented in [installation](./INSTALL_EN.md).
+- Version reporting: `version?` prints `VERSION|1.1.0|STABLE` over USB; BLE supports the corresponding version response; OLED shows `V1.1.0`.
+
+## 7. BLE OTA firmware updates
+
+1. Download the Release **ZIP** DFU package.
+2. Connect to the normal Tracker with the [web panel](https://ta1fm.github.io/TA1FM-nrf52-Aprs-Tracker-Configurator/TA1FM_Tracker_Control_Panel_V1_1_0_STABLE.html); enable Save and select **Enter BLE DFU Mode** and confirm.
+3. The tracker advertises as **`AdaDFU`**. Open the Android **Nordic nRF Device Firmware Update** app.
+4. Select the ZIP and AdaDFU. Set **PRN 4** and **Request High MTU OFF**.
+5. Keep power stable until success; verify the regular Tracker boots.
+
+Tested bootloader **nice!nano UF2 0.10.0 / S140 6.1.1**. Legacy single-bank DFU interruption may require USB UF2 recovery. The web panel enters DFU mode; **the ZIP transfer takes place in the Nordic app**, not in the browser. USB serial `dfu` is an alternate entry method.
+
+## 8. Common serial commands
 
 ```text
-TA1FM-7        18:42:15
----------------------
-GPS:FIX       SAT:10
-SPD:  0.0 km/h
-LAT: 40.97500
-LON: 27.50400
-BAT:3.92V  RX:TA1FM-9
+version?
+p
+g
+r
+chip?
+mode?
+smart?
+flash?
+msg hello
+msg inbox
+msg status
+msg send TA1FM-7 HELLO
+dfu
 ```
 
-| Display | Meaning |
+See [complete serial console commands](./SERIAL_CONSOLE_COMMAND_GUIDE_EN.md).
+
+## 9. Troubleshooting
+
+| Symptom | Action |
 |---|---|
-| Callsign | Configured station callsign |
-| Time | GPS time, adjusted to UTC or UTC+3 as selected |
-| `GPS:FIX` | Fresh, valid GPS location available |
-| `GPS:SEARCH` | Waiting for valid GPS location |
-| `SAT` | Number of GPS satellites |
-| `SPD` | GPS speed in km/h |
-| `LAT` / `LON` | Latitude / longitude in decimal degrees |
-| `BAT` | Approximate battery voltage |
-| `RX` | Last APRS station heard over LoRa |
+| No GPS FIX | Verify GPS power, UART and sky view |
+| LoRa RX error | Confirm actual SX1262/SX1268 setting and restart |
+| BLE unavailable | Check HTTPS, Bluetooth permissions and whether device is in AdaDFU mode |
+| Blank OLED | Verify OLED driver / rescue setting |
+| DFU interruption | Use PRN=4, High MTU OFF and stable power; recover via UF2 if needed |
+| Inbox erased | Expected after reboot: RAM-only storage |
 
-## 4. Full OLED menu reference
-
-With a detected BME280 sensor, the menu has **11 items**:
-
-| Menu | Purpose | Button action |
-|---|---|---|
-| `BME280 WX` | Temperature, relative humidity, pressure | Read-only; hold to go back |
-| `AUTO BEACON` | Automatic transmissions ON/OFF | Tap to toggle; hold to save |
-| `POS SYMBOL` | APRS position symbol | Tap to cycle; hold to save |
-| `UTC OFFSET` | `UTC` or `UTC+3` | Tap to change; hold to save |
-| `DISPLAY` | `SH1106` / `SSD1306` OLED driver | Tap to select; hold to test |
-| `OLED TIMER` | Screen OFF delay (always ON/OFF; 15s/30s/1m/2m/5m) | Tap to select; hold to save |
-| `TX POWER` | Requested LoRa power, 1–22 dBm | Tap to adjust; hold to save |
-| `GPS INFO` | Satellite count, fix, GPS character count | Read-only; hold to go back |
-| `LORA INFO` | LoRa health, RX statistics, RSSI/SNR, AUTO | Read-only; hold to go back |
-| `DEVICE INFO` | Device model and firmware | Read-only; hold to go back |
-| `EXIT` | Return to main screen | Hold to exit |
-
-Without BME280, the `BME280 WX` item is hidden, leaving **10 items**.
-
-### AUTO BEACON
-
-- `ON`: Enables automatic beacon scheduling subject to operating conditions.
-- `OFF`: Disables automatic beacons; this choice persists after power cycling.
-- The page shows information such as `POS:SMART` and `WX:60m`, but **Smart/Fixed selection and detailed intervals are set through the Web Configurator**.
-
-### POS SYMBOL
-
-The OLED menu offers three presets; the USB/BLE panel also supports arbitrary valid two-character APRS moving and parked symbols:
-
-| OLED option | APRS symbol |
-|---|---|
-| `CAR />` | Car (`/>`) |
-| `WALKER /[` | Walking person (`/[`) |
-| `HOUSE /-` | House (`/-`) |
-
-For additional APRS symbols, use the two-character moving and parked symbol fields in the USB/BLE panel.
-
-### DISPLAY — selecting the correct OLED type
-
-1. Enter `DISPLAY`.
-2. Tap to toggle between `SH1106` and `SSD1306`.
-3. Hold to start the **10-second display preview**.
-4. If `DISPLAY TEST` is readable, **hold again before the countdown expires** to confirm and save.
-5. If unconfirmed, the firmware **restores the previous display driver**.
-
-**Blank-screen recovery:** Hold the device's **menu button while powering up** and keep it held for the first **3 seconds**. The firmware switches to the other OLED driver and stores that selection. Do not confuse this with double-tapping the separate RESET button for UF2 bootloader access.
-
-## 5. Position, parked and weather operation
-
-- **Smart Beaconing:** Adjusts position timing according to GPS speed, motion and heading-change logic.
-- **Fixed Position:** Uses a configurable fixed interval.
-- **Parked:** Detects sustained lack of movement; the default parked confirmation is 3 minutes.
-- **WX:** With BME280 present, can transmit separate APRS weather beacons, default interval 60 minutes.
-- **Status:** Separate APRS status message with configurable interval.
-- **Comment:** Included **in a position beacon**, not sent as its own packet.
-- All position, WX and Status RF frames share a **minimum 15-second LoRa TX guard** from the previous transmission. These are safety gaps, **not** default beacon intervals.
-
-## 6. Web Configurator and backups
-
-[**Open TA1FM Web Configurator**](https://ta1fm.github.io/TA1FM-nrf52-Aprs-Tracker-Configurator/)
-
-1. Establish the USB serial connection.
-2. Use **Read from Device**. Do not assume pre-filled fields were loaded from the tracker until the read succeeds.
-3. Make changes and choose **Write to Device**.
-4. Check the confirmation messages, then read again to verify.
-5. Export a **JSON backup** if needed. Importing a backup into the web form may still require writing it to the device.
-6. You can power-cycle the board and re-read settings to verify persistence.
-
-The serial monitor shows diagnostic lines and advanced command responses. **Only one program should hold the COM port at a time.**
-
-### 6.1 USB and Bluetooth BLE configuration (V0.9.22)
-
-**[USB + BLE web configurator](https://ta1fm.github.io/TA1FM-nrf52-Aprs-Tracker-Configurator/)**
-
-- **USB:** Desktop Chrome/Edge, USB data cable; **Connect to device → Read from device (p) → Write to device**. Close other COM-port programs. USB OLED type changes keep their preview/confirmation flow.
-- **BLE:** Android Chrome over HTTPS with Bluetooth enabled. **Connect via Bluetooth** to **nRF52_Lora_Tracker** → **Read BLE settings** → turn **Save enabled ON** → edit → **Save BLE settings**.
-- BLE has **no PIN**. The save toggle is a write gate, **not authentication**. Settings are staged and saved in **one Direct Flash A/B + CRC32 transaction**. The toggle returns OFF after a successful save or disconnection.
-- BLE writes require **Direct Flash ACTIVE**; flash initialization is intentionally USB-only. Settings backups can be exported/imported as JSON; **import does not itself write to the device**.
-
-### 6.2 Radio chip, OLED and APRS symbols
-
-- **Radio:** Select the actual installed **SX1262** or **SX1268** in the BLE panel. After a chip change **reboot the device**. RF is disabled until reboot; wrong selection can prevent RF communication. USB advanced serial: `chip sx1262` / `chip sx1268`.
-- **OLED:** Select SH1106 or SSD1306. BLE saves and activates the driver **immediately, without the 20-second preview**. Wrong type can blank the screen. To recover, hold the **menu/user button for the first 3 seconds during boot**; this is separate from double RESET for UF2. USB retains its preview/confirm method.
-- **Map symbols:** Separate two-character APRS codes for **moving** (`/>`, car) and **parked** (`\P` by default). First character is the table (`/` or `\`), second the symbol. Enter a valid APRS code, not emoji. USB serial: `symbol />` / `parksymbol \P`.
-
-### 6.3 Startup beacons and RF guard
-
-With AUTO enabled, valid callsign, fresh GPS FIX and Comment/Status intervals enabled, the first **position packet also includes Comment**, followed by a **separate Status packet** after the **15-second shared LoRa TX guard** permits it. Comment is not a separate RF frame. WX remains independently timed and uses the same shared 15-second TX guard.
-
-### 6.4 Direct Flash storage and recovery
-
-V0.9.22 uses **Direct Flash A/B + CRC32**, not LittleFS configuration files. Back up the last working UF2 before upgrading. Use USB serial `p` / `flash?` to inspect status. `flash init` is an advanced **USB-only** action intended **only for devices with no valid existing A/B record**, after backing up settings. APRS messaging is **not implemented** in this release.
-
-## 7. Advanced serial command reference
-
-Most users can rely entirely on the web configurator.
-
-| Command | Function |
-|---|---|
-| `p` | Print status and configuration |
-| `c TA1FM-7` | Save example callsign |
-| `a on` / `a off` | AUTO on / off |
-| `f smart` / `f fixed` | Position mode |
-| `i 1` / `i 3` / `i 5` / `i 10` / `i 15` | Fixed interval (minutes) |
-| `s car` / `s walker` / `s house` | Three built-in OLED position symbols |
-| `symbol />` / `parksymbol \\P` | Moving / parked APRS symbols (two characters) |
-| `chip sx1262` / `chip sx1268` | Select radio chip (reboot required) |
-| `flash?` | Direct Flash A/B record status |
-| `k 1` / `k 3` / `k 5` | Park confirmation interval (minutes) |
-| `x off` / `x 15` / `x 30` / `x 60` | WX interval |
-| `z off` / `z 15` / `z 30` / `z 60` | Status interval |
-| `j off` / `j 15` / `j 30` / `j 60` | Position Comment interval |
-| `comment TEXT` | Save Comment text |
-| `status TEXT` | Save Status text |
-| `comment?` / `status?` | Read stored texts |
-| `t` / `w` / `v` | Manual position / WX / Status TX |
-
-**Serial speed:** 115200 baud. Comment and Status accept ASCII text of 1–62 characters without `|` or `~`.
-
-## 8. Troubleshooting
-
-| Symptom | First checks |
-|---|---|
-| `GPS:SEARCH` | Sky visibility, antenna, GPS power, satellite reception |
-| No TX | Use `p`: valid callsign? AUTO ON? GPS FIX YES? LoRa ready? |
-| OLED blank | Wrong SH1106/SSD1306 selection? Try 3-second power-on OLED recovery |
-| BME280 menu missing | Sensor not detected; check wiring and I2C address |
-| Settings not saved | Check `flash?` (Direct Flash ACTIVE), `SAVED` / `SAVE FAILED` messages and readback |
-| BLE can't connect | Use Android Chrome + HTTPS; check Bluetooth is on and no other app owns connection |
-| BLE Save disabled | Turn on Save enabled after reading; switch returns OFF after saving/disconnect |
-| LoRa fails after chip change | Verify actual SX1262/SX1268 hardware, reboot and inspect RF status |
-| USB won't connect | Data-capable USB cable, Chrome/Edge, serial port already open elsewhere |
-
-## 9. Links
-
-- [Firmware repository and UF2](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker)
-- [Web Configurator](https://ta1fm.github.io/TA1FM-nrf52-Aprs-Tracker-Configurator/)
-- [Third-party configuration erase tools](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker/blob/main/tools/README.md)
-
-**TA1FM V0.9.22 — 73 de TA1FM!**
+Older V0.9.x-specific guides are retained for historical reference; this document targets **V1.1.0 STABLE**.
