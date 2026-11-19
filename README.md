@@ -72,6 +72,57 @@ Test edilen bootloader: **nice!nano UF2 0.10.0 / S140 6.1.1**. Legacy/single-ban
 
 **Safety / Güvenlik:** Connect a suitable antenna before any RF transmission. Use your own licensed amateur callsign; respect local regulations. A device-level ACK does **not** prove a human read a message. Saving settings over BLE without a PIN is not strong authentication.
 
+## 📸 TA1FM Tracker Fotoğrafları / Photos
+
+### Tamamlanmış Tracker / Finished Tracker
+
+<p align="center">
+  <img src="images/minimesh2.jpg" width="320" alt="TA1FM LoRa APRS Tracker">
+</p>
+
+### Donanım / Hardware
+
+| MicroMesh Lite NRF | Tracker İç Görünümü |
+|:---:|:---:|
+| <img src="images/deeplabstudio_micromesh_kart.jpg" width="340"> | <img src="images/minimesh1.jpg" width="340"> |
+
+---
+
+### MicroMesh Tracker — Diğer Görünümler
+
+<p align="center">
+  <img src="images/micromesh1.jpg" width="350" alt="TA1FM MicroMesh Tracker 1">
+  <img src="images/micromesh2.jpg" width="350" alt="TA1FM MicroMesh Tracker 2">
+</p>
+
+
+
+
+## 🛠️ nRF52840 Pro Micro — DIY bağlantı görseli
+
+Kendi TA1FM nRF52 Tracker + Digipeater devresini kurmak isteyenler için **nRF52840 Pro Micro, SX1262/SX1268 LoRa, GPS, OLED ve isteğe bağlı BME280** bağlantılarını gösteren şema:
+
+<p align="center">
+  <a href="images/TA1FM%20nRF52%20Tracker%20Ba%C4%9Flant%C4%B1%20%C5%9Eemas%C4%B1.png"><img src="images/TA1FM%20nRF52%20Tracker%20Ba%C4%9Flant%C4%B1%20%C5%9Eemas%C4%B1.png" width="520" alt="TA1FM nRF52 Tracker + Digipeater — Pro Micro bağlantı şeması"></a>
+</p>
+
+**[Büyük görsel ve ayrıntılı pin bağlantıları → PIN_BAGLANTILARI_TR.md](./PIN_BAGLANTILARI_TR.md)**
+
+> **Montaj notu:** Görsel DIY bağlantı rehberidir; Pro Micro kart revizyonunu, LoRa modülünün RF anahtarı/TCXO ve güç bağlantılarını ayrıca doğrulayın. Firmware ile eşleşen güncel pin tablosu [pin rehberinde](./PIN_BAGLANTILARI_TR.md) yer alır.
+
+### 🔩 fakeTec PCB V4 — TA1FM DIY donanım eşleşmesi
+
+**[fakeTec PCB](https://github.com/gargomoma/fakeTec_pcb)** topluluğunun **[V4 (Issue #16)](https://github.com/gargomoma/fakeTec_pcb/issues/16)** tasarımındaki **nRF52840 Pro Micro GPIO pin eşlemesi**, TA1FM **V0.9.24 STABLE dönemindeki** kaynak kodun kullandığı LoRa, GPS, OLED/I²C, buton ve batarya ADC pinleriyle **örtüşüyor**. Bu nedenle fakeTec V4, kendi TA1FM Tracker/Digipeater cihazını yapmak isteyenler için **aday PCB**'dir.
+
+- **[Orijinal fakeTec projesi](https://github.com/gargomoma/fakeTec_pcb)** · **[V4 tasarım / montaj açıklaması](https://github.com/gargomoma/fakeTec_pcb/issues/16)** · **[Gerber arşivi](https://github.com/gargomoma/fakeTec_pcb/tree/main/gerbers)** · **[V4 Gerber ZIP](https://github.com/gargomoma/fakeTec_pcb/blob/main/gerbers/lupusworax_fakeTec_pcb_v4_GERBER.zip)**
+- **Kontrol edilen eşleşmeler:** LoRa SPI `P1.11/P1.15/P0.02`, CS `P1.13`, DIO1 `P0.10`, BUSY `P0.29`, RESET `P0.09`, RXEN `P0.17`; OLED/BME280 SDA `P1.04`, SCL `P0.11`; GPS UART `P0.20/P0.22`, GPS_EN `P0.24`; buton `P1.00`, batarya ADC `P0.31`.
+- **[fakeTec V4 için ayrıntılı uyumluluk notları ve kontrol listesi](./PIN_BAGLANTILARI_TR.md#faketec-v4-pcb-uyumlulugu-ve-diy-kurulum)**
+
+> **Doğrulama sınırı:** Eşleşme **firmware GPIO haritası ve fakeTec dokümanları** üzerindendir; **fakeTec V4 üzerinde V1.1.0 STABLE fiziksel uyumluluk testi yapılmadı**. Kart revizyonu, LoRa çipi/TCXO/RF anahtarı, bootloader/SoftDevice, GPS güç kontrolü ve **batarya bölücü kalibrasyonu** kontrol edilmeden doğrudan uyum/UF2 garantisi verilmez. Gerber'leri üretime göndermeden önce ilgili V4 issue'sundaki son revizyonu okuyun.
+
+**Tasarım atfı:** [gargomoma/fakeTec_pcb](https://github.com/gargomoma/fakeTec_pcb) · fakeTec V4 katkısı: **lupusworax** (issue içinde **Severin**'in PCB çizimine katkısı da belirtilmiştir). **TA1FM projesi fakeTec PCB tasarımının sahibi değildir.**
+
+
 ## Previous versions / Önceki sürümler
 
 Historical releases, firmware and notes remain available under **[Releases](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker/releases)** and Git history. Older release-specific documents (V0.9.x) are retained as archives, **not** as current installation instructions.
