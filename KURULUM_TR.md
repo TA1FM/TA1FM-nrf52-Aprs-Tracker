@@ -14,7 +14,7 @@
 1. Bu depodaki [`TA1FM_nrf52_Tracker_v1.2.0_STABLE.ino.uf2`](./TA1FM_nrf52_Tracker_v1.2.0_STABLE.ino.uf2) dosyasını indirin. Dosya adı `.ino.uf2` ile bitse de **UF2 firmware**'dir.
 2. Uygun UF2 bootloader'lı kartı veri taşıyan USB kablosuyla bilgisayara bağlayın.
 3. Uyumlu kartta RESET'i hızlıca iki kez tetikleyip UF2 sürücüsünün açıldığını doğrulayın. Kartın bootloader yönergesine öncelik verin.
-4. **UF2** dosyasını açılan sürücüye kopyalayın; kart yeniden başlar. **ZIP dosyasını UF2 sürücüsüne kopyalamayın.**
+4. **UF2** dosyasını açılan sürücüye kopyalayın; kart yeniden başlar. **ZIP dosyasını UF2 sürücüsüne kopyalamayın, bu dosya BLE den güncelleme içindir.**
 5. OLED'de `V1.2.0`, USB'de `version?` komutuyla `VERSION|1.2.0|STABLE_REBUILD1` bilgisini kontrol edin.
 6. İlk açılışta `NOCALL` görünmesi normaldir: **henüz çağrı işareti kaydedilmediği için APRS RF yayını kapalıdır.** Kartı web panelinden yapılandırın.
 
