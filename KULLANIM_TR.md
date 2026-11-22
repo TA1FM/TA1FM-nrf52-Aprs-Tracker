@@ -1,99 +1,93 @@
-# TA1FM nrf52 Tracker + Digipeater — Kullanım Rehberi (V1.1.0 STABLE)
+# TA1FM nrf52 Tracker + Digipeater — Kullanım Rehberi (v1.2.0 STABLE REBUILD1)
 
-**[Firmware Release](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker/releases/tag/v1.1.0)** · **[V1.1.0 Web Paneli](https://ta1fm.github.io/TA1FM-nrf52-Aprs-Tracker-Configurator/TA1FM_Tracker_Control_Panel_V1_1_0_STABLE.html)** · [Kurulum](./KURULUM_TR.md) · [Seri Konsol](./SERI_KONSOL_KOMUT_REHBERI_TR.md)
+[Kaynak / INO](./TA1FM_nrf52_Tracker_v1.2.0_STABLE.ino) · [Kurulum](./KURULUM_TR.md) · [Seri Komutlar](./SERI_KONSOL_KOMUT_REHBERI_TR.md) · [Pinler](./PIN_BAGLANTILARI_TR.md)
 
-## 1. Genel bakış
-
-MiniMesh nRF52840 üzerinde iki çalışma modu vardır:
+## 1. Çalışma modları
 
 | Mod | İşlev |
 |---|---|
-| **TRACKER** | GPS'ten konum, SMART/FIXED beacon, hareket/park sembolleri, konum + Comment |
-| **DIGIPEATER** | Sabit koordinat, WIDE paket tekrarı ve belirlenen aralıkta kendi RF beacon'ı |
+| **TRACKER** | GPS konum, SMART/FIXED beacon, hareket/park sembolleri, Comment/Status/WX ve isteğe bağlı telemetri |
+| **DIGI** | Sabit koordinatlar, WIDE yoluna uygun LoRa APRS paket tekrarları ve kendi beacon'ı |
 
-433.775 MHz LoRa APRS: SF12 / BW125 / CR4/5. SX1262/SX1268 ve SH1106/SSD1306 seçimi yapılabilir. BME280, WX bilgisi için isteğe bağlıdır.
+Frekans **433.775 MHz**, **SF12 / BW125 / CR4/5**. Uyumlu nRF52840 MiniMesh, SX1262/SX1268, SH1106/SSD1306 ve isteğe bağlı BME280 kullanılır. DIGI modu **APRS-IS iGate değildir**.
 
-## 2. İlk çalıştırma
+## 2. İlk çalıştırma ve birleşik panel
 
-1. RF TX öncesi uygun anteni takın ve geçerli amatör telsiz çağrı işareti/SSID ayarlayın.
-2. [Web panelini](https://ta1fm.github.io/TA1FM-nrf52-Aprs-Tracker-Configurator/TA1FM_Tracker_Control_Panel_V1_1_0_STABLE.html) açın. USB için masaüstü Chrome/Edge, BLE için Android Chrome gibi Web Bluetooth destekli HTTPS tarayıcısı kullanın.
-3. **Önce cihazdan oku**; gerekiyorsa **Kaydetme Açık** anahtarını açıp ayarları yazın; sonra yeniden okuyun.
-4. `GPS FIX`, `LoRa RX OK`, pil gerilimi, radyo çipi ve APRS gönderim sayacını kontrol edin.
-5. Sık değişen ayarlardan önce JSON yedeği alın; gelen APRS mesajlarını cihaz RAM'de tuttuğu için RESET sonrası silineceklerini unutmayın.
+1. Anteni bağlayın; firmware yükleyin. Yeni cihazda ayar alanları otomatik başlatılır; `flash init` gerekmez.
+2. İlk kurulumda `NOCALL` normaldir ve **APRS RF gönderimi engellenir**. Kendi lisanslı çağrı işaretinizi kaydedin.
+3. Güncel v1.2.0 **birleşik HTML web panelini** Chrome/Edge üzerinden USB veya Web Bluetooth üzerinden BLE ile açın. Configurator deposundaki [eski v1.1.0 panelinin](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker-Configurator) en yeni kontrolleri içermeyebileceğini unutmayın.
+4. **Bir kez BLE/USB bağlanın; sekmeler arasında bağlantı aynen korunur.** Üstte **Ayarları Oku**, değişiklikleri yapınca **Ayarları Kaydet**. BLE için **Kaydetme Açık** izni gerekir.
+5. SX1262/SX1268, GPS FIX, LoRa RX, batarya gerilimi, OLED ve otomatik beacon ayarlarını kontrol edin.
 
-## 3. TRACKER: konum, hız, Comment, Status, WX
+## 3. GPS, SMART/FIXED, Status ve WX
 
-- **SMART Beacon:** GPS hızı ve dönüş koşullarına göre konum gönderim sıklığını ayarlar; **FIXED** seçilirse sabit süreler kullanılır.
-- **Hareket / Park:** İki karakterli APRS sembolü ayrı ayrı seçilebilir (ör. hareket `/>`, park `\\P`).
-- **Yön ve hız:** Geçerli ve güncel GPS kurs/hız bilgisi varsa APRS konumuna `ccc/sss` (derece / knot) eklenir; eski veya geçersiz veri uydurulmaz.
-- **Comment:** Belirlenen süre geldiğinde normal konum paketine eklenir, ayrıca RF paketi oluşturulmaz.
-- **Status:** Bağımsız APRS `>` paketi olarak gönderilir; V1.1.0'da rutin WX ve konum paketlerinden önce değerlendirilir.
-- **WX:** Geçerli BME280 verisi ve GPS gerekiyorsa yayınlanabilir; BME280 yoksa hayalî hava durumu üretilmez.
-- **TX güvenliği:** Her RF gönderimi ortak en az 10 saniyelik koruma aralığına tabidir. `RadioLib TX OK` yalnızca yerel radyo aktarımı başarılı anlamına gelir; diğer istasyonun aldığına garanti değildir.
+- **SMART:** Hız ve dönüş koşullarına göre konum aralığı. **FIXED:** seçilen dakika aralığı. GPS FIX veya güncel hız verisi yoksa hatalı hız/yön tahmin edilmez.
+- **GNSS baud:** Geçerli NMEA checksum bilgisiyle otomatik algılama; GNSS tanı komutları `gnss?` / `gnss baud?`.
+- **Sembol:** Normal hareket ve park APRS sembolleri ayrı ayarlanır. Bu sürümün OLED hazır sembol seçenekleri **Car / Walker / House**; Motorcycle değişikliği gelecekte planlanmıştır.
+- **Comment:** Zamanı gelince konum paketinde yer alır, ayrı paket oluşturmaz. **Status:** bağımsız `>` APRS paketidir.
+- **WX:** İsteğe bağlı BME280 ile sıcaklık/nem/basınç bilgisi; sensör yokken hayali değer üretilmez.
+- **RF TX:** Ortak **10 saniye** koruma; `RadioLib TX OK` sadece yerel gönderim sonucudur.
 
-## 4. APRS mesajları
+## 4. Serbest APRS mesajlaşması ve ACK
 
-1. Panelde **Mesajlar** sekmesini açın ve doğru USB/BLE cihazını seçin.
-2. Alıcının tam APRS çağrı işaretini (ör. `TA1FM-7`) ve mesajı yazın.
-3. **1, 2 veya 3 toplam RF denemesi** belirleyip gönderin.
-4. `QUEUED`, `ACK`, `ACK_TIMEOUT` veya gönderim durumunu panelden izleyin.
-5. Son **10 gelen mesaj** RAM'de tutulur; OLED/USB/BLE gelen kutusundan görüntülenir, enerji kesilince kaybolur.
+1. Birleşik panelde **Mesajlar** sekmesine geçin.
+2. Tam alıcı CALL-SSID ve ASCII metin girin; **1/2/3 toplam RF deneme** seçin.
+3. `QUEUED`, `WAIT_ACK`, `ACK_RECEIVED` veya zaman aşımını takip edin.
+4. **Karşı istasyon ACK gönderirse mesajı cihazın aldığı doğrulanır; insanın okuduğu kanıtlanmaz.**
+5. Son **3 gerçek gelen APRS mesajı RAM'de** tutulur; OLED ve USB/BLE gelen kutusunda görünür. Cihaz kapanınca silinir. APRS.fi'de görünmesi RF paketinin uygun iGate'e ulaşmasına bağlıdır.
 
-**ACK**, karşı cihazın protokol yanıtıdır; alıcının mesajı okuduğu anlamına gelmez. APRS.fi görünürlüğü uygun bir iGate'e ulaşılmasına bağlıdır.
+## 5. OLED üzerinden Hızlı Mesajlar (QUICK MSG)
 
-## 5. DIGI modu
+- Panelden hedef alıcı çağrı işaretini ve mesaj listesini kaydedin. Örnek:
 
-- `mode digi` öncesi **geçerli çağrı işareti**, `digi lat` ve `digi lon` kayıtlı olmalıdır.
-- `digi path 1`: WIDE1-1; `digi path 2`: desteklenen WIDE1/WIDE2 yolları.
-- `digi beacon 10|15|30|60` ile sabit beacon aralığını (dk) ayarlayın.
-- Modu değiştirdikten sonra konum/yol ve paketleri RF üzerinden test edin. Digi bir APRS-IS iGate değildir.
+~~~text
+Yoldayim|Konumuma bak|Eve donuyorum|OK|BYE
+~~~
 
-## 6. USB, BLE ve OLED
+- Sınır: **6 mesaj**, aralarındaki `|` dahil **200 ASCII byte**, mesaj başına **62 karakter**.
+- OLED'de menüden **QUICK MSG** açılır. Kısa basışla mesaj seçilir; uzun basışla önizlenir ve ikinci uzun basışla gönderim onaylanır.
+- Gönderimde RF üzerinden otomatik ACK isteği kullanılır; hazır mesaj TX'i **en fazla 2 toplam deneme** yapar.
+- **Hazır mesajlar kalıcı Direct Flash A/B kaydındadır.** Gelen mesaj geçmişi ise RAM'dedir.
 
-- **USB:** 115200 baud; Arduino Seri Monitör ve USB web panelini aynı COM portunda eşzamanlı kullanmayın.
-- **Bluetooth:** cihaz adı `nRF52_Lora_Tracker`. Panelde okuma/yazma kilidini kontrol edin; PIN'siz kaydetme seçeneği güçlü kimlik doğrulama değildir.
-- **OLED:** SH1106/SSD1306 tipi ayarlanabilir. USB'de `oled sh1106` / `oled ssd1306` önizleme ardından `oled confirm`; hatalı seçimde kurtarma yöntemini kullanın.
-- **Firmware sürümü:** USB'de `version?`; BLE üzerinden `VERSION|1.1.0|STABLE` yanıtı; OLED'de `V1.1.0`.
+## 6. Yeni mesaj bildirimi: OLED ve buzzer
 
-## 7. Kablosuz firmware güncelleme (BLE DFU)
+- Yeni, cihaza adresli ve gerçek APRS mesajında OLED uyandırılır; panelden **15, 30 veya 60 saniye** seçilir. Önceden uyuyorsa süre bitince uyku moduna dönebilir.
+- Aktif 3,3 V buzzer için GPIO **6 (P0.06)** hedef MiniMesh üzerinde test edilmiştir; bildirimi **bir uzun + iki kısa bip** olarak gözlemlenmiştir. Yazılım GPIO **8, 33, 34, 39** seçeneklerini de kabul eder; kartın fiziksel pin bağlantılarını doğrulayın.
+- Buzzer bağlanmasa bile OLED mesaj bildirimi çalışabilir. Normal konum/Status veya tekrarlanan APRS mesajları için yeni mesaj bildirim sesi amaçlanmaz.
+- Buzzer GPIO ve OLED bildirimi **panelden kalıcı kaydedilir**. Seri `notify?` ve `buzzer test` kontrol edilebilir.
 
-1. Release'ten **`.zip`** indirin.
-2. V1.1.0 panelinden BLE ile bağlanın; **Kaydetme Açık** → **BLE DFU Moduna Geç** → onay.
-3. Tracker **`AdaDFU`** adıyla görünür. Android **Nordic nRF Device Firmware Update** uygulamasını açın.
-4. ZIP ve AdaDFU seçin; **PRN=4**, **Request High MTU=OFF** kullanın.
-5. Gücü kesmeden işlemi tamamlayın; normal Tracker'a döndüğünü kontrol edin.
+## 7. Base91 APRS telemetri
 
-**Uyumluluk:** test edilen nice!nano UF2 0.10.0 / S140 6.1.1. **Legacy single-bank DFU** başarısızlığında USB UF2 kurtarma gerekebilir. Panel ZIP'i göndermez; yalnızca AdaDFU moduna geçirir. USB seri `dfu` komutu alternatifidir.
+- `telem on`: geçerli konum paketine Base91 telemetri ekler (pil voltajı, BME280 sıcaklık/nem/basınç). `telem off`: kapatır.
+- `telem defs`: istasyonun `PARM.Batt,Temp,Hum,Press,Spare`, `UNIT.V,C,%,hPa,-` ve `EQNS...` tanımlarını RF üzerinden sırayla gönderir.
+- **Telemetri aktif/pasif durumu RAM'dedir**, cihaz yeniden açılınca tekrar açılması gerekir. `telem?` ile sorgulayın.
+- aprs.fi'de çözümleme için paketlerin APRS-IS'e erişmesi gerekir. İlgili telemetri kullanıcının saha testlerinde aprs.fi'de gösterilmiştir.
 
-## 8. Sık komutlar
+## 8. Sabit DIGI modu
 
-```text
-version?
-p
-g
-r
-chip?
-mode?
-smart?
-flash?
-msg hello
-msg inbox
-msg status
-msg send TA1FM-7 MERHABA
-dfu
-```
+- Geçerli çağrı işareti ve iki sabit koordinat olmadan DIGI yapılandırmasını tamamlamayın.
+- `digi lat 40.97500` / `digi lon 27.50400`, `digi path 1|2`, `digi beacon 10|15|30|60` ayarlarını kullanın.
+- WIDE tekrarları, mükerrer filtrelemesi ve paylaşılan RF TX koruması vardır. Kapsama, anten ve RF ortamına bağlıdır.
 
-Tüm komutlar ve açıklamaları için [Seri Konsol Komut Rehberi](./SERI_KONSOL_KOMUT_REHBERI_TR.md).
+## 9. USB, BLE ve yazılım güncellemesi
 
-## 9. Sorun giderme ve yedek
+- USB seri: **115200 baud**. Aynı COM portunu hem Seri Monitör hem web paneliyle eşzamanlı açmayın.
+- BLE reklam adı: `nRF52_Lora_Tracker`; panel yazma izni **şifre değil**, kazara yazmayı önleyen kontrol mekanizmasıdır.
+- Sürüm: `version?` → `VERSION|1.2.0|STABLE_REBUILD1`; BLE `ping` → `PONG|TA1FM|V1.2.0_STABLE_REBUILD1`.
+- BLE OTA: Panelle DFU'ya girip Android **Nordic DFU** uygulamasında [ZIP](./TA1FM_nrf52_Tracker_v1.2.0_STABLE.ino.zip) yükleyin. **PRN 4**, **High MTU OFF** tavsiye edilen test ayarıdır. Mevcut DFU onay akışı korunmuştur; **tek onay** ileriki sürüm planıdır.
+- USB UF2 kurtarma/güncelleme için [UF2 dosyası](./TA1FM_nrf52_Tracker_v1.2.0_STABLE.ino.uf2). Bootloader dosyalarını uygulama UF2 ile karıştırmayın.
 
-| Sorun | Öneri |
+## 10. Sorun giderme
+
+| Belirti | Kontrol |
 |---|---|
-| GPS FIX yok | GPS kablolama, gökyüzü görüşü ve güncel uydu verilerini kontrol edin |
-| LoRa RX hatası | SX1262/SX1268 seçimini ve yeniden başlatmayı doğrulayın |
-| BLE bağlanamıyor | HTTPS, Bluetooth izinleri, başka bağlantı, cihazın AdaDFU'da olup olmadığı |
-| OLED görünmüyor | Ekran sürücüsü ve OLED kurtarma |
-| DFU aktarımı kopuyor | PRN 4, High MTU kapalı, güç; gerekirse USB UF2 ile kurtarma |
-| Mesaj inbox sıfırlandı | RAM tabanlıdır; yeniden açılışta temizlenir |
+| GPS FIX yok | Dış ortam, güç, UART, `gnss?`, `gnss baud?` |
+| LoRa RX/TX yok | Gerçek SX1262/SX1268 seçimi, anten, TCXO/RF anahtarı |
+| BLE yok | Bluetooth izni, HTTPS, reklam, bağlantı/enerji |
+| Mesaj RAM'den silindi | Normal davranış: 3 mesaj, yeniden başlatmada sıfırlanır |
+| Buzzer çalışmıyor | GPIO, aktif 3,3 V model, bildirim açık/kapalı, `buzzer test` |
+| OLED'de hazır mesaj yok | Panel kayıt durumu, `preset?`, hedef CALL-SSID |
+| İlk kurulum ayar kaydı yok | `flash?` ve `[DIRECT] AUTO INIT` tanı satırlarını kontrol edin |
+| DFU takıldı | Bootloader/SoftDevice, AdaDFU görünürlüğü, kararlı güç; USB UF2 kurtarma |
 
-**Önceki sürüm notları** Releases ve Git geçmişinde tutulur; güncel çalışma kılavuzu bu belgedir.
+**73 de TA1FM! 📡**
