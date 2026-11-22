@@ -1,106 +1,126 @@
-# TA1FM nrf52 Tracker — USB Serial Console Command Guide (V1.1.0 STABLE)
+# TA1FM nrf52 Tracker — USB Serial Console Commands (v1.2.0 STABLE REBUILD1)
 
-**Firmware:** [V1.1.0 STABLE](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker/releases/tag/v1.1.0) · **USB Serial:** 115200 baud · **Line ending:** Newline.
+**USB serial: 115200 baud, Newline line ending.** [Installation](./INSTALL_EN.md) · [User guide](./USER_GUIDE_EN.md)
 
-This reference covers the V1.1.0 STABLE USB command interface. Close the web configurator before opening Serial Monitor on the same COM port. Example callsigns are placeholders; use your own licensed callsign.
+Based on the [v1.2.0 STABLE REBUILD1 Arduino source](./TA1FM_nrf52_Tracker_v1.2.0_STABLE.ino). Close the USB web configurator before opening the same COM port in Serial Monitor. Substitute your authorized callsign for examples.
 
-## 1. Device information and diagnosis
+## 1. Read-only status and diagnostics
 
-| Command | Description |
+| Command | Function |
 |---|---|
-| `version?` | `VERSION\|1.1.0\|STABLE` |
-| `p` / `?` | Detailed state and command summary |
-| `g` | GPS fix / satellites / characters |
-| `r` | LoRa RX / error / packet count |
-| `b` | Optional BME280 values |
-| `flash?` | Direct Flash A/B status |
-| `chip?` | Selected SX1262/SX1268 |
-| `power?` | TX power |
-| `smart?` | SMART rate table |
-| `mode?` / `digi?` | TRACKER/DIGI and WIDE details |
-| `oled?` | OLED settings |
-| `comment?` / `status?` | Stored APRS texts |
+| `version?` | `VERSION|1.2.0|STABLE_REBUILD1` |
+| `p` / `?` | Complete state and command summary |
+| `g` / `r` / `b` | GNSS / LoRa / BME280 status |
+| `gnss?` / `gnss baud?` | GNSS diagnostics / auto-baud status |
+| `gnss debug` / `gnss gsv on` | Extra GNSS debug |
+| `gnss probe` | GNSS model probe (use carefully) |
+| `chip?` / `power?` | Radio variant / power |
+| `mode?` / `digi?` | TRACKER/DIGI settings |
+| `smart?` | SMART beacon rate table |
+| `flash?` | Persistent Direct Flash A/B status |
+| `preset?` | OLED quick message configuration |
+| `notify?` | Buzzer pin and OLED wake setting |
+| `telem?` | Base91 telemetry runtime state |
+| `oled?` / `comment?` / `status?` | Display and APRS text settings |
 
-## 2. Radio, operating mode
+## 2. Callsign, radio and mode
 
-| Command | Description |
+| Command | Purpose |
 |---|---|
-| `c TA1FM-7` | Save an example callsign |
-| `chip sx1262` / `chip sx1268` | Select radio; **restart after change** |
-| `power 1` … `power 22` | TX power in dBm |
-| `mode tracker` / `mode digi` | Select operating mode |
-| `ble on` / `ble off` | BLE enabled / disabled |
-| `u` | Toggle UTC and UTC+3 |
+| `c TA1FM-7` | Set an **example** callsign |
+| `chip sx1262` / `chip sx1268` | Select radio; a restart may be required |
+| `power 1` ... `power 22` | TX power dBm |
+| `mode tracker` / `mode digi` | Operating mode |
+| `ble on` / `ble off` | BLE advertising |
+| `u` | UTC / UTC+3 display toggle |
 
-## 3. Tracker and beacon control
+## 3. Tracker / beacon / symbols
 
-| Command | Description |
+| Command | Purpose |
 |---|---|
 | `a on` / `a off` | Automatic beacon |
-| `f smart` / `f fixed` | Position scheduling |
-| `i 1` / `3` / `5` / `10` / `15` | Fixed position interval in minutes (prefix each value with `i`) |
-| `smart 600,90,45,30,20,15` | Six speed-based intervals, seconds |
+| `f smart` / `f fixed` | SMART or FIXED |
+| `i 1` / `i 3` / `i 5` / `i 10` / `i 15` | Fixed beacon interval (minutes) |
+| `smart 600,90,45,30,20,15` | SMART speed-rate intervals (seconds) |
 | `motion on` / `motion off` | First-motion beacon |
-| `batt on` / `batt off` | Append battery voltage |
-| `k 1` / `k 3` / `k 5` | Park detection wait (minutes) |
-| `x off` / `x 15` / `x 30` / `x 60` | WX interval |
+| `batt on` / `batt off` | Battery value in position packets |
+| `k 1` / `k 3` / `k 5` | Parking time (minutes) |
+| `x off` / `x 15` / `x 30` / `x 60` | Weather interval |
 | `z off` / `z 15` / `z 30` / `z 60` | Status interval |
-| `j off` / `j each` / `j 15` / `j 30` / `j 60` | Comment interval |
-| `comment TEXT` / `status TEXT` | Save APRS text |
-| `t` | Manual position TX |
-| `w` | Manual WX TX (fresh GPS+BME280 required) |
-| `v` | Manual Status TX |
-| `symbol />` | Normal APRS symbol |
-| `parksymbol \\P` | Parked APRS symbol |
-| `s car` / `s walker` / `s house` | Preset symbols |
+| `j off` / `j each` / `j 15` / `j 30` / `j 60` | Comment timing |
+| `comment TEXT` / `status TEXT` | APRS text |
+| `symbol />` / `parksymbol \\P` | Moving / parked symbol |
+| `s car` / `s walker` / `s house` | Three current OLED presets (**motorcycle is planned**) |
+| `t` / `w` / `v` | Manual position / weather / Status RF TX |
 
-Fresh GPS course/speed is automatically included in position payloads as APRS `ccc/sss`. Status is considered before routine WX/position; the common **10-second RF guard** remains active.
+Keep the antenna connected when transmitting. Shared RF TX guard is at least 10 seconds.
 
-## 4. Digipeater
+## 4. DIGI mode
 
-| Command | Description |
+| Command | Purpose |
 |---|---|
-| `digi lat 40.97500` | Fixed latitude (example) |
-| `digi lon 27.50400` | Fixed longitude (example) |
-| `digi path 1` / `digi path 2` | WIDE repeat options |
-| `digi beacon 10` / `15` / `30` / `60` | Minutes between DIGI beacons |
-| `mode digi` | Requires valid callsign and both coordinates |
+| `digi lat 40.97500` / `digi lon 27.50400` | Fixed latitude / longitude |
+| `digi path 1` / `digi path 2` | WIDE path policy |
+| `digi beacon 10` / `15` / `30` / `60` | DIGI beacon interval (minutes) |
+| `mode digi` | Requires callsign and both coordinates |
 
-## 5. OLED
+## 5. OLED and APRS messages
 
-| Command | Description |
+| Command | Purpose |
 |---|---|
-| `oled sh1106` / `oled ssd1306` | Preview display driver |
-| `oled confirm` / `oled cancel` | Commit / cancel preview |
-| `oled wake` | Wake display |
-| `sleep 0` … `sleep 6` | Display sleep selection |
-
-## 6. APRS messages
-
-| Command | Description |
-|---|---|
-| `msg hello` | Message protocol capabilities |
-| `msg live` | Live device state |
-| `msg inbox` / `msg list` | Received messages |
-| `msg status` / `msg?` | Outgoing message/ACK state |
+| `oled sh1106` / `oled ssd1306` | OLED driver preview |
+| `oled confirm` / `oled cancel` | Confirm/cancel OLED preview |
+| `oled wake` / `sleep 0` ... `sleep 6` | Wake / sleep mode |
+| `msg hello` / `msg live` | Messaging capability/live status |
+| `msg inbox` / `msg list` | **Last 3** received messages (RAM) |
+| `msg status` / `msg?` | Outbound status / ACK |
 | `msg send TA1FM-7 HELLO` | One total RF attempt |
-| `msg send2 TA1FM-7 HELLO` | Two total RF attempts |
-| `msg send3 TA1FM-7 HELLO` | Three total RF attempts |
-| `msg cancel` | Cancel outbound message |
-| `msg clear` | Clear received inbox |
-| `testmsg TA1FM-7 TEST` | Local message injection, **no RF TX** |
+| `msg send2 TA1FM-7 HELLO` | Up to two attempts |
+| `msg send3 TA1FM-7 HELLO` | Up to three attempts |
+| `msg cancel` / `msg clear` | Cancel outgoing / clear RAM inbox |
+| `testmsg TA1FM-7 TEST` | Simulated incoming message, **no RF** |
+| `msg flash?` | Legacy read-only note: messages use RAM, not flash |
 
-ACK is a device protocol acknowledgment, **not a human read receipt**. The ten-entry inbox is volatile RAM.
+### Persistent OLED quick messages
 
-## 7. Firmware and flash
+Use the **unified web panel** where possible. Advanced transfer protocol:
 
-| Command | Description |
+- `preset?` — preset status; `preset get 0` ... `preset get 3` — read list parts.
+- `preset begin CALL LEN` — begin writing; `preset part INDEX CHUNK` — upload each indexed part; `preset commit` — verify/save; `preset cancel` — abort.
+
+Limits: **6** messages, **200 ASCII bytes including `|` delimiters**, each **≤62 characters**, one target CALL-SSID. Presets are stored with existing A/B configuration, **not in the incoming-message RAM inbox**.
+
+## 6. Buzzer and OLED notification
+
+| Command | Purpose |
 |---|---|
-| `dfu` | Reboot to **AdaDFU** BLE bootloader |
-| `version?` | Report firmware version |
-| `flash?` | Query persistent settings storage |
-| `flash init` | **Advanced use only**; do not initialize flash during a routine upgrade |
+| `notify?` | Persistent notification settings |
+| `notify save 6 1 1 30` | GPIO 6 buzzer ON, OLED wake ON, 30 seconds; save |
+| `notify save -1 0 1 30` | Disable buzzer, leave OLED wake on |
+| `buzzer test` | Test the active buzzer |
+| `buzzer?` / `buzzer on` / `buzzer off` | Runtime settings (not persistent) |
 
-**BLE OTA:** Android Nordic nRF Device Firmware Update: Release **ZIP**, select **AdaDFU**, set **PRN 4**, **Request High MTU OFF**. Tested nice!nano UF2 0.10.0 / S140 6.1.1. Interrupted Legacy single-bank DFU may require USB UF2 recovery; see [Installation](./INSTALL_EN.md).
+Allowed GPIO: **6, 8, 33, 34, 39**, or **-1** for no buzzer. **GPIO 6 (P0.06)** was tested on the target MiniMesh hardware. OLED wake durations: **15, 30, 60 seconds**. Verify the actual PCB and use a suitable active 3.3 V buzzer.
 
-Older V0.9.x command references are archived and not the current firmware documentation. Attach an antenna before RF TX and follow amateur radio licensing rules.
+## 7. Base91 APRS telemetry
+
+| Command | Purpose |
+|---|---|
+| `telem on` / `telem off` | Enable/disable telemetry (RAM-only state) |
+| `telem?` | Runtime state |
+| `telem defs` | Queue PARM / UNIT / EQNS (3 RF definition frames) |
+| `telem cancel` | Cancel pending definitions |
+
+Telemetry state resets after reboot. Separate definition packets are **not automatically transmitted on startup**.
+
+## 8. Firmware / settings storage
+
+| Command | Purpose |
+|---|---|
+| `dfu` | Request AdaDFU bootloader from USB |
+| `flash?` | Inspect Direct Flash A/B settings |
+| `flash init` | **Legacy advanced command**: not needed for normal v1.2.0 REBUILD1 first installation; the first boot auto-initializes |
+
+Existing valid A/B settings are preserved at boot. First boot uses `NOCALL` and disables APRS RF transmission until configured. BLE DFU uses a `dfu arm` 15-second window then `dfu go`; the current UI uses an approval flow, and single-confirmation DFU is **future work**. Android Nordic DFU uses the **application ZIP**, PRN **4**, High MTU **OFF** on the previously tested bootloader.
+
+**73 de TA1FM**
