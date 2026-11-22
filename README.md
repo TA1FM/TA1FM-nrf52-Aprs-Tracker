@@ -10,10 +10,6 @@
 
 **433.775 MHz LoRa APRS** tracker and fixed digipeater for compatible **nRF52840 MiniMesh Lite NRF (TA2DMX pin layout)** hardware. GPS/GNSS, SH1106/SSD1306 OLED, SX1262/SX1268, optional BME280, USB and Bluetooth BLE control.
 
-> **Yeni cihazlar / First boot:** REBUILD1, geçerli TA1FM A/B ayar kaydı bulunmadığında ayrılmış ayar sayfalarını otomatik başlatır. `flash init` gerekmez. Varsayılan çağrı işareti `NOCALL` olduğundan geçerli çağrı işareti tanımlanana kadar APRS RF yayını yapılmaz. Mevcut geçerli kayıtlar değiştirilmeden yüklenir. Eski yazılımdan kalan veriler **yalnızca ayrılmış `0xF2000/0xF3000` ayar sayfalarında** üzerine yazılabilir; bu işlem tüm flash belleği silmez.
->
-> **First install:** Dedicated A/B settings storage is initialized automatically when there is no valid TA1FM configuration. Valid saved settings are preserved. An unconfigured device uses `NOCALL` and will not transmit APRS packets until configured.
-
 ## 🇹🇷 Türkçe — v1.2.0 özellikleri
 
 - **TRACKER:** SMART/FIXED beacon, GPS konum, hareket/park sembolü, geçerli yön/hız, GNSS otomatik baud tespiti ve FIX kontrolü.
