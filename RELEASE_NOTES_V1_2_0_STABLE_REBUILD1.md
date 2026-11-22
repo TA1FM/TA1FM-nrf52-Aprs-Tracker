@@ -42,7 +42,7 @@ The rebuild retains the tested application features and adds **automatic first-r
 - Gelen mesajlar flash'a yazılmaz; yeniden açılışta silinir. Telemetri etkinliği RAM-only'dir.
 - Bu sürümde OLED sembol kısayolları `Car / Walker / House`. **Car / Motorcycle / Walker** değişikliği sonraki sürüme planlandı.
 - BLE DFU `dfu arm` / `dfu go` ve 15 saniyelik bekleme penceresini kullanır. **Tek onaylı DFU** henüz uygulanmadı.
-- Eski Configurator GitHub Pages panelinin v1.1.0 sürümü, v1.2.0'ın tüm yeni ayarlarını içermiyor; birleşik güncel HTML panelin yayımlanması ayrı iş.
+- **Güncel birleşik USB/BLE web paneli yayımlandı:** [v1.2.0 STABLE Panel](https://ta1fm.github.io/TA1FM-nrf52-Aprs-Tracker-Configurator/TA1FM_Tracker_Control_Panel_v1.2.0_STABLE.html) · [HTML kaynak kodu](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker-Configurator/blob/main/TA1FM_Tracker_Control_Panel_v1.2.0_STABLE.html). Eski v1.1.0 paneli yeni ayarların tamamını içermez.
 
 ## Güncelleme / Upgrade
 
