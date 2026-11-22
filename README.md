@@ -1,5 +1,9 @@
 # TA1FM nrf52 Tracker + LoRa APRS Digipeater
 
+## 🌐 [USB ve BLE Kontrol Paneli — v1.2.0 STABLE](https://ta1fm.github.io/TA1FM-nrf52-Aprs-Tracker-Configurator/TA1FM_Tracker_Control_Panel_v1.2.0_STABLE.html)
+
+**[Kontrol Panelini Tarayıcıda Aç](https://ta1fm.github.io/TA1FM-nrf52-Aprs-Tracker-Configurator/TA1FM_Tracker_Control_Panel_v1.2.0_STABLE.html)** · [HTML dosyası (GitHub)](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker-Configurator/blob/main/TA1FM_Tracker_Control_Panel_v1.2.0_STABLE.html)
+
 **Güncel sürüm / Current stable firmware: v1.2.0 STABLE REBUILD1 — 22 Kasım / November 2026**
 
 [**Kaynak kod / Source (.ino)**](./TA1FM_nrf52_Tracker_v1.2.0_STABLE.ino) · [**USB UF2**](./TA1FM_nrf52_Tracker_v1.2.0_STABLE.ino.uf2) · [**BLE DFU ZIP**](./TA1FM_nrf52_Tracker_v1.2.0_STABLE.ino.zip) · [**Kurulum (TR)**](./KURULUM_TR.md) · [**Installation (EN)**](./INSTALL_EN.md)
@@ -40,7 +44,7 @@
 - Automatic first-run settings initialization. `NOCALL` keeps APRS transmission disabled until configured.
 - Wireless DFU using a compatible bootloader and Android Nordic DFU **ZIP** package, or USB **UF2** firmware installation.
 
-**Current-version control panel:** The dedicated [TA1FM configurator repository](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker-Configurator) hosts earlier panel versions; the public **V1.1.0 STABLE panel** does **not** expose all new v1.2.0 controls. Use the **v1.2.0 STABLE REBUILD1 unified HTML panel** when available from the project maintainer; its GitHub Pages publication is a separate step. Do not mistake a legacy panel for the new firmware.
+**Current-version control panel:** [Open v1.2.0 STABLE USB/BLE Panel](https://ta1fm.github.io/TA1FM-nrf52-Aprs-Tracker-Configurator/TA1FM_Tracker_Control_Panel_v1.2.0_STABLE.html) · [HTML source on GitHub](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker-Configurator/blob/main/TA1FM_Tracker_Control_Panel_v1.2.0_STABLE.html). Earlier v1.1.0 panels lack some v1.2.0 controls.
 
 ### English documentation
 
