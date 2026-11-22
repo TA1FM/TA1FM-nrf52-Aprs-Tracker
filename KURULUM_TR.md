@@ -11,8 +11,8 @@
 
 ## 2. İlk kurulum: USB UF2
 
-1. Bu depodaki [`TA1FM_nrf52_Tracker_v1.2.0_STABLE.ino.uf2`](./TA1FM_nrf52_Tracker_v1.2.0_STABLE.ino.uf2) dosyasını indirin. Dosya adı `.ino.uf2` ile bitse de **UF2 firmware**'dir.
-2. Uygun UF2 bootloader'lı kartı veri taşıyan USB kablosuyla bilgisayara bağlayın.
+1. Bu depodaki [`TA1FM_nrf52_Tracker_v1.2.0_STABLE.ino.uf2`](./TA1FM_nrf52_Tracker_v1.2.0_STABLE.ino.uf2) dosyasını indirin.
+2. Uygun UF2 bootloader'lı kartı USB kablosuyla bilgisayara bağlayın.
 3. Uyumlu kartta RESET'i hızlıca iki kez tetikleyip UF2 sürücüsünün açıldığını doğrulayın. Kartın bootloader yönergesine öncelik verin.
 4. **UF2** dosyasını açılan sürücüye kopyalayın; kart yeniden başlar. **ZIP dosyasını UF2 sürücüsüne kopyalamayın, bu dosya BLE den güncelleme içindir.**
 5. OLED'de `V1.2.0`, USB'de `version?` komutuyla `VERSION|1.2.0|STABLE_REBUILD1` bilgisini kontrol edin.
@@ -26,7 +26,7 @@
 - **Dikkat:** Daha önce başka firmware çalıştırılmış kartta eski veriler bu iki **ayrılmış** sayfanın içindeyse otomatik ilk kayıt onları değiştirebilir. İşlem tüm flash/bootloader/SoftDevice alanını silmez; sadece bu karta uygun bellek yerleşiminde kullanılmalıdır.
 - İlk kurulum hatasında `flash?` ile durumu inceleyin; çalışmayan ayar alanını rastgele silmeyin.
 
-## 3. Tek birleşik USB/BLE kontrol paneli
+## 3. birleşik USB/BLE kontrol paneli
 
 v1.2.0'ın tüm özellikleri için **v1.2.0 STABLE REBUILD1 birleşik HTML panelini** kullanın. [Configurator deposunda](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker-Configurator) eski paneller de vardır; **V1.1.0 paneli**, v1.2.0 hızlı mesaj, buzzer ve telemetri kontrollerinin hepsini içermez. Güncel birleşik panelin ayrı yayımlanması gerekir.
 
