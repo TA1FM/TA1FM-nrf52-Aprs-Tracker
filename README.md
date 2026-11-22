@@ -19,7 +19,6 @@
 - **Mesaj bildirimi:** Yeni, cihaza adresli gerçek APRS mesajı geldiğinde OLED otomatik uyanabilir (**15/30/60 sn**). İsteğe bağlı aktif buzzer; **GPIO 6 (P0.06)** MiniMesh üzerinde denenmiştir. GPIO **8, 33, 34, 39** da yazılımda izinlidir; fiziksel kart uyumluluğunu ayrıca doğrulayın.
 - **Telemetri:** Konum paketinde isteğe bağlı **Base91** pil, BME280 sıcaklık/nem/basınç; `telem defs` ile PARM/UNIT/EQNS tanımları. Telemetri açık/kapalı durumu RAM'dedir; her açılışta yeniden etkinleştirilir. aprs.fi gösterimi uygun iGate'e bağlıdır.
 - **Tek sekmeli birleşik panel:** USB veya BLE bağlantısını bir kez kurup bütün sekmelerde kullanma; canlı bilgiler, APRS, radyo, GPS, mesajlar, OLED, telemetri, sistem.
-- **Direct Flash A/B + CRC32:** Ayarlar ve hazır mesajlar `0xF2000` / `0xF3000` üzerinde; ayrı LittleFS veya gelen mesaj geçmişi flash kaydı yok.
 - **USB UF2 ve Android BLE DFU:** BLE web paneli DFU modunu başlatır; gerçek firmware yüklemesi Nordic DFU uygulamasıyla **ZIP** üzerinden yapılır.
 
 **Not:** OLED sembol kısayolları bu sürümde hâlâ `Car / Walker / House`. Planlanan `Car / Motorcycle / Walker` ve tek onaylı BLE DFU akışı **henüz bu sürüme dahil değildir**.
@@ -51,8 +50,8 @@
 | File | Purpose |
 |---|---|
 | [`TA1FM_nrf52_Tracker_v1.2.0_STABLE.ino`](./TA1FM_nrf52_Tracker_v1.2.0_STABLE.ino) | Arduino source. Its internal build identifier is `V1.2.0_STABLE_REBUILD1`. |
-| [`TA1FM_nrf52_Tracker_v1.2.0_STABLE.ino.uf2`](./TA1FM_nrf52_Tracker_v1.2.0_STABLE.ino.uf2) | USB UF2 bootloader volume (compatible hardware only). |
-| [`TA1FM_nrf52_Tracker_v1.2.0_STABLE.ino.zip`](./TA1FM_nrf52_Tracker_v1.2.0_STABLE.ino.zip) | Android BLE DFU application ZIP (not a USB UF2 file). |
+| [`TA1FM_nrf52_Tracker_v1.2.0_STABLE.uf2`](./TA1FM_nrf52_Tracker_v1.2.0_STABLE.uf2) | USB UF2 bootloader volume (compatible hardware only). |
+| [`TA1FM_nrf52_Tracker_v1.2.0_STABLE.zip`](./TA1FM_nrf52_Tracker_v1.2.0_STABLE.zip) | Android BLE DFU application ZIP (not a USB UF2 file). |
 
 For the exact tested hardware and pin map see [pin guide](./PIN_BAGLANTILARI_TR.md). Bootloader and SoftDevice compatibility must be confirmed; this is **not** a universal nRF52840 image. Use a properly matched antenna and an authorized amateur callsign, and obey local RF rules. **ACK confirms device receipt, not human reading.**
 
