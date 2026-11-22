@@ -6,7 +6,7 @@
 
 **Güncel sürüm / Current stable firmware: v1.2.0 STABLE REBUILD1 — 22 Kasım / November 2026**
 
-[**Kaynak kod / Source (.ino)**](./TA1FM_nrf52_Tracker_v1.2.0_STABLE.ino) · [**USB UF2**](./TA1FM_nrf52_Tracker_v1.2.0_STABLE.ino.uf2) · [**BLE DFU ZIP**](./TA1FM_nrf52_Tracker_v1.2.0_STABLE.ino.zip) · [**Kurulum (TR)**](./KURULUM_TR.md) · [**Installation (EN)**](./INSTALL_EN.md)
+ [**USB UF2**](./TA1FM_nrf52_Tracker_v1.2.0_STABLE.uf2) · [**BLE DFU ZIP**](./TA1FM_nrf52_Tracker_v1.2.0_STABLE.zip) · [**Kurulum (TR)**](./KURULUM_TR.md) · [**Installation (EN)**](./INSTALL_EN.md)
 
 **433.775 MHz LoRa APRS** tracker and fixed digipeater for compatible **nRF52840 MiniMesh Lite NRF (TA2DMX pin layout)** hardware. GPS/GNSS, SH1106/SSD1306 OLED, SX1262/SX1268, optional BME280, USB and Bluetooth BLE control.
 
