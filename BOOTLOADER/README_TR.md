@@ -49,13 +49,13 @@ Bu `.uf2` dosyası **tamamen boş bir nRF52840'a ilk bootloader yükleyemez**. �
 
 Bu klasördeki UF2 güncelleme dosyasını bir **SWD HEX dosyasıymış gibi kullanmayın**. **`Erase All` / `Recover`** işlemlerini de çalışan TA1FM kartlarına rastgele uygulamayın.
 
-## TA1FM V0.9.24 STABLE ile ilişkisi
+## TA1FM v1.2.0 STABLE REBUILD1 ile ilişkisi
 
-Bu klasördeki dosya, **uygulama firmware'i değil**, ayrı bir kurtarma/güncelleme kaynağıdır. **TA1FM V0.9.24 STABLE için mevcut çalışan bootloader'ı sırf bu dosya arşivde var diye değiştirmek gerekmiyor.**
+Bu klasördeki dosya, **uygulama firmware'i değil**, ayrı bir kurtarma/güncelleme kaynağıdır. **TA1FM v1.2.0 STABLE REBUILD1 için de mevcut çalışan bootloader'ı yalnızca bu arşivde dosya var diye değiştirmeyin.** Uyumlu USB UF2 ve BLE DFU yapısı cihazın kendi bootloader/SoftDevice düzenine bağlıdır. Otomatik ilk ayar kaydı için bootloader güncellemesi gerekmez.
 
-- [V0.9.24 STABLE uygulama UF2](../TA1FM_nrf52_Tracker_UNIVERSAL_BLE_V0_9_24_STABLE.uf2)
-- [V0.9.24 kurulum rehberi](../KURULUM_TR.md)
-- [V0.9.24 kullanım kılavuzu](../KULLANIM_TR.md)
+- [v1.2.0 STABLE REBUILD1 uygulama UF2](../TA1FM_nrf52_Tracker_v1.2.0_STABLE.ino.uf2)
+- [Güncel kurulum rehberi](../KURULUM_TR.md)
+- [Güncel kullanım kılavuzu](../KULLANIM_TR.md)
 - [TA1FM nrf52 Tracker GitHub ana sayfası](../README.md)
 
 ## Başvuru kaynakları
