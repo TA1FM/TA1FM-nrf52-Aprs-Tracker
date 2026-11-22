@@ -2,7 +2,7 @@
 
 **Current stable release / Güncel kararlı sürüm: V1.1.0 STABLE** · 19 November 2026 / 19 Kasım 2026
 
-**[Download V1.1.0 STABLE / İndir](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker/releases/tag/v1.1.0)** · **[Web Control Panel / Web Ayar Paneli](https://ta1fm.github.io/TA1FM-nrf52-Aprs-Tracker-Configurator/TA1FM_Tracker_Control_Panel_V1_1_0_STABLE.html)**
+**[Download V1.1.0 STABLE / İndir](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker/releases/tag/v1.1.0)** · **[Web&BLE Control Panel / Web Ayar&BLE Paneli](https://ta1fm.github.io/TA1FM-nrf52-Aprs-Tracker-Configurator/TA1FM_Tracker_Control_Panel_V1_1_0_STABLE.html)**
 
 nRF52840 MiniMesh-based **433.775 MHz LoRa APRS Tracker and Digipeater** with GPS, OLED, USB/Bluetooth configuration, APRS messaging, and wireless firmware updates.
 
