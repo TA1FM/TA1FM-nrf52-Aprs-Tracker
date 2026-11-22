@@ -1,8 +1,38 @@
-> **✅ GÜNCEL SÜRÜM: v1.0.0 STABLE (17.11.2026)** — [Release ve UF2/INO dosyaları](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker/releases/tag/v1.0.0) · [Güncel USB + BLE kontrol paneli](https://ta1fm.github.io/TA1FM-nrf52-Aprs-Tracker-Configurator/). **Bu belgenin aşağıdaki ayrıntılı talimatları eski v0.9.24 sürümünü temel alır ve arşiv amaçlı korunur.** v1.0.0 ayrıca USB/BLE APRS mesajlaşmasını destekler; eski sürüm bağlantılarını güncel indirme olarak kullanmayın.
+> **GÜNCEL FIRMWARE: v1.2.0 STABLE REBUILD1 (22.11.2026)** — [Arduino .ino](./TA1FM_nrf52_Tracker_v1.2.0_STABLE.ino) · [USB .uf2](./TA1FM_nrf52_Tracker_v1.2.0_STABLE.ino.uf2) · [BLE DFU .zip](./TA1FM_nrf52_Tracker_v1.2.0_STABLE.ino.zip) · [Kurulum](./KURULUM_TR.md). Bu sayfa eski V0.9.24 DIY/fakeTec karşılaştırmasını tarihsel açıklamalarıyla korur; aşağıdaki **güncel kart eşlemesi ve buzzer notları** v1.2.0 içindir.
 
-# TA1FM nrf52 Tracker + Digipeater — Pin Bağlantıları (V0.9.24 STABLE)
+# TA1FM nrf52 Tracker + Digipeater — Pin Bağlantıları (v1.2.0 STABLE REBUILD1)
 
-Bu sayfa, **TA2DMX MiniMesh Lite NRF** için kullanılan firmware pinlerini ve **nRF52840 Pro Micro ile kendin yap (DIY)** görselini bir arada sunar. Pro Micro'nun kart revizyonu, silkscreen pinleri, RF/TCXO donanımı ve Arduino kart varyantı **kurulumdan önce ayrıca doğrulanmalıdır**. Pro Micro'nun aynı işlemciyi taşıması, hazır MiniMesh UF2'nin her karta doğrudan uygun olduğu anlamına gelmez.
+Bu sayfa, **TA2DMX MiniMesh Lite NRF** için v1.2.0 STABLE REBUILD1 ile kullanılan firmware pinlerini ve **nRF52840 Pro Micro ile kendin yap (DIY)** görselini bir arada sunar. Pro Micro'nun kart revizyonu, silkscreen pinleri, RF/TCXO donanımı ve Arduino kart varyantı **kurulumdan önce ayrıca doğrulanmalıdır**. Pro Micro'nun aynı işlemciyi taşıması, hazır MiniMesh UF2'nin her karta doğrudan uygun olduğu anlamına gelmez.
+
+
+
+## Güncel v1.2.0 kart pin haritası (TA2DMX MiniMesh)
+
+Bu eşleştirme TA1FM için hazırlanmış özel Adafruit nRF52 `variant.h / variant.cpp` düzenine dayanır. **Arduino D0–D31 = P0.00–P0.31; D32–D47 = P1.00–P1.15**. Kart üstündeki etiketlere göre eşleştirme yapın; bunlar başka nRF52840 kartlarında aynı anlama gelmeyebilir.
+
+| Fonksiyon | Kart üzerindeki işaret | Arduino no. |
+|---|---|---:|
+| LoRa SCK / MOSI / MISO | P1.11 / P1.15 / P0.02 | 43 / 47 / 2 |
+| LoRa CS, DIO1, BUSY, RESET | P1.13 / P0.10 / P0.29 / P0.09 | 45 / 10 / 29 / 9 |
+| LoRa RXEN | P0.17 | 17 |
+| GPS MCU RX / TX | P0.22 / P0.20 | 22 / 20 |
+| GPS enable | P0.24 | 24 |
+| OLED/BME280 SDA / SCL | P1.04 / P0.11 | 36 / 11 |
+| Kullanıcı/OLED menü butonu | P1.00 | 32 |
+| Batarya ADC | P0.31 | 31 |
+| Yerleşik LED | P0.15 | 15 |
+| **Buzzer — önerilen/test edilen** | **P0.06** | **6** |
+| Buzzer — alternatif (firmware izinli) | P0.08 | 8 |
+| Buzzer — alternatifler (firmware izinli) | P1.01 / P1.02 / P1.07 | 33 / 34 / 39 |
+
+**Buzzer denemesi:** Projenin gerçek MiniMesh donanımında **P0.06 / Arduino GPIO 6** ile buzzer çalışması, APRS bildirim sesi ve diğer temel işlevlerin etkilenmediği kullanıcı testinde doğrulanmıştır. Firmware **GPIO 6, 8, 33, 34, 39 ve -1 (kapalı)** değerlerini kabul eder. Bu, alternatif pinlerin her üretici PCB'sinde boş veya uygun olduğu anlamına **gelmez**.
+
+**Önemli fakeTec V4 farkı:** Aşağıdaki eski kart karşılaştırmasında **GPIO 6 ve 8, harici MOSFET kontrolü için ayrılabiliyor**. Bu yüzden MiniMesh'te çalışan P0.06 buzzer bağlantısını fakeTec V4 veya başka DIY kartlara doğrulamadan taşımayın.
+
+Aktif buzzer'ın **3,3 V uyumlu** olmasını ve GPIO akım sınırını kontrol edin; gerekirse transistör/MOSFET sürücü kullanın. Panelden `notify?` ve `buzzer test` ile kontrol edilebilir. Yeni, cihaz adresli APRS mesajında OLED 15/30/60 sn uyanabilir.
+
+**GNSS:** v1.2.0 doğrulanmış NMEA ile **otomatik baud algılama** içerir; aşağıdaki eski “sabit 9600 baud” ifadesi artık güncel değildir.
+
 
 ## 🖼️ nRF52840 Pro Micro — Bağlantı Şeması
 
@@ -57,7 +87,7 @@ Aşağıdaki görsel, ilk hazırlanan şemanın **kullanıcı tarafından düzel
 | GND | GND | — |
 | VCC | Uygun regüle 3,3 V | — |
 
-**Önemli:** `RXEN` nRF52840 kartındaki RF anahtarına bağlı olabilir; çıplak SX1262/SX1268 modülünde bu adla bir pin bulunmayabilir. RF anahtarı, TCXO gereksinimi ve anten devresi modüle göre ayrıca doğrulanmalıdır. **Güncel V0.9.24:** SX1262/SX1268 aynı Universal firmware içinde seçilebilir. Önceki V0.9.6 ve V0.9.14 paketleri tarihsel ayrı sürümlerdir. Yanlış çip seçimi RF'yi devre dışı bırakabilir; çip değişimi sonrası yeniden başlatın.
+**Önemli:** `RXEN` nRF52840 kartındaki RF anahtarına bağlı olabilir; çıplak SX1262/SX1268 modülünde bu adla bir pin bulunmayabilir. RF anahtarı, TCXO ve anten devresi ayrıca doğrulanmalıdır. **Güncel v1.2.0:** SX1262/SX1268 aynı firmware içinde seçilebilir. Önceki sürümler tarihsel arşivdir; yanlış çip seçimi RF'yi devre dışı bırakabilir, çip değişiminden sonra yeniden başlatın.
 
 ## 2. OLED ekran: SH1106 / SSD1306 (I²C)
 
@@ -82,7 +112,7 @@ Aşağıdaki görsel, ilk hazırlanan şemanın **kullanıcı tarafından düzel
 | VCC | GPS modülüne uygun regüle besleme | Modül özelliklerini kontrol edin |
 | GND | GND | Ortak toprak |
 
-- Firmware `Serial1` ve **9600 baud** kullanır.
+- Firmware `Serial1` kullanır; **GNSS baud hızını geçerli NMEA verisine göre otomatik algılar** (ilk deneme 9600). Manuel `gnss?` / `gnss baud?` tanısı vardır.
 - GPS TX/RX yönlerine dikkat edin: TX, karşı tarafın RX pinine gider.
 - `GPS_EN` pininin **doğrudan modül beslemesi değil, bir güç anahtarı ya da enable hattı** olabileceğini dikkate alın; çıplak GPS modülüne bu pinden güç vermeyin.
 - P0.20/P0.22 eşlemesi, MiniMesh tasarımının temel aldığı `nrf52_promicro_diy_tcxo` kart tanımına dayanır. Farklı kart tanımında mutlaka yeniden doğrulayın.
@@ -114,15 +144,15 @@ Aşağıdaki görsel, ilk hazırlanan şemanın **kullanıcı tarafından düzel
 
 1. nRF52840 GPIO pinleri 3,3 V mantık düzeyindedir; 5 V sinyal uygulamayın.
 2. LoRa modülüne anten bağlamadan RF yayın testi yapmayın.
-3. **V0.9.24 STABLE Universal firmware** SX1262 ve SX1268 seçimini destekler; LLCC68 bu projenin 433.775 MHz / SF12 / BW125 APRS moduyla uyumlu değildir.
+3. **v1.2.0 STABLE REBUILD1** SX1262 ve SX1268 seçimini destekler; başka radyo donanımları için farklılıkları doğrulamadan uyumluluk varsaymayın.
 4. Tablo, çalışan MiniMesh yazılımının pin eşlemesidir; sıfırdan kart yaparken **güç devresi, batarya şarj devresi, RF anahtarı, anten, TCXO ve bootloader/board variant** ayrıca tasarlanmalı ve doğrulanmalıdır.
 5. İlk testte radyo TX'ten önce I²C cihazlarını, GPS UART'ını ve güç hatlarını ayrı ayrı doğrulayın.
 
 ## Kaynak
 
 - [TA1FM Tracker GitHub](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker)
-- [V0.9.24 STABLE Universal BLE kaynak kodu](./TA1FM_nrf52_Tracker_UNIVERSAL_BLE_V0_9_24_STABLE.ino)
-- [V0.9.24 STABLE UF2 firmware](./TA1FM_nrf52_Tracker_UNIVERSAL_BLE_V0_9_24_STABLE.uf2)
+- [Güncel v1.2.0 STABLE REBUILD1 kaynak kodu](./TA1FM_nrf52_Tracker_v1.2.0_STABLE.ino)
+- [Güncel v1.2.0 UF2 firmware](./TA1FM_nrf52_Tracker_v1.2.0_STABLE.ino.uf2)
 - [Türkçe kullanım kılavuzu](./KULLANIM_TR.md)
 - [Meshtastic nrf52_promicro_diy_tcxo kart tanımı](https://github.com/meshtastic/firmware/blob/develop/variants/nrf52840/diy/nrf52_promicro_diy_tcxo/variant.h)
 
