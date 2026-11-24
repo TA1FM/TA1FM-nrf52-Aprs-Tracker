@@ -43,6 +43,13 @@ Panelin kendi `BETA2` adı, onun özellik geliştirme sürümünü belirtir; STA
 
 ## Yayın durumu
 
-**STABLE kaynak dosyası hazır ve GitHub'a kaydedildi.** Kaynak yalnızca sürüm kimliği değiştirilerek hazırlanmıştır. Bu oturumda Arduino derlemesi yapılmadı, bu nedenle **v1.3.0 STABLE UF2 ve Nordic BLE DFU ZIP dosyaları henüz oluşturulmadı** ve GitHub Releases üzerinde eksiksiz ikili paket yayımlanmış sayılmaz. Her iki paketin bu yeni STABLE kaynakla, doğru nRF52 board/bootloader seçenekleriyle derlenip yüklenmesi ve yeniden açılışta `V1.3.0 STABLE` göstermesi gerekir.
+**v1.3.0 STABLE GitHub Release yayımlandı (24 Kasım 2026).**
+
+- [Resmî v1.3.0 STABLE Release](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker/releases/tag/v1.3.0)
+- Arduino kaynak: `TA1FM_nrf52_Tracker_v1.3.0_STABLE.ino`
+- USB UF2: `TA1FM_nrf52_Tracker_v1.3.0_STABLE.ino.uf2`
+- Nordic BLE DFU ZIP: `TA1FM_nrf52_Tracker_v1.3.0_STABLE.ino.zip`
+
+Dosyalar Release sayfasının **Assets** bölümünde yer alır. UF2 ve ZIP farklı yükleme yöntemleri içindir; kullanmadan önce donanım ve bootloader/SoftDevice uyumluluğunu kontrol edin. **v1.2.0 STABLE** ve eski kaynaklar arşivde tutulur.
 
 **73 de TA1FM 📡**
