@@ -1,6 +1,11 @@
-# TA1FM nrf52 Tracker — Kurulum Rehberi (v1.2.0 STABLE REBUILD1)
+# TA1FM nrf52 Tracker — Kurulum Rehberi (v1.3.0 STABLE)
 
-**Güncel kaynak:** [INO](./TA1FM_nrf52_Tracker_v1.2.0_STABLE.ino) · [USB UF2](./TA1FM_nrf52_Tracker_v1.2.0_STABLE.ino.uf2) · [BLE DFU ZIP](./TA1FM_nrf52_Tracker_v1.2.0_STABLE.ino.zip) · [Kullanım](./KULLANIM_TR.md) · [Seri komutlar](./SERI_KONSOL_KOMUT_REHBERI_TR.md)
+**Güncel firmware / indirmeler:** [v1.3.0 STABLE GitHub Release](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker/releases/tag/v1.3.0) · [Uyumlu v1.3.0 USB/BLE paneli](https://ta1fm.github.io/TA1FM-nrf52-Aprs-Tracker-Configurator/BETA/TA1FM_Tracker_Control_Panel_v1.3.0_BETA2.html)
+
+**v1.3.0 notu:** OLED DFU MODE ve SYSTEM STATUS eklendi; Car/Motorcycle/Walker seçenekleri kullanılabilir. BME280 yokken etkin telemetri yalnızca pil voltajını gönderir; sensör varsa pil ve geçerli hava verileri gönderilir. `telem defs` yeni sensör durumuna göre tekrar gönderilmelidir. Daha ayrıntılı değişiklikler için [v1.3.0 sürüm notları](./RELEASE_NOTES_V1_3_0_STABLE.md).
+
+
+**Güncel kaynak:** [INO](./TA1FM_nrf52_Tracker_v1.3.0_STABLE.ino) · [USB UF2](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker/releases/download/v1.3.0/TA1FM_nrf52_Tracker_v1.3.0_STABLE.ino.uf2) · [BLE DFU ZIP](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker/releases/download/v1.3.0/TA1FM_nrf52_Tracker_v1.3.0_STABLE.ino.zip) · [Kullanım](./KULLANIM_TR.md) · [Seri komutlar](./SERI_KONSOL_KOMUT_REHBERI_TR.md)
 
 ## 1. Gereksinimler
 
@@ -11,24 +16,24 @@
 
 ## 2. İlk kurulum: USB UF2
 
-1. Bu depodaki [`TA1FM_nrf52_Tracker_v1.2.0_STABLE.ino.uf2`](./TA1FM_nrf52_Tracker_v1.2.0_STABLE.ino.uf2) dosyasını indirin.
+1. Bu depodaki [`TA1FM_nrf52_Tracker_v1.3.0_STABLE.ino.uf2`](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker/releases/download/v1.3.0/TA1FM_nrf52_Tracker_v1.3.0_STABLE.ino.uf2) dosyasını indirin.
 2. Uygun UF2 bootloader'lı kartı USB kablosuyla bilgisayara bağlayın.
 3. Uyumlu kartta RESET'i hızlıca iki kez tetikleyip UF2 sürücüsünün açıldığını doğrulayın. Kartın bootloader yönergesine öncelik verin.
 4. **UF2** dosyasını açılan sürücüye kopyalayın; kart yeniden başlar. **ZIP dosyasını UF2 sürücüsüne kopyalamayın, bu dosya BLE den güncelleme içindir.**
-5. OLED'de `V1.2.0`, USB'de `version?` komutuyla `VERSION|1.2.0|STABLE_REBUILD1` bilgisini kontrol edin.
+5. OLED'de `V1.3.0`, USB'de `version?` komutuyla `VERSION|1.3.0|STABLE` bilgisini kontrol edin.
 6. İlk açılışta `NOCALL` görünmesi normaldir: **henüz çağrı işareti kaydedilmediği için APRS RF yayını kapalıdır.** Kartı web panelinden yapılandırın.
 
 ### Otomatik ilk açılış ayarları — REBUILD1
 
 - **Geçerli TA1FM A/B ayar kaydı varsa:** otomatik yüklenir, açılış sırasında yeniden yazılmaz.
 - **Geçerli kayıt yoksa:** BLE/SoftDevice altyapısı başladıktan sonra `0xF2000` / `0xF3000` ayar sayfalarında otomatik ilk kayıt oluşturulur; `flash init` komutu **gerekmez**.
-- İlk kurulumda SX1262 varsayılır; kullandığınız gerçek çip farklıysa SX1268 seçin. GPS, OLED ve radyo çalışmasını ayrı ayrı doğrulayın.
+- İlk kurulumda SX1268 varsayılır; gerçek donanım SX1262 ise panelden SX1262 seçin. Kaydedilmiş mevcut çip tercihi korunur. GPS, OLED ve radyo çalışmasını ayrı ayrı doğrulayın.
 - **Dikkat:** Daha önce başka firmware çalıştırılmış kartta eski veriler bu iki **ayrılmış** sayfanın içindeyse otomatik ilk kayıt onları değiştirebilir. İşlem tüm flash/bootloader/SoftDevice alanını silmez; sadece bu karta uygun bellek yerleşiminde kullanılmalıdır.
 - İlk kurulum hatasında `flash?` ile durumu inceleyin; çalışmayan ayar alanını rastgele silmeyin.
 
 ## 3. birleşik USB/BLE kontrol paneli
 
-v1.2.0'ın tüm özellikleri için **v1.2.0 STABLE REBUILD1 birleşik HTML panelini** kullanın. [Configurator deposunda](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker-Configurator) eski paneller de vardır; **V1.1.0 paneli**, v1.2.0 hızlı mesaj, buzzer ve telemetri kontrollerinin hepsini içermez. Güncel birleşik panelin ayrı yayımlanması gerekir.
+v1.3.0'ın tüm özellikleri için **v1.3.0 STABLE birleşik HTML panelini** kullanın. [Configurator deposunda](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker-Configurator) eski paneller de vardır; **V1.1.0 paneli**, v1.3.0 hızlı mesaj, buzzer ve telemetri kontrollerinin hepsini içermez. v1.3.0 ile uyumlu birleşik panel aşağıdaki bağlantıda kullanılabilir.
 
 - **USB:** Chrome/Edge'de paneli açın; Arduino Seri Monitör'ün tuttuğu COM portunu önce kapatın. Üstten **USB Bağlan** ve **Ayarları Oku** kullanın.
 - **BLE:** HTTPS sayfasını Web Bluetooth uyumlu Chrome ile açın. `nRF52_Lora_Tracker` cihazını seçip bağlanın; üstteki ortak **Ayarları Oku** düğmesiyle bilgileri okuyun.
@@ -54,9 +59,9 @@ v1.2.0'ın tüm özellikleri için **v1.2.0 STABLE REBUILD1 birleşik HTML panel
 
 **Ön koşul:** Uyumlu bootloader/SoftDevice. Daha önce test edilmiş örnek: nice!nano UF2 **0.10.0 / S140 6.1.1**; farklı kart ve bootloader uyumluluğunu ayrıca doğrulayın.
 
-1. [`TA1FM_nrf52_Tracker_v1.2.0_STABLE.ino.zip`](./TA1FM_nrf52_Tracker_v1.2.0_STABLE.ino.zip) dosyasını telefona indirin.
+1. [`TA1FM_nrf52_Tracker_v1.3.0_STABLE.ino.zip`](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker/releases/download/v1.3.0/TA1FM_nrf52_Tracker_v1.3.0_STABLE.ino.zip) dosyasını telefona indirin.
 2. Normal Tracker'a panelden BLE ile bağlanın ve **Kaydetme Açık** iznini etkinleştirin.
-3. **BLE DFU Moduna Geç** komutunu onaylayın. Mevcut sürümde `dfu arm` / `dfu go` akışı ve **15 saniyelik** arming süresi vardır; DFU için tek onay geliştirmesi henüz dahil değildir.
+3. **BLE DFU Moduna Geç** komutunu onaylayın. Mevcut sürümde `dfu arm` / `dfu go` akışı ve **15 saniyelik** arming süresi vardır; DFU için v1.3.0 panelde tek kullanıcı onayıyla ARM/GO akışını çalıştırır; firmware ZIP aktarımı Nordic DFU uygulamasında yapılır.
 4. Cihazın normal BLE bağlantısı kopar. **AdaDFU** reklamını kontrol edin; göremiyorsanız tam güç kesip yeniden açmak bazı durumlarda yardımcı olmuştur, ancak bu garantili bir çözüm değildir.
 5. Android **Nordic nRF Device Firmware Update** uygulamasında **AdaDFU** cihazını ve DFU **ZIP**'i seçin. **PRN = 4**, **Request High MTU = OFF** kullanın.
 6. İşlem boyunca bağlantıyı ve gücü koruyun. Tamamlandıktan sonra normal yazılım sürümünü ve ayarları kontrol edin.
@@ -76,4 +81,4 @@ v1.2.0'ın tüm özellikleri için **v1.2.0 STABLE REBUILD1 birleşik HTML panel
 | OLED boş | SH1106/SSD1306 seçimini ve OLED kurtarma ayarını kontrol edin |
 | AdaDFU görünmüyor | Önce güncel bağlantı/bootloader durumunu ve DFU yanıtlarını kontrol edin; gerekirse USB UF2 ile yükleyin |
 
-**Not:** Burası güncel v1.2.0 STABLE REBUILD1 rehberidir; V0.9.x rehberleri tarihsel arşivdir.
+**Not:** Burası güncel v1.3.0 STABLE rehberidir; V0.9.x rehberleri tarihsel arşivdir.
