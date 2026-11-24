@@ -28,7 +28,7 @@ Frekans **433.775 MHz**, **SF12 / BW125 / CR4/5**. Uyumlu nRF52840 MiniMesh, SX1
 
 - **SMART:** Hız ve dönüş koşullarına göre konum aralığı. **FIXED:** seçilen dakika aralığı. GPS FIX veya güncel hız verisi yoksa hatalı hız/yön tahmin edilmez.
 - **GNSS baud:** Geçerli NMEA checksum bilgisiyle otomatik algılama; GNSS tanı komutları `gnss?` / `gnss baud?`.
-- **Sembol:** Normal hareket ve park APRS sembolleri ayrı ayarlanır. Bu sürümün OLED hazır sembol seçenekleri **Car / Motorcycle OLED hızlı sembol seçeneklerine v1.3.0 sürümünde eklenmiştir.
+- **Sembol:** Hareket ve park APRS sembolleri ayrı ayarlanır. v1.3.0 OLED hızlı seçimleri **Car / Motorcycle / Walker** şeklindedir.
 - **Comment:** Zamanı gelince konum paketinde yer alır, ayrı paket oluşturmaz. **Status:** bağımsız `>` APRS paketidir.
 - **WX:** İsteğe bağlı BME280 ile sıcaklık/nem/basınç bilgisi; sensör yokken hayali değer üretilmez.
 - **RF TX:** Ortak **10 saniye** koruma; `RadioLib TX OK` sadece yerel gönderim sonucudur.
