@@ -55,7 +55,7 @@ Based on the [v1.3.0 STABLE Arduino source](./TA1FM_nrf52_Tracker_v1.3.0_STABLE.
 | `j off` / `j each` / `j 15` / `j 30` / `j 60` | Comment timing |
 | `comment TEXT` / `status TEXT` | APRS text |
 | `symbol />` / `parksymbol \\P` | Moving / parked symbol |
-| `s car` / `s walker` / `s motorcycle` | Three current OLED presets (**motorcycle is planned**) |
+| `s car` / `s motorcycle` / `s walker` | Current OLED quick symbols: Car / Motorcycle / Walker |
 | `t` / `w` / `v` | Manual position / weather / Status RF TX |
 
 Keep the antenna connected when transmitting. Shared RF TX guard is at least 10 seconds.
