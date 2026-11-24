@@ -1,6 +1,11 @@
-# TA1FM nrf52 Tracker + Digipeater — Kullanım Rehberi (v1.2.0 STABLE REBUILD1)
+# TA1FM nrf52 Tracker + Digipeater — Kullanım Rehberi (v1.3.0 STABLE)
 
-[Kaynak / INO](./TA1FM_nrf52_Tracker_v1.2.0_STABLE.ino) · [Kurulum](./KURULUM_TR.md) · [Seri Komutlar](./SERI_KONSOL_KOMUT_REHBERI_TR.md) · [Pinler](./PIN_BAGLANTILARI_TR.md)
+**Güncel firmware / indirmeler:** [v1.3.0 STABLE GitHub Release](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker/releases/tag/v1.3.0) · [Uyumlu v1.3.0 USB/BLE paneli](https://ta1fm.github.io/TA1FM-nrf52-Aprs-Tracker-Configurator/BETA/TA1FM_Tracker_Control_Panel_v1.3.0_BETA2.html)
+
+**v1.3.0 notu:** OLED DFU MODE ve SYSTEM STATUS eklendi; Car/Motorcycle/Walker seçenekleri kullanılabilir. BME280 yokken etkin telemetri yalnızca pil voltajını gönderir; sensör varsa pil ve geçerli hava verileri gönderilir. `telem defs` yeni sensör durumuna göre tekrar gönderilmelidir. Daha ayrıntılı değişiklikler için [v1.3.0 sürüm notları](./RELEASE_NOTES_V1_3_0_STABLE.md).
+
+
+[Kaynak / INO](./TA1FM_nrf52_Tracker_v1.3.0_STABLE.ino) · [Kurulum](./KURULUM_TR.md) · [Seri Komutlar](./SERI_KONSOL_KOMUT_REHBERI_TR.md) · [Pinler](./PIN_BAGLANTILARI_TR.md)
 
 ## 1. Çalışma modları
 
@@ -15,7 +20,7 @@ Frekans **433.775 MHz**, **SF12 / BW125 / CR4/5**. Uyumlu nRF52840 MiniMesh, SX1
 
 1. Anteni bağlayın; firmware yükleyin. Yeni cihazda ayar alanları otomatik başlatılır; `flash init` gerekmez.
 2. İlk kurulumda `NOCALL` normaldir ve **APRS RF gönderimi engellenir**. Kendi lisanslı çağrı işaretinizi kaydedin.
-3. Güncel v1.2.0 **birleşik HTML web panelini** Chrome/Edge üzerinden USB veya Web Bluetooth üzerinden BLE ile açın. Configurator deposundaki [eski v1.1.0 panelinin](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker-Configurator) en yeni kontrolleri içermeyebileceğini unutmayın.
+3. Güncel v1.3.0 **uyumlu birleşik HTML web panelini** Chrome/Edge üzerinden USB veya Web Bluetooth üzerinden BLE ile açın. Configurator deposundaki [eski v1.1.0 panelinin](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker-Configurator) en yeni kontrolleri içermeyebileceğini unutmayın.
 4. **Bir kez BLE/USB bağlanın; sekmeler arasında bağlantı aynen korunur.** Üstte **Ayarları Oku**, değişiklikleri yapınca **Ayarları Kaydet**. BLE için **Kaydetme Açık** izni gerekir.
 5. SX1262/SX1268, GPS FIX, LoRa RX, batarya gerilimi, OLED ve otomatik beacon ayarlarını kontrol edin.
 
@@ -23,7 +28,7 @@ Frekans **433.775 MHz**, **SF12 / BW125 / CR4/5**. Uyumlu nRF52840 MiniMesh, SX1
 
 - **SMART:** Hız ve dönüş koşullarına göre konum aralığı. **FIXED:** seçilen dakika aralığı. GPS FIX veya güncel hız verisi yoksa hatalı hız/yön tahmin edilmez.
 - **GNSS baud:** Geçerli NMEA checksum bilgisiyle otomatik algılama; GNSS tanı komutları `gnss?` / `gnss baud?`.
-- **Sembol:** Normal hareket ve park APRS sembolleri ayrı ayarlanır. Bu sürümün OLED hazır sembol seçenekleri **Car / Walker / House**; Motorcycle değişikliği gelecekte planlanmıştır.
+- **Sembol:** Normal hareket ve park APRS sembolleri ayrı ayarlanır. Bu sürümün OLED hazır sembol seçenekleri **Car / Motorcycle OLED hızlı sembol seçeneklerine v1.3.0 sürümünde eklenmiştir.
 - **Comment:** Zamanı gelince konum paketinde yer alır, ayrı paket oluşturmaz. **Status:** bağımsız `>` APRS paketidir.
 - **WX:** İsteğe bağlı BME280 ile sıcaklık/nem/basınç bilgisi; sensör yokken hayali değer üretilmez.
 - **RF TX:** Ortak **10 saniye** koruma; `RadioLib TX OK` sadece yerel gönderim sonucudur.
@@ -73,9 +78,9 @@ Yoldayim|Konumuma bak|Eve donuyorum|OK|BYE
 
 - USB seri: **115200 baud**. Aynı COM portunu hem Seri Monitör hem web paneliyle eşzamanlı açmayın.
 - BLE reklam adı: `nRF52_Lora_Tracker`; panel yazma izni **şifre değil**, kazara yazmayı önleyen kontrol mekanizmasıdır.
-- Sürüm: `version?` → `VERSION|1.2.0|STABLE_REBUILD1`; BLE `ping` → `PONG|TA1FM|V1.2.0_STABLE_REBUILD1`.
-- BLE OTA: Panelle DFU'ya girip Android **Nordic DFU** uygulamasında [ZIP](./TA1FM_nrf52_Tracker_v1.2.0_STABLE.ino.zip) yükleyin. **PRN 4**, **High MTU OFF** tavsiye edilen test ayarıdır. Mevcut DFU onay akışı korunmuştur; **tek onay** ileriki sürüm planıdır.
-- USB UF2 kurtarma/güncelleme için [UF2 dosyası](./TA1FM_nrf52_Tracker_v1.2.0_STABLE.ino.uf2). Bootloader dosyalarını uygulama UF2 ile karıştırmayın.
+- Sürüm: `version?` → `VERSION|1.3.0|STABLE`; BLE `ping` → `PONG|TA1FM|V1.3.0_STABLE`.
+- BLE OTA: Panelle DFU'ya girip Android **Nordic DFU** uygulamasında [ZIP](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker/releases/download/v1.3.0/TA1FM_nrf52_Tracker_v1.3.0_STABLE.ino.zip) yükleyin. **PRN 4**, **High MTU OFF** tavsiye edilen test ayarıdır. Mevcut DFU onay akışı korunmuştur; **tek onay** ileriki sürüm planıdır.
+- USB UF2 kurtarma/güncelleme için [UF2 dosyası](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker/releases/download/v1.3.0/TA1FM_nrf52_Tracker_v1.3.0_STABLE.ino.uf2). Bootloader dosyalarını uygulama UF2 ile karıştırmayın.
 
 ## 10. Sorun giderme
 
