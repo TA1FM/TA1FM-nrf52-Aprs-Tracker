@@ -56,7 +56,7 @@ Komutlar güncel [v1.3.0 kaynak koduna](./TA1FM_nrf52_Tracker_v1.3.0_STABLE.ino)
 | `j off` / `j each` / `j 15` / `j 30` / `j 60` | Comment aralığı |
 | `comment METIN` / `status METIN` | APRS metinleri |
 | `symbol />` / `parksymbol \\P` | Hareket / park sembolü |
-| `s car` / `s walker` / `s motorcycle` | Mevcut 3 OLED sembol kısayolu; **Motorcycle OLED hızlı sembol seçeneklerine v1.3.0 sürümünde eklenmiştir.
+| `s car` / `s motorcycle` / `s walker` | OLED hızlı sembol seçimleri: Car / Motorcycle / Walker |
 | `t` / `w` / `v` | Manuel position / WX / Status RF gönderimi |
 
 RF anteni olmadan TX yapmayın. Ortak TX koruması en az 10 saniyedir.
