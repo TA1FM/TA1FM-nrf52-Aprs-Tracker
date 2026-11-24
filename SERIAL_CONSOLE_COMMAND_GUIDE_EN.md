@@ -1,14 +1,19 @@
-# TA1FM nrf52 Tracker — USB Serial Console Commands (v1.2.0 STABLE REBUILD1)
+# TA1FM nrf52 Tracker — USB Serial Console Commands (v1.3.0 STABLE)
+
+**Current firmware:** [v1.3.0 STABLE release](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker/releases/tag/v1.3.0) · [Compatible v1.3.0 USB/BLE panel](https://ta1fm.github.io/TA1FM-nrf52-Aprs-Tracker-Configurator/BETA/TA1FM_Tracker_Control_Panel_v1.3.0_BETA2.html)
+
+**v1.3.0 updates:** OLED DFU MODE and SYSTEM STATUS, Car/Motorcycle/Walker shortcuts, and battery-only Base91 telemetry when no valid BME280 data exists. Send `telem defs` again after changing sensor availability. [Release notes](./RELEASE_NOTES_V1_3_0_STABLE.md).
+
 
 **USB serial: 115200 baud, Newline line ending.** [Installation](./INSTALL_EN.md) · [User guide](./USER_GUIDE_EN.md)
 
-Based on the [v1.2.0 STABLE REBUILD1 Arduino source](./TA1FM_nrf52_Tracker_v1.2.0_STABLE.ino). Close the USB web configurator before opening the same COM port in Serial Monitor. Substitute your authorized callsign for examples.
+Based on the [v1.3.0 STABLE Arduino source](./TA1FM_nrf52_Tracker_v1.3.0_STABLE.ino). Close the USB web configurator before opening the same COM port in Serial Monitor. Substitute your authorized callsign for examples.
 
 ## 1. Read-only status and diagnostics
 
 | Command | Function |
 |---|---|
-| `version?` | `VERSION|1.2.0|STABLE_REBUILD1` |
+| `version?` | `VERSION|1.3.0|STABLE` |
 | `p` / `?` | Complete state and command summary |
 | `g` / `r` / `b` | GNSS / LoRa / BME280 status |
 | `gnss?` / `gnss baud?` | GNSS diagnostics / auto-baud status |
@@ -50,7 +55,7 @@ Based on the [v1.2.0 STABLE REBUILD1 Arduino source](./TA1FM_nrf52_Tracker_v1.2.
 | `j off` / `j each` / `j 15` / `j 30` / `j 60` | Comment timing |
 | `comment TEXT` / `status TEXT` | APRS text |
 | `symbol />` / `parksymbol \\P` | Moving / parked symbol |
-| `s car` / `s walker` / `s house` | Three current OLED presets (**motorcycle is planned**) |
+| `s car` / `s walker` / `s motorcycle` | Three current OLED presets (**motorcycle is planned**) |
 | `t` / `w` / `v` | Manual position / weather / Status RF TX |
 
 Keep the antenna connected when transmitting. Shared RF TX guard is at least 10 seconds.
@@ -119,7 +124,7 @@ Telemetry state resets after reboot. Separate definition packets are **not autom
 |---|---|
 | `dfu` | Request AdaDFU bootloader from USB |
 | `flash?` | Inspect Direct Flash A/B settings |
-| `flash init` | **Legacy advanced command**: not needed for normal v1.2.0 REBUILD1 first installation; the first boot auto-initializes |
+| `flash init` | **Legacy advanced command**: not needed for normal v1.3.0 REBUILD1 first installation; the first boot auto-initializes |
 
 Existing valid A/B settings are preserved at boot. First boot uses `NOCALL` and disables APRS RF transmission until configured. BLE DFU uses a `dfu arm` 15-second window then `dfu go`; the current UI uses an approval flow, and single-confirmation DFU is **future work**. Android Nordic DFU uses the **application ZIP**, PRN **4**, High MTU **OFF** on the previously tested bootloader.
 
