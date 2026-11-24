@@ -1,10 +1,22 @@
 # TA1FM nrf52 Tracker + LoRa APRS Digipeater
 
+## 📡 Güncel STABLE kaynak: v1.3.0 — 24 Kasım 2026
+
+**v1.3.0 STABLE** kaynak, sahada çalışan **v1.3.0 BETA3** yazılımıyla aynı işlevleri taşır; yalnızca sürüm etiketi değişti. Pil telemetrisi BME280 olmadan da çalışır, sensör yokken hatalı hava verisi gönderilmez. OLED DFU, SYSTEM STATUS, APRS Comment/Status düzeltmeleri ve mesajlaşma korunur.
+
+[**v1.3.0 STABLE .ino kaynak**](./TA1FM_nrf52_Tracker_v1.3.0_STABLE.ino) · [**v1.3.0 STABLE sürüm notları**](./RELEASE_NOTES_V1_3_0_STABLE.md) · [**Uyumlu tek USB/BLE kontrol paneli**](https://ta1fm.github.io/TA1FM-nrf52-Aprs-Tracker-Configurator/BETA/TA1FM_Tracker_Control_Panel_v1.3.0_BETA2.html)
+
+**Önemli:** v1.3.0 için UF2 / Nordic BLE DFU ZIP ikili dosyaları henüz derlenip yayımlanmadı. Hazır UF2/ZIP arayanlar için aşağıdaki **v1.2.0 önceki STABLE sürümünün** paketleri korunmaktadır. Daha eski sürüm açıklamaları arşiv niteliğindedir.
+
+---
+
+## v1.2.0 önceki STABLE sürümünün belgeleri ve dosyaları
+
 ## 🌐 [USB ve BLE Kontrol Paneli — v1.2.0 STABLE](https://ta1fm.github.io/TA1FM-nrf52-Aprs-Tracker-Configurator/TA1FM_Tracker_Control_Panel_v1.2.0_STABLE.html)
 
 **[Kontrol Panelini Tarayıcıda Aç](https://ta1fm.github.io/TA1FM-nrf52-Aprs-Tracker-Configurator/TA1FM_Tracker_Control_Panel_v1.2.0_STABLE.html)** · [HTML dosyası (GitHub)](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker-Configurator/blob/main/TA1FM_Tracker_Control_Panel_v1.2.0_STABLE.html)
 
-**Güncel sürüm / Current stable firmware: v1.2.0 STABLE REBUILD1 — 22 Kasım / November 2026**
+**Önceki STABLE paket / Previous prebuilt release: v1.2.0 STABLE REBUILD1 — 22 Kasım / November 2026**
 
  [**USB UF2**](./TA1FM_nrf52_Tracker_v1.2.0_STABLE.uf2) · [**BLE DFU ZIP**](./TA1FM_nrf52_Tracker_v1.2.0_STABLE.zip) · [**Kurulum (TR)**](./KURULUM_TR.md) · [**Installation (EN)**](./INSTALL_EN.md)
 
