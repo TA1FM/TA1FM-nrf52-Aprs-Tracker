@@ -28,7 +28,7 @@ Hardware: compatible nRF52840 MiniMesh Lite NRF, SX1262/SX1268, SH1106/SSD1306, 
 
 - SMART adjusts location reports using speed and turns; FIXED uses a selected time interval.
 - GNSS automatically detects a valid NMEA baud rate; position transmissions need a valid fix. A cold GNSS start may take time. Inspect `gnss?` / `gnss baud?`.
-- Current moving and parked APRS symbols are configurable separately. The built-in **OLED quick symbol** choices are still **Car / Motorcycle OLED hızlı sembol seçeneklerine v1.3.0 sürümünde eklenmiştir.
+- Moving and parked APRS symbols are configurable independently. v1.3.0 OLED quick choices are **Car / Motorcycle / Walker**.
 - Fresh valid GPS course/speed can appear as APRS `ccc/sss`. Comment is part of eligible position frames; Status is a separate APRS `>` packet.
 - Weather (WX) requires actual BME280 data. RF TX uses a shared **10-second guard**. Local `RadioLib TX OK` does not confirm a remote station received the frame.
 
@@ -74,7 +74,7 @@ Set a valid callsign, fixed latitude and longitude, then use `mode digi`, `digi 
 - BLE advertising name: **`nRF52_Lora_Tracker`**; the save/write toggle is not strong security authentication.
 - USB `version?` → `VERSION|1.3.0|STABLE`. BLE `ping` → `PONG|TA1FM|V1.3.0_STABLE`.
 - USB UF2: [firmware UF2](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker/releases/download/v1.3.0/TA1FM_nrf52_Tracker_v1.3.0_STABLE.ino.uf2). BLE DFU: [firmware ZIP](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker/releases/download/v1.3.0/TA1FM_nrf52_Tracker_v1.3.0_STABLE.ino.zip) via Android Nordic DFU after entering **AdaDFU** mode.
-- Previously tested DFU settings: **PRN 4, High MTU OFF**. The older two-step DFU flow remains in v1.3.0. Single-confirmation entry is on the future work list.
+- Previously tested DFU settings: **PRN 4, High MTU OFF**. The compatible v1.3.0 panel triggers the ARM/GO flow with one user confirmation; Nordic DFU uploads the ZIP.
 
 ## 10. Troubleshooting
 
