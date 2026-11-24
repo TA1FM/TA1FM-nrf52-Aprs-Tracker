@@ -1,14 +1,19 @@
-# TA1FM nrf52 Tracker — Seri Konsol Komut Rehberi (v1.2.0 STABLE REBUILD1)
+# TA1FM nrf52 Tracker — Seri Konsol Komut Rehberi (v1.3.0 STABLE)
+
+**Güncel firmware / indirmeler:** [v1.3.0 STABLE GitHub Release](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker/releases/tag/v1.3.0) · [Uyumlu v1.3.0 USB/BLE paneli](https://ta1fm.github.io/TA1FM-nrf52-Aprs-Tracker-Configurator/BETA/TA1FM_Tracker_Control_Panel_v1.3.0_BETA2.html)
+
+**v1.3.0 notu:** OLED DFU MODE ve SYSTEM STATUS eklendi; Car/Motorcycle/Walker seçenekleri kullanılabilir. BME280 yokken etkin telemetri yalnızca pil voltajını gönderir; sensör varsa pil ve geçerli hava verileri gönderilir. `telem defs` yeni sensör durumuna göre tekrar gönderilmelidir. Daha ayrıntılı değişiklikler için [v1.3.0 sürüm notları](./RELEASE_NOTES_V1_3_0_STABLE.md).
+
 
 **USB 115200 baud · Satır sonu: Newline.** [Kurulum](./KURULUM_TR.md) · [Kullanım](./KULLANIM_TR.md)
 
-Komutlar güncel [v1.2.0 kaynak koduna](./TA1FM_nrf52_Tracker_v1.2.0_STABLE.ino) göredir. Aynı COM portunu hem Arduino Seri Monitör hem web panelinde açmayın. Örnek çağrı işaretlerini kendi lisanslı çağrı işaretinizle değiştirin.
+Komutlar güncel [v1.3.0 kaynak koduna](./TA1FM_nrf52_Tracker_v1.3.0_STABLE.ino) göredir. Aynı COM portunu hem Arduino Seri Monitör hem web panelinde açmayın. Örnek çağrı işaretlerini kendi lisanslı çağrı işaretinizle değiştirin.
 
 ## 1. Sürüm ve tanı
 
 | Komut | İşlev |
 |---|---|
-| `version?` | `VERSION|1.2.0|STABLE_REBUILD1` |
+| `version?` | `VERSION|1.3.0|STABLE` |
 | `p` / `?` | Genel cihaz durumu ve komut özeti |
 | `g` / `r` / `b` | GPS / LoRa / varsa BME280 bilgileri |
 | `gnss?` / `gnss baud?` | GNSS tanı ve otomatik baud durumu |
@@ -51,7 +56,7 @@ Komutlar güncel [v1.2.0 kaynak koduna](./TA1FM_nrf52_Tracker_v1.2.0_STABLE.ino)
 | `j off` / `j each` / `j 15` / `j 30` / `j 60` | Comment aralığı |
 | `comment METIN` / `status METIN` | APRS metinleri |
 | `symbol />` / `parksymbol \\P` | Hareket / park sembolü |
-| `s car` / `s walker` / `s house` | Mevcut 3 OLED sembol kısayolu; **motorcycle henüz eklenmedi** |
+| `s car` / `s walker` / `s motorcycle` | Mevcut 3 OLED sembol kısayolu; **Motorcycle OLED hızlı sembol seçeneklerine v1.3.0 sürümünde eklenmiştir.
 | `t` / `w` / `v` | Manuel position / WX / Status RF gönderimi |
 
 RF anteni olmadan TX yapmayın. Ortak TX koruması en az 10 saniyedir.
