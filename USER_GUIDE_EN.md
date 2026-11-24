@@ -1,6 +1,11 @@
-# TA1FM nrf52 Tracker + Digipeater — User Guide (v1.2.0 STABLE REBUILD1)
+# TA1FM nrf52 Tracker + Digipeater — User Guide (v1.3.0 STABLE)
 
-[Installation](./INSTALL_EN.md) · [Firmware](./TA1FM_nrf52_Tracker_v1.2.0_STABLE.ino) · [Serial commands](./SERIAL_CONSOLE_COMMAND_GUIDE_EN.md) · [Pinout (TR)](./PIN_BAGLANTILARI_TR.md)
+**Current firmware:** [v1.3.0 STABLE release](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker/releases/tag/v1.3.0) · [Compatible v1.3.0 USB/BLE panel](https://ta1fm.github.io/TA1FM-nrf52-Aprs-Tracker-Configurator/BETA/TA1FM_Tracker_Control_Panel_v1.3.0_BETA2.html)
+
+**v1.3.0 updates:** OLED DFU MODE and SYSTEM STATUS, Car/Motorcycle/Walker shortcuts, and battery-only Base91 telemetry when no valid BME280 data exists. Send `telem defs` again after changing sensor availability. [Release notes](./RELEASE_NOTES_V1_3_0_STABLE.md).
+
+
+[Installation](./INSTALL_EN.md) · [Firmware](./TA1FM_nrf52_Tracker_v1.3.0_STABLE.ino) · [Serial commands](./SERIAL_CONSOLE_COMMAND_GUIDE_EN.md) · [Pinout (TR)](./PIN_BAGLANTILARI_TR.md)
 
 ## 1. Modes and radio
 
@@ -15,7 +20,7 @@ Hardware: compatible nRF52840 MiniMesh Lite NRF, SX1262/SX1268, SH1106/SSD1306, 
 
 - Install UF2 or BLE DFU firmware using the [installation guide](./INSTALL_EN.md). On the first boot, persistent settings auto-initialize; **no manual `flash init` command**.
 - An unconfigured device reads **`NOCALL`** and **does not transmit APRS** until you save a valid authorized callsign.
-- Use the **v1.2.0 unified USB/BLE tabbed HTML panel** for all new features. The [older Configurator repository pages](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker-Configurator) may not expose new controls.
+- Use the **v1.3.0-compatible BETA2 unified USB/BLE tabbed HTML panel** for all new features. The [older Configurator repository pages](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker-Configurator) may not expose new controls.
 - Connect once using USB (desktop Chrome/Edge) or BLE (Web Bluetooth/HTTPS); the same connection works across **Status, General, APRS, Radio, Messages, OLED, Telemetry and System** tabs.
 - **Read Settings**, edit, enable BLE save permission if applicable, **Save Settings**, then read back to verify. Save a JSON backup when changing important parameters.
 
@@ -23,7 +28,7 @@ Hardware: compatible nRF52840 MiniMesh Lite NRF, SX1262/SX1268, SH1106/SSD1306, 
 
 - SMART adjusts location reports using speed and turns; FIXED uses a selected time interval.
 - GNSS automatically detects a valid NMEA baud rate; position transmissions need a valid fix. A cold GNSS start may take time. Inspect `gnss?` / `gnss baud?`.
-- Current moving and parked APRS symbols are configurable separately. The built-in **OLED quick symbol** choices are still **Car / Walker / House** in this release. The Motorcycle replacement is a **future change**.
+- Current moving and parked APRS symbols are configurable separately. The built-in **OLED quick symbol** choices are still **Car / Motorcycle OLED hızlı sembol seçeneklerine v1.3.0 sürümünde eklenmiştir.
 - Fresh valid GPS course/speed can appear as APRS `ccc/sss`. Comment is part of eligible position frames; Status is a separate APRS `>` packet.
 - Weather (WX) requires actual BME280 data. RF TX uses a shared **10-second guard**. Local `RadioLib TX OK` does not confirm a remote station received the frame.
 
@@ -67,9 +72,9 @@ Set a valid callsign, fixed latitude and longitude, then use `mode digi`, `digi 
 
 - USB uses **115200 baud**. Do not share a single COM port between Serial Monitor and the USB web panel.
 - BLE advertising name: **`nRF52_Lora_Tracker`**; the save/write toggle is not strong security authentication.
-- USB `version?` → `VERSION|1.2.0|STABLE_REBUILD1`. BLE `ping` → `PONG|TA1FM|V1.2.0_STABLE_REBUILD1`.
-- USB UF2: [firmware UF2](./TA1FM_nrf52_Tracker_v1.2.0_STABLE.ino.uf2). BLE DFU: [firmware ZIP](./TA1FM_nrf52_Tracker_v1.2.0_STABLE.ino.zip) via Android Nordic DFU after entering **AdaDFU** mode.
-- Previously tested DFU settings: **PRN 4, High MTU OFF**. The older two-step DFU flow remains in v1.2.0. Single-confirmation entry is on the future work list.
+- USB `version?` → `VERSION|1.3.0|STABLE`. BLE `ping` → `PONG|TA1FM|V1.3.0_STABLE`.
+- USB UF2: [firmware UF2](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker/releases/download/v1.3.0/TA1FM_nrf52_Tracker_v1.3.0_STABLE.ino.uf2). BLE DFU: [firmware ZIP](https://github.com/TA1FM/TA1FM-nrf52-Aprs-Tracker/releases/download/v1.3.0/TA1FM_nrf52_Tracker_v1.3.0_STABLE.ino.zip) via Android Nordic DFU after entering **AdaDFU** mode.
+- Previously tested DFU settings: **PRN 4, High MTU OFF**. The older two-step DFU flow remains in v1.3.0. Single-confirmation entry is on the future work list.
 
 ## 10. Troubleshooting
 
